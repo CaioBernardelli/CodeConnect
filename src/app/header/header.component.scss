@@ -1,0 +1,76 @@
+.iconsimport {
+    display: flex;
+
+}
+
+.iconsimport a {
+    margin-left: 10px;
+}
+
+
+img {
+    width: 50%;
+    /* ou qualquer tamanho desejado, pode usar px, %, etc. */
+    max-width: 500px;
+    /* ajusta o valor conforme necessário */
+    height: auto;
+}
+
+/* mantém a proporção da imagem */
+
+
+.header {
+    display: flex;
+
+    align-items: center;
+    background-color: #6F42C1;
+    height: 100px;
+
+}
+
+.spacer {
+    flex: 1;
+}
+
+.header a {
+    text-decoration: none;
+    color: #f2f2f2;
+    display: flex;
+    align-items: center;
+
+
+
+}
+
+
+.logo {
+    width: 150px;
+    opacity: .8;
+    transition: .3s;
+    margin-top: 25px;
+
+}
+
+.logo:hover {
+    opacity: 1;
+    width: 170px;
+
+}
+
+.title-group {
+    padding-left: 1.5rem;
+
+}
+
+.title {
+    font-size: 1.5rem;
+    margin-left: 1px;
+    /* Espaçamento entre o logo e o título */
+
+}
+
+.header .title-group i {
+    padding-right: 5px;
+
+
+}

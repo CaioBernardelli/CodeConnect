@@ -1,0 +1,31 @@
+
+
+<mat-sidenav-container class="nav-container">
+    <mat-sidenav #sidenav class="sidenav" mode="side" opened fixedInViewport="true" fixedTopGap="100">
+
+        <mat-list class="mat-list">
+            <a mat-list-item routerLink="/">
+                <i class="material-icons middle">home</i>
+                Home
+            </a>
+            <a mat-list-item routerLink="/list-films">
+                <i class="material-icons middle">theaters</i>
+                List Course
+            </a>
+            <a mat-list-item href="">
+                <i class="material-icons middle">import_contacts</i>
+                About the author
+            </a>
+            <a mat-list-item href="">
+                <i class="material-icons middle"></i>
+            </a>
+        </mat-list>
+
+    </mat-sidenav>
+    <mat-sidenav-content class="content">
+       
+    <router-outlet></router-outlet>
+           
+       
+    </mat-sidenav-content>
+</mat-sidenav-container>

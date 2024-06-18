@@ -1,0 +1,50 @@
+.mat-card-container {
+    display: inline-flex;
+    margin-top: 15px;
+    justify-content: center; /* Centraliza horizontalmente os cards */
+    flex-wrap: wrap; /* Permite que os cards "quebrem" linha se necessário */
+}
+
+.card-film {
+    width: 300px;
+    height: auto; /* Ajusta a altura automaticamente ao conteúdo */
+    margin: 0 15px 15px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centraliza os elementos filhos horizontalmente */
+    text-align: center; /* Centraliza o texto */
+}
+
+.card-film h2, .card-film h3 {
+    margin: 0;
+}
+
+.mat-card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centraliza os elementos filhos horizontalmente */
+    padding: 5px;
+}
+
+.card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centraliza os elementos filhos horizontalmente */
+    text-align: center; /* Centraliza o texto */
+    padding: 5px;
+}
+
+.card-content img {
+    width: 150px;
+    opacity: .8;
+    transition: .2s;
+    margin-bottom: 15px; /* Adiciona espaço abaixo da imagem */
+}
+
+.card-content img:hover {
+    opacity: 1;
+}
+
+.card-description {
+    text-align: left; /* Alinha o texto da descrição à esquerda */
+}
