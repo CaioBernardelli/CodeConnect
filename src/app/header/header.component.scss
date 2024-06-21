@@ -1,31 +1,27 @@
+mat-toolbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    background-color: #6F42C1;
+}
+
 .iconsimport {
     display: flex;
-
 }
 
 .iconsimport a {
     margin-left: 10px;
 }
 
-
 img {
     width: 50%;
-    /* ou qualquer tamanho desejado, pode usar px, %, etc. */
     max-width: 500px;
-    /* ajusta o valor conforme necessário */
     height: auto;
-}
-
-/* mantém a proporção da imagem */
-
-
-.header {
-    display: flex;
-
-    align-items: center;
-    background-color: #6F42C1;
-    height: 100px;
-
 }
 
 .spacer {
@@ -37,40 +33,31 @@ img {
     color: #f2f2f2;
     display: flex;
     align-items: center;
-
-
-
 }
-
 
 .logo {
     width: 150px;
     opacity: .8;
     transition: .3s;
-    margin-top: 25px;
-
+    /* Remova a margem superior */
+    margin-top: 0;
 }
 
-.logo:hover {
+.logo {
     opacity: 1;
     width: 170px;
-
+    margin-top: 10px;
 }
 
 .title-group {
     padding-left: 1.5rem;
-
 }
 
 .title {
     font-size: 1.5rem;
     margin-left: 1px;
-    /* Espaçamento entre o logo e o título */
-
 }
 
 .header .title-group i {
     padding-right: 5px;
-
-
 }

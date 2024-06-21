@@ -1,19 +1,18 @@
-import { Component } from '@angular/core';
-import { OwlOptions } from 'ngx-owl-carousel-o';
-import { CarouselModule } from 'ngx-owl-carousel-o';
 import { CommonModule } from '@angular/common';
-import { MatIconModule } from '@angular/material/icon';
-import { CarouselComponent } from '../carousel/carousel.component';
-import { FooterComponent } from '../footer/footer.component';
+import { Component } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { Swiper, type SwiperModule } from 'swiper/types';
+
+
 @Component({
-  selector: 'app-home',
+  selector: 'app-carousel',
   standalone: true,
-  imports: [MatCardModule, CarouselModule, CommonModule, MatIconModule, CarouselComponent, FooterComponent],
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  imports: [CommonModule, MatCardModule, MatIconModule],
+  templateUrl: './carousel.component.html',
+  styleUrls: ['./carousel.component.scss']
 })
-export class HomeComponent {
+export class CarouselComponent {
   public courses = [
     { title: 'Introdução ao Excel', subtitle: 'Aprenda Excel do zero', description: 'Curso completo para iniciantes.', price: 'Grátis', img: 'assets/img/catalogocursos-removebg-preview.png' },
     { title: 'Introdução ao Word', subtitle: 'Aprenda Word do zero', description: 'Curso completo para iniciantes.', price: 'Grátis', img: 'assets/img/catalogocursos-removebg-preview.png' },

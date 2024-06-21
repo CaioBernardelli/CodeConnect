@@ -4,13 +4,13 @@ import { Film } from '../list-films/film.model';
 import { CheckoutService } from '../checkout/checkout.service';
 import { MatCardModule } from '@angular/material/card';
 import { SelectButtonComponent } from '../select-button/select-button.component';
-import { HttpClientModule } from '@angular/common/http';
+import {} from '@angular/common/http';
 
 
 @Component({
   selector: 'app-card-film',
   standalone: true,
-  imports: [CommonModule, MatCardModule, SelectButtonComponent,HttpClientModule],
+  imports: [CommonModule, MatCardModule, SelectButtonComponent],
   templateUrl: './card-film.component.html',
   styleUrls: ['./card-film.component.scss']
 })

@@ -1,37 +1,78 @@
-img {
-    width: 50%;
-    /* ou qualquer tamanho desejado, pode usar px, %, etc. */
-    max-width: 200px;
-    /* ajusta o valor conforme necessário */
+
+.row2 {
+    display: flex;
+    /* Faz com que os itens dentro da row se comportem como um flex container */
+    /* Permite que os itens quebrem para a próxima linha quando não houver espaço suficiente */
+    /* Distribui os itens com espaçamento igual ao redor deles */
+}
+
+.item2 {
+    width: 500px;
+    /* Define a largura de cada item conforme necessário */
+    margin: 10px;
+    /* Define a margem entre os itens */
+    /* Centraliza o conteúdo dentro de cada item */
+}
+
+.carousel {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    overflow: hidden;
+    margin: 0 auto;
+  }
+  
+  .carousel-inner {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+  }
+  
+  mat-card {
+    flex: 0 0 calc(100% / 1); /* Ajuste conforme o displayCount, por exemplo, para 4 cartões visíveis */
+    box-sizing: border-box;
+    padding: 5px; /* Ajuste o padding para diminuir o tamanho do cartão */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  mat-card img {
+    transition: transform 0.3s ease-in-out;
+    max-width: 100%;
     height: auto;
-}
-
-/* mantém a proporção da imagem */
-
-
-.home .title {
-    font-size: 2rem;
-    font-weight: 300;
-    line-height: 1.2;
-
-}
-
-.mat-card-content {
-    margin-top: 50px;
-    text-align: center;
-}
-
-.logo {
-    width: 150px;
-
-}
-
-
-@media screen and (min-width:768px) {
-
-    .logo {
-        width: 450px;
-
-    }
-
-}
+  }
+  
+  mat-card a:hover img {
+    transform: scale(1.1); /* Ajuste o valor para controlar o quanto a imagem aumenta */
+  }
+  
+  .control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: white; /* Fundo branco */
+    border-radius: 50%; /* Torna o botão arredondado */
+    width: 40px; /* Ajuste o tamanho conforme necessário */
+    height: 40px; /* Ajuste o tamanho conforme necessário */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Sombra opcional */
+  }
+  
+  .control mat-icon {
+    color: #6F42C1; /* Cor da seta */
+  }
+  
+  .prev {
+    left: 10px;
+  }
+  
+  .next {
+    right: 10px;
+  }
+  
+  .control:hover {
+    background-color: #f0f0f0; /* Mudança de cor ao passar o mouse, opcional */
+  }
+  
