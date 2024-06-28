@@ -1,44 +1,13 @@
-<h2>Conteúdo Gratuito</h2>
-<div class="carousel">
-    <div class="carousel-inner" [style.transform]="'translateX(-' + (currentIndexFree * (100 / displayCount)) + '%)'">
-        <mat-card *ngFor="let course of courses">
-            <ng-container>
-                <mat-card-header>
-                    <mat-card-title>{{ course.title }}</mat-card-title>
-                    <mat-card-subtitle>{{ course.subtitle }}</mat-card-subtitle>
-                </mat-card-header>
-                <a href="#">
-                    <img mat-card-image [src]="course.img" alt="{{ course.title }}">
-                </a>
-            </ng-container>
-        </mat-card>
+<div class="swiper-container" #swiperContainer>
+  <div class="swiper-wrapper">
+    <div class="swiper-slide" *ngFor="let course of courses">
+      <img [src]="course.img" alt="{{ course.title }}">
+      <div class="course-details">
+        <h3>{{ course.title }}</h3>
+        <p>{{ course.description }}</p>
+        <p>{{ course.price }}</p>
+      </div>
     </div>
-    <button class="control prev" mat-mini-fab aria-label="Previous" (click)="onPreviousClickFree()">
-        <mat-icon>arrow_back</mat-icon>
-    </button>
-    <button class="control next" mat-mini-fab aria-label="Next" (click)="onNextClickFree()">
-        <mat-icon>arrow_forward</mat-icon>
-    </button>
-</div>
-
-<h2>Conteúdo Pago</h2>
-<div class="carousel">
-    <div class="carousel-inner" [style.transform]="'translateX(-' + (currentIndexPaid * (100 / displayCount)) + '%)'">
-        <mat-card *ngFor="let coursepag of coursespag">
-            <ng-container>
-                <mat-card-header>
-                    <mat-card-title>{{ coursepag.title }}</mat-card-title>
-                </mat-card-header>
-                <a href="#">
-                    <img mat-card-image [src]="coursepag.img" alt="{{ coursepag.title }}">
-                </a>
-            </ng-container>
-        </mat-card>
-    </div>
-    <button class="control prev" mat-mini-fab aria-label="Previous" (click)="onPreviousClickPaid()">
-        <mat-icon>arrow_back</mat-icon>
-    </button>
-    <button class="control next" mat-mini-fab aria-label="Next" (click)="onNextClickPaid()">
-        <mat-icon>arrow_forward</mat-icon>
-    </button>
+  </div>
+ 
 </div>

@@ -9,7 +9,7 @@ import { MatCardModule } from '@angular/material/card';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [MatCardModule, CarouselModule, CommonModule, MatIconModule, CarouselComponent, FooterComponent],
+  imports: [MatCardModule,CommonModule, MatIconModule, CarouselComponent, FooterComponent],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
