@@ -3,7 +3,7 @@ import { CardFilmComponent } from '../card-film/card-film.component';
 import { RouterModule } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { CheckoutService } from '../checkout/checkout.service';
-import { Film } from './film.model';
+import { Curse } from './film.model';
 import { CarouselComponent } from '../carousel/carousel.component';
 
 @Component({
@@ -14,11 +14,11 @@ import { CarouselComponent } from '../carousel/carousel.component';
     imports: [CardFilmComponent, RouterModule, MatCardModule, CarouselComponent]
 })
 export class ListFilmsComponent implements OnInit {
-    listFilms: Film[] = [];
+    listCurses: Curse[] = [];
     constructor(private checkoutService: CheckoutService) { }
     ngOnInit(): void {
-        this.checkoutService.getListFilms().subscribe((film) => {
-            this.listFilms = film;
+        this.checkoutService.getListCurse().subscribe((curse) => {
+            this.listCurses = curse;
 
         })
     }

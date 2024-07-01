@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Film } from '../list-films/film.model';
+import { Curse } from '../list-films/film.model';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -8,10 +8,10 @@ import { Observable } from 'rxjs';
 })
 export class CheckoutService {
   public baseUrl: string = "http://localhost:3000"; // Inicializando corretamente
-  public listFilms: Film[] = [];
+  public listCurse: Curse[] = [];
   public totalPrice: number = 0;
   private _priceHandler: number = 0;
-  public listSelectdFilms: Film[] = []
+  public listSelectdCurse: Curse[] = []
   constructor(private httpClient: HttpClient ) { }
 
 
@@ -24,23 +24,23 @@ export class CheckoutService {
     this._priceHandler = value;
   }
 
-  private _filmHander !: Film;
+  private _curseHander !: Curse;
 
-  getFilm() : Film{
-    return this._filmHander;
+  getCurse() : Curse{
+    return this._curseHander;
 
   }
 
-  selfilm(value: Film) {
-    this._filmHander = value;
+  selcurse(value: Curse) {
+    this._curseHander = value;
  
   }
 
-  getListFilms(): Observable<Film[]> {
-    return this.httpClient.get<Film[]> (this.baseUrl+'/films')
+  getListCurse(): Observable<Curse[]> {
+    return this.httpClient.get<Curse[]> (this.baseUrl+'/films')
   }
 
-  selectFilm(){
+  selectCurse(){
     setTimeout(() => {
       this._priceHandler += this.getPrice();
       console.log(this.totalPrice)
@@ -51,7 +51,7 @@ export class CheckoutService {
   }
 
 
-  unselectFilm(){
+  unselectCurse(){
     this._priceHandler -= this.getPrice();
     if(this.totalPrice < 0){
       this.totalPrice = 0;

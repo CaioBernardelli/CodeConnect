@@ -1,4 +1,4 @@
-export class Film {
+export class Curse {
     id: number;
     name: string;
    category: string;
