@@ -1,12 +1,12 @@
 .swiper-container {
   width: 30%;
   height: 100%;
+  position: relative;
 }
 
 .swiper-wrapper {
   display: flex;
 }
-
 
 .swiper-slide {
   display: flex;
@@ -17,3 +17,26 @@
   padding: 20px;
   border-radius: 10px;
 }
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: #fff;
+  position: absolute;
+  top: 50%;
+  width: 27px;
+  height: 44px;
+  margin-top: -22px;
+  z-index: 10;
+  cursor: pointer;
+  display: block;
+}
+
+.swiper-button-next {
+  right: 10px;
+}
+
+.swiper-button-prev {
+  left: 10px;
+}
+
+
