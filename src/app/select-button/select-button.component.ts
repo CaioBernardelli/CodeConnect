@@ -16,15 +16,15 @@ export class SelectButtonComponent {
    
   }
 
-  selectFilm() {
+  selectCurse() {
     this.disabled = true; // Ajusta o estado do botão se necessário
-    this.checkoutService.selectFilm();
+    this.checkoutService.selectCurse();
     
   }
 
-  unselectFilm() {
+  unselectCurse() {
     this.disabled = false; // Ajusta o estado do botão se necessário
-    this.checkoutService.unselectFilm();
+    this.checkoutService.unselectCurse();
    
   }
 }

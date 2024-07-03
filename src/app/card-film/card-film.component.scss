@@ -5,7 +5,7 @@
     flex-wrap: wrap; /* Permite que os cards "quebrem" linha se necessário */
 }
 
-.card-film {
+.card-course {
     width: 300px;
     height: auto; /* Ajusta a altura automaticamente ao conteúdo */
     margin: 0 15px 15px 0;
@@ -15,7 +15,7 @@
     text-align: center; /* Centraliza o texto */
 }
 
-.card-film h2, .card-film h3 {
+.card-course h2, .card-course h3 {
     margin: 0;
 }
 
@@ -35,7 +35,7 @@
 }
 
 .card-content img {
-    width: 150px;
+    width: -10px;
     opacity: .8;
     transition: .2s;
     margin-bottom: 15px; /* Adiciona espaço abaixo da imagem */
@@ -48,3 +48,11 @@
 .card-description {
     text-align: left; /* Alinha o texto da descrição à esquerda */
 }
+
+
+/* Adicione isso ao seu arquivo CSS */
+.image-small {
+    width: 100px; /* Defina a largura desejada */
+    height: auto; /* Ajusta a altura automaticamente para manter a proporção */
+  }
+  
