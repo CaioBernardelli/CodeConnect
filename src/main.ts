@@ -10,7 +10,7 @@ import { routes } from './app/app.routes';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 //import { CardFilmComponent } from './app/card-film/card-film.component';
 //import { ListFilmsComponent } from './app/list-films/list-films.component';
-//import { HomeComponent } from './app/home/home.component';
+//import { HomeComponent } from './app/home/home.component';J
 //import { SelectButtonComponent } from './app/select-button/select-button.component';
 
 

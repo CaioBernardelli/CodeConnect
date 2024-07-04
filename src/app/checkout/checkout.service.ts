@@ -31,7 +31,7 @@ export class CheckoutService {
 
   }
 
-  selcourses(value: Course) {
+  setcourses(value: Course) {
     this._courseHander = value;
 
   }

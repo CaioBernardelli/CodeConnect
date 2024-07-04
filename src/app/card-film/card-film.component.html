@@ -1,3 +1,6 @@
+
+
+
 <!-- Adicione a classe CSS à imagem no template -->
 <mat-card-content class="mat-card-container" *ngFor="let course of listCourses">
     <mat-card class="card-course">
@@ -20,7 +23,7 @@
             <p>
                 {{course.price}}
             </p>
-            <app-select-button (click)="selectCurse(course)"></app-select-button>
+            <app-select-button (click)="selectCourse(course)"></app-select-button>
         </mat-card-content>
     </mat-card>
 </mat-card-content>
