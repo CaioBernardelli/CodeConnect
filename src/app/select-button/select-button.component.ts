@@ -18,13 +18,13 @@ export class SelectButtonComponent {
 
   selectCurse() {
     this.disabled = true; // Ajusta o estado do botão se necessário
-    this.checkoutService.selectCurse();
+    this.checkoutService.selectCourse();
     
   }
 
   unselectCurse() {
     this.disabled = false; // Ajusta o estado do botão se necessário
-    this.checkoutService.unselectCurse();
+    this.checkoutService.unselectCourse();
    
   }
 }

@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CardFilmComponent } from './card-film/card-film.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { SearchCourseComponent } from './search-course/search-course.component';
 
 @Component({
   selector: 'app-root',
@@ -27,7 +28,8 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
     ListFilmsComponent,
     HttpClientModule, // Corrigido HttpClientModule
     MatButtonToggleModule,
-    MatButtonModule
+    MatButtonModule,
+    SearchCourseComponent
   ]
 })
 export class AppComponent {

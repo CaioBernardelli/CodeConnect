@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Curse } from '../list-films/film.model';
+import { Course } from '../list-films/film.model';
 import { CheckoutService } from '../checkout/checkout.service';
 import { MatCardModule } from '@angular/material/card';
 import { SelectButtonComponent } from '../select-button/select-button.component';
@@ -15,17 +15,17 @@ import {} from '@angular/common/http';
   styleUrls: ['./card-film.component.scss']
 })
 export class CardFilmComponent implements OnInit {
-  listCurses: Curse[] = [];
+  listCourses: Course[] = [];
 
   constructor(private checkoutService: CheckoutService) { }
 
   ngOnInit(): void {
-    this.checkoutService.getListCurse().subscribe((curses: Curse[]) => {
-      this.listCurses = curses;
+    this.checkoutService.getListCourse().subscribe((courses: Course[]) => {
+      this.listCourses = courses;
     });
   }
 
-  selectCurse(curse: Curse): void {
-    this.checkoutService.setPrice(curse.price);
+  selectCurse(course: Course): void {
+    this.checkoutService.setPrice(course.price);
   }
 }

@@ -1,0 +1,25 @@
+<div class="search-container">
+    <input [(ngModel)]="searchText" (input)="filterCourses()" placeholder="Search for courses" />
+    <button (click)="filterCourses()">
+      <i class="fa fa-search"></i> Search
+    </button>
+  </div>
+  
+  <div class="course-list">
+    <mat-card *ngFor="let course of filteredCourses" class="mat-card-container">
+      <mat-card-title>
+        <h2>{{ course.name }}</h2>
+      </mat-card-title>
+      <mat-card-subtitle>
+        <h3>{{ course.category }}</h3>
+      </mat-card-subtitle>
+      <mat-card-content class="mat-card-content">
+        <img [src]="course.imgLink" class="image-small">
+        <p>
+          Price: {{ course.price }}
+        </p>
+        <button (click)="selectCourse(course)">Select</button>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  
