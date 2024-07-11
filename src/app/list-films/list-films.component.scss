@@ -56,3 +56,38 @@
     height: auto; /* Ajusta a altura automaticamente para manter a proporção */
   }
   
+
+
+  //button 
+  .search-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto; /* Centraliza horizontalmente */
+    width: 50%; /* Ajusta a largura do formulário */
+  }
+  
+  .search-input {
+    flex: 1;
+    padding: 8px;
+    font-size: 16px;
+    color: #343A40; /* Texto Preto */
+    max-width: 300px; /* Define uma largura máxima para o input */
+  }
+  
+  .search-button {
+    background-color: #6F42C1; /* Roxo */
+    color: #FFFFFF; /* Branco */
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 8px;
+  }
+  
+  .search-button mat-icon {
+    font-size: 24px;
+  }
+  

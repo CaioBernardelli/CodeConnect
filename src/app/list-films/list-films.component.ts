@@ -9,12 +9,13 @@ import { CarouselComponent } from '../carousel/carousel.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { SelectButtonComponent } from '../select-button/select-button.component';
+import { MatIconModule } from '@angular/material/icon';
 @Component({
     selector: 'app-list-films',
     standalone: true,
     templateUrl: './list-films.component.html',
     styleUrl: './list-films.component.scss',
-    imports: [SelectButtonComponent,CommonModule,FormsModule,MatFormFieldModule,CardFilmComponent, RouterModule, MatCardModule, CarouselComponent]
+    imports: [MatIconModule,SelectButtonComponent,CommonModule,FormsModule,MatFormFieldModule,CardFilmComponent, RouterModule, MatCardModule, CarouselComponent]
 })
 export class ListFilmsComponent implements OnInit {
     listCourses: Course[] = [];

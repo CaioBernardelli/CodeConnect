@@ -17,20 +17,23 @@ export class HomeComponent {
     { title: 'Introdução ao Word', subtitle: 'Aprenda Word do zero', description: 'Curso completo para iniciantes.', paid: false, img: 'assets/img/catalogocursos-removebg-preview.png' },
     { title: 'Introdução ao PowerPoint', subtitle: 'Aprenda PowerPoint do zero', description: 'Curso completo para iniciantes.', paid: false, img: 'assets/img/catalogocursos-removebg-preview.png' },
     { title: 'Introdução ao Access', subtitle: 'Aprenda Access do zero', description: 'Curso completo para iniciantes.', paid: false, img: 'assets/img/catalogocursos-removebg-preview.png' },
+    { title: 'Introdução ao Access', subtitle: 'Aprenda Access do zero', description: 'Curso completo para iniciantes.', paid: false, img: 'assets/img/catalogocursos-removebg-preview.png' },
+    { title: 'Introdução ao Access', subtitle: 'Aprenda Access do zero', description: 'Curso completo para iniciantes.', paid: false, img: 'assets/img/catalogocursos-removebg-preview.png' }
+  ];
+  public coursespag: any[] = [
     { title: 'Introdução ao Excel', img: 'assets/img/catalogocursos-removebg-preview.png', paid: true, price: '9,99' },
     { title: 'Introdução ao carro', img: 'assets/img/catalogocursos-removebg-preview.png', paid: true, price: '9,99' },
     { title: 'Introdução ao Excel', img: 'assets/img/catalogocursos-removebg-preview.png', paid: true, price: '9,99' },
     { title: 'Introdução ao Canvas', img: 'assets/img/catalogocursos-removebg-preview.png', paid: true, price: '9,99' },
     { title: 'Introdução ao Excel', img: 'assets/img/catalogocursos-removebg-preview.png', paid: true, price: '9,99' },
     { title: 'Introdução ao Excel', img: 'assets/img/catalogocursos-removebg-preview.png', paid: true, price: '9,99' },
-    { title: 'Introdução ao Excel', img: 'assets/img/catalogocursos-removebg-preview.png', paid: true, price: '9,99' },
-    { title: 'Introdução ao carro', img: 'assets/img/catalogocursos-removebg-preview.png', paid: true, price: '9,99' }
+
+
   ];
 
   currentIndexFree = 0;
   currentIndexPaid = 0;
   displayCount = 5;  // Número de itens a serem exibidos ao mesmo tempo
-
   onPreviousClickFree(): void {
     this.currentIndexFree = (this.currentIndexFree - 1 + this.courses.length) % this.courses.length;
   }
@@ -38,4 +41,13 @@ export class HomeComponent {
   onNextClickFree(): void {
     this.currentIndexFree = (this.currentIndexFree + 1) % this.courses.length;
   }
+
+  onPreviousClickPaid(): void {
+    this.currentIndexPaid = (this.currentIndexPaid - 1 + this.coursespag.length) % this.coursespag.length;
+  }
+
+  onNextClickPaid(): void {
+    this.currentIndexPaid = (this.currentIndexPaid + 1) % this.coursespag.length;
+  }
+
 }

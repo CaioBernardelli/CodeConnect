@@ -11,10 +11,15 @@
 
 
           <!-- Formulário com input de busca e botão -->
-    <form (ngSubmit)="onButtonClick()">
-      <input matInput type="search" placeholder="busca..." [(ngModel)]="searchText" name="searchQuery">
-      <button mat-raised-button color="primary" type="submit">Buscar</button>
-    </form>
+          <form (ngSubmit)="onButtonClick()" class="search-form">
+            <input matInput type="search" placeholder="busca..." [(ngModel)]="searchText" name="searchQuery" class="search-input">
+            <button mat-icon-button color="primary" type="submit" class="search-button">
+              <mat-icon>search</mat-icon>
+            </button>
+          </form>
+          
+
+
 
     <!-- Tabela para listar os cursos filtrados -->
     <mat-card-content class="mat-card-container" *ngFor="let course of filteredCourses">
