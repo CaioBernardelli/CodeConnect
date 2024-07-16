@@ -4,7 +4,7 @@
         <div class="carousel">
             <div class="carousel-inner"
                 [style.transform]="'translateX(-' + (currentIndexFree * (100 / displayCount)) + '%)'">
-                <mat-card *ngFor="let course of courses">
+                <mat-card class="carousel-card" *ngFor="let course of courses">
                     <ng-container>
                         <mat-card-header>
                             <mat-card-title class="titlecourse">{{ course.title }}</mat-card-title>
@@ -31,7 +31,7 @@
         <div class="carousel">
             <div class="carousel-inner"
                 [style.transform]="'translateX(-' + (currentIndexPaid * (100 / displayCount)) + '%)'">
-                <mat-card *ngFor="let coursepag of coursespag">
+                <mat-card class="carousel-card" *ngFor="let coursepag of coursespag">
                     <ng-container>
                         <mat-card-header>
                             <mat-card-title>{{ coursepag.title }}</mat-card-title>
