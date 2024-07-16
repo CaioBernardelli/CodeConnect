@@ -1,56 +1,62 @@
 <mat-card>
-  <mat-card-title>
-    List Courses
-  </mat-card-title>
-  <mat-card-subtitle>
-    <h2>{{listCourses.length}} Courses Found</h2>
-  </mat-card-subtitle>
+
+
+  <mat-card class="card">
+    <mat-card-title class="title">
+      List Courses
+    </mat-card-title>
+    <mat-card-subtitle>
+      <h2>{{listCourses.length}} Courses Found</h2>
+    </mat-card-subtitle>
+  </mat-card>
+  
 
 
 
- <!-- Formulário com input de busca e botão -->
- <form (ngSubmit)="onButtonClick()" class="search-form">
-  <input matInput type="search" placeholder="busca..." [(ngModel)]="searchText" name="searchQuery" class="search-input">
-  <button mat-icon-button color="primary" type="submit" class="search-button">
-    <mat-icon>search</mat-icon>
-  </button>
-</form>
+  <!-- Formulário com input de busca e botão -->
+  <form (ngSubmit)="onButtonClick()" class="search-form">
+    <input matInput type="search" placeholder="busca..." [(ngModel)]="searchText" name="searchQuery"
+      class="search-input">
+    <button mat-icon-button color="primary" type="submit" class="search-button">
+      <mat-icon>search</mat-icon>
+    </button>
+  </form>
 
-    <mat-card-content>
+  <mat-card-content>
     <!-- Tabela para listar os cursos filtrados -->
     <mat-card-content class="mat-card-container" *ngFor="let course of filteredCourses">
       <mat-card class="card-course">
-          <mat-card-title>
-              <h2>{{course.name}}</h2>
-          </mat-card-title>
-          <mat-card-subtitle>
-              <h3>{{course.category}}</h3>
-          </mat-card-subtitle>
-          <mat-card-content class="mat-card-content">
-              <img src="{{course.imgLink}}" class="image-small">
-              <p class="description">
-                  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                  industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
-                  scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap
-                  into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the
-                  release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing
-                  software like Aldus PageMaker including versions of Lorem Ipsum.
-              </p>
-              <p>
-                  {{course.price}}
-              </p>
-              <app-select-button (click)="selectCourse(course)"></app-select-button>
-          </mat-card-content>
+        <mat-card-title>
+          <h2>{{course.name}}</h2>
+        </mat-card-title>
+        <mat-card-subtitle>
+          <h3>{{course.category}}</h3>
+        </mat-card-subtitle>
+        <mat-card-content class="mat-card-content">
+          <img src="{{course.imgLink}}" class="image-small">
+          <p class="description">
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+            industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
+            scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap
+            into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the
+            release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing
+            software like Aldus PageMaker including versions of Lorem Ipsum.
+          </p>
+          <p>
+            {{course.price}}
+          </p>
+          <app-select-button (click)="selectCourse(course)"></app-select-button>
+        </mat-card-content>
       </mat-card>
-  </mat-card-content>
+    </mat-card-content>
 
 
 
 
     <router-outlet></router-outlet>
-    
-    <!-- Componente do card de filme -->
- 
 
-    </mat-card-content>
-    <mat-card>
+    <!-- Componente do card de filme -->
+
+
+  </mat-card-content>
+  <mat-card>
