@@ -1,5 +1,5 @@
 <div class="home">
-    <mat-card class="carousel-container">
+    <mat-card class="carousel-container1">
         <h2>Conteúdo Free</h2>
         <div class="carousel">
             <div class="carousel-inner"
@@ -8,7 +8,7 @@
                     <ng-container>
                         <mat-card-header>
                             <mat-card-title class="titlecourse">{{ course.title }}</mat-card-title>
-                            <mat-card-subtitle>{{ course.subtitle }}</mat-card-subtitle>
+                            <mat-card-subtitle class="subtitle">{{ course.subtitle }}</mat-card-subtitle>
                         </mat-card-header>
                         <a href="#">
                             <img class="course-image" [src]="course.img" alt="{{ course.title }}">
@@ -35,6 +35,7 @@
                     <ng-container>
                         <mat-card-header>
                             <mat-card-title>{{ coursepag.title }}</mat-card-title>
+                            <mat-card-subtitle  class="subtitle">{{ coursepag.subtitle }}</mat-card-subtitle>
                         </mat-card-header>
                         <a href="#">
                             <img mat-card-image [src]="coursepag.img" alt="{{ coursepag.title }}">

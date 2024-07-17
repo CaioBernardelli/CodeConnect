@@ -19,17 +19,17 @@ export class HomeComponent {
     { title: 'Introdução ao Access', subtitle: 'Aprenda Access do zero', description: 'Curso completo para iniciantes.', paid: false, img: 'assets/img/catalogocursos-removebg-preview.png' },
     { title: 'Introdução ao Access', subtitle: 'Aprenda Access do zero', description: 'Curso completo para iniciantes.', paid: false, img: 'assets/img/catalogocursos-removebg-preview.png' },
     { title: 'Introdução ao Access', subtitle: 'Aprenda Access do zero', description: 'Curso completo para iniciantes.', paid: false, img: 'assets/img/catalogocursos-removebg-preview.png' }
-  ];
-  public coursespag: any[] = [
-    { title: 'Introdução ao Excel', img: 'assets/img/catalogocursos-removebg-preview.png', paid: true, price: '9,99' },
-    { title: 'Introdução ao carro', img: 'assets/img/catalogocursos-removebg-preview.png', paid: true, price: '9,99' },
-    { title: 'Introdução ao Excel', img: 'assets/img/catalogocursos-removebg-preview.png', paid: true, price: '9,99' },
-    { title: 'Introdução ao Canvas', img: 'assets/img/catalogocursos-removebg-preview.png', paid: true, price: '9,99' },
-    { title: 'Introdução ao Excel', img: 'assets/img/catalogocursos-removebg-preview.png', paid: true, price: '9,99' },
-    { title: 'Introdução ao Excel', img: 'assets/img/catalogocursos-removebg-preview.png', paid: true, price: '9,99' },
+];
 
+public coursespag: any[] = [
+    { title: 'Introdução ao Excel', subtitle: 'Aprenda Excel do zero', img: 'assets/img/catalogocursos-removebg-preview.png', paid: true, price: '9,99' },
+    { title: 'Introdução ao carro', subtitle: 'Aprenda a dirigir do zero', img: 'assets/img/catalogocursos-removebg-preview.png', paid: true, price: '9,99' },
+    { title: 'Introdução ao Excel', subtitle: 'Aprenda Excel do zero', img: 'assets/img/catalogocursos-removebg-preview.png', paid: true, price: '9,99' },
+    { title: 'Introdução ao Canvas', subtitle: 'Aprenda a usar o Canvas', img: 'assets/img/catalogocursos-removebg-preview.png', paid: true, price: '9,99' },
+    { title: 'Introdução ao Excel', subtitle: 'Aprenda Excel do zero', img: 'assets/img/catalogocursos-removebg-preview.png', paid: true, price: '9,99' },
+    { title: 'Introdução ao Excel', subtitle: 'Aprenda Excel do zero', img: 'assets/img/catalogocursos-removebg-preview.png', paid: true, price: '9,99' },
+];
 
-  ];
 
   currentIndexFree = 0;
   currentIndexPaid = 0;

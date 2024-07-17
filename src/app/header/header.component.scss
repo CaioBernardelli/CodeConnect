@@ -8,6 +8,7 @@ mat-toolbar {
     display: flex;
     align-items: center;
     background-color: #6F42C1;
+    padding: 0px;
 }
 
 .iconsimport {
@@ -22,6 +23,12 @@ mat-toolbar {
     align-items: center;
 }
 
+
+.title{
+    color: #f2f2f2;
+
+
+}
 img {
     width: 50%;
     max-width: 500px;
@@ -39,12 +46,7 @@ img {
     align-items: center;
 }
 
-.logo {
-    width: 150px;
-    opacity: .8;
-    transition: .3s;
-    margin-top: 0;
-}
+
 
 .logo {
     opacity: 1;
@@ -52,9 +54,6 @@ img {
     margin-top: 10px;
 }
 
-.title-group {
-    padding-left: 1.5rem;
-}
 
 .title {
     font-size: 1.5rem;
@@ -74,4 +73,12 @@ img {
 
 .demo-section+.demo-section {
     margin-top: 16px;
+}
+
+
+.logoandtitle{
+    display: flex;
+    padding: 0px;
+
+
 }
