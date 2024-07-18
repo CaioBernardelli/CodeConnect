@@ -1,22 +1,28 @@
+
+
 mat-toolbar {
     position: fixed;
-    top: 0;
+    top: 0px;
     left: 0;
     right: 0;
     z-index: 1000;
-    height: 100px;
+    height: 90px;
     display: flex;
     align-items: center;
+    justify-items: center;
     background-color: #6F42C1;
     padding: 0px;
+    width: 100%;
 }
+
+
 
 .iconsimport {
     display: flex;
 }
 
 .iconsimport a {
-    margin-left: 10px;
+
     text-decoration: none;
     color: #f2f2f2;
     display: flex;
@@ -24,16 +30,11 @@ mat-toolbar {
 }
 
 
-.title{
+.title {
     color: #f2f2f2;
+}
 
 
-}
-img {
-    width: 50%;
-    max-width: 500px;
-    height: auto;
-}
 
 .spacer {
     flex: 1;
@@ -49,36 +50,19 @@ img {
 
 
 .logo {
-    opacity: 1;
-    width: 100px;
-    margin-top: 10px;
+    width: 150px;
+    margin-right: -30px;
+
+
 }
 
 
 .title {
     font-size: 1.5rem;
-    margin-left: 1px;
 }
 
-.header .title-group i {
-    padding-right: 5px;
-}
-
-
-:host {
+.logoandtitle {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-.demo-section+.demo-section {
-    margin-top: 16px;
-}
-
-
-.logoandtitle{
-    display: flex;
+    align-items: center;
     padding: 0px;
-
-
 }
