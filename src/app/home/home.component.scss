@@ -24,9 +24,14 @@ mat-card {
   /* Altura fixa para todos os cards */
 }
 
- .carousel-container1{
+.carousel-container1 {
   padding-top: 25px;
 
+}
+
+
+.carousel-container {
+  padding-bottom: 25px;
 
 }
 
@@ -93,7 +98,7 @@ mat-card a:hover img {
 
 }
 
-h2{
+h2 {
   margin-top: 30px;
 }
 
@@ -105,15 +110,16 @@ h2{
 }*/
 
 
-.carousel-card{
-  border: 2px solid 	#E6E6FA; /* Cor e espessura da borda */
+.carousel-card {
+  border: 2px solid #E6E6FA;
+  /* Cor e espessura da borda */
   border-radius: 8px;
   justify-items: center;
 
 }
 
 
-.subtitle{ 
+.subtitle {
   padding-left: 16px;
 
 

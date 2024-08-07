@@ -1,20 +1,20 @@
 <mat-card class="card">
 
 
-    <mat-card-title class="title">
-      List Courses
-    </mat-card-title>
-    <mat-card-subtitle>
-      <h2>{{listCourses.length}} Courses Found</h2>
-    </mat-card-subtitle>
+  <mat-card-title class="title">
+    List Courses
+  </mat-card-title>
+  <mat-card-subtitle>
+    <h2>{{listCourses.length}} Courses Found</h2>
+  </mat-card-subtitle>
 
-  
+
 
 
 
   <!-- Formulário com input de busca e botão -->
   <form (ngSubmit)="onButtonClick()" class="search-form">
-    <input matInput type="search" placeholder="busca..." [(ngModel)]="searchText" name="searchQuery"
+    <input matInput type="search" placeholder="Buscar Curso" [(ngModel)]="searchText" name="searchQuery"
       class="search-input">
     <button mat-icon-button color="primary" type="submit" class="search-button">
       <mat-icon>search</mat-icon>

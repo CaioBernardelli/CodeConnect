@@ -4,6 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { CarouselComponent } from '../carousel/carousel.component';
 import { FooterComponent } from '../footer/footer.component';
 import { MatCardModule } from '@angular/material/card';
+import { AppRoutingModule } from '../app.routes';
 @Component({
   selector: 'app-home',
   standalone: true,
