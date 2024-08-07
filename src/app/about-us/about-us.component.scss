@@ -1,5 +1,7 @@
 .about-us-container {
+    
     display: flex;
+    flex-direction: column;
     justify-content: center;
     padding: 40px;
     background-color: #f9f9f9;
@@ -10,6 +12,7 @@
     flex-direction: row;
     align-items: center;
     padding: 40px;
+    margin-bottom: 20px; /* Espaço entre os cartões */
     max-width: 1000px;
     background-color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -47,4 +50,35 @@
     height: auto;
     border-radius: 8px;
   }
+
   
+  .modern-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px;
+    width: 100%;
+    max-width: 1000px;
+    background-color: #e0f7fa;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .modern-content {
+    flex: 1;
+    padding: 20px;
+  }
+  
+  .modern-image-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .modern-logo {
+    width: 80%;
+    max-width: 400px;
+    height: auto;
+    border-radius: 8px;
+  }

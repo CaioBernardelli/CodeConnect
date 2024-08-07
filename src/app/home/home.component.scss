@@ -1,3 +1,8 @@
+.home{
+  background-color: #f9f9f9;
+}
+
+
 .carousel {
   position: relative;
   width: 100%;
@@ -26,12 +31,14 @@ mat-card {
 
 .carousel-container1 {
   padding-top: 25px;
+  background-color: #f9f9f9;
 
 }
 
 
 .carousel-container {
   padding-bottom: 25px;
+  background-color: #f9f9f9;
 
 }
 
@@ -86,16 +93,6 @@ mat-card a:hover img {
 .control:hover {
   background-color: #f0f0f0;
   /* Mudança de cor ao passar o mouse, opcional */
-}
-
-
-
-
-.home {
-  background-color: #FFFFFF;
-  //testes de cor 
-
-
 }
 
 h2 {
