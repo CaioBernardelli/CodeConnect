@@ -1,4 +1,5 @@
-# angular-marketplace.
+# CodeConnect
+
 
 <article id="be934654-1d87-419c-8286-95e7e698a6fb" class="page sans">
     <header><img class="page-cover-image" src="https://cdn.worldvectorlogo.com/logos/angular-3.svg" style="object-position:center 38.6%" />
@@ -678,11 +679,7 @@
     </div>
 </article>
 
-# Desafio de projeto
-    
-- Terminar a página de about, linkando as rotas e atualizando os componentes na nossa view;
-- Subir o projeto em um repositório no GitHub.
-<br> 
+
 
 ## Exemplo da página about
     
