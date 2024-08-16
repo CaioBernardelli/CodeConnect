@@ -5,7 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { NavComponent } from './nav/nav.component';
-import { ListFilmsComponent } from './list-films/list-films.component';
+
 import { HttpClientModule } from '@angular/common/http';
 import { CardCourseComponent } from './card-course/card-course.component';
 import { MatButtonModule } from '@angular/material/button';
@@ -25,7 +25,6 @@ import { SearchCourseComponent } from './search-course/search-course.component';
     FooterComponent,
     HeaderComponent,
     NavComponent,
-    ListFilmsComponent,
     HttpClientModule, // Corrigido HttpClientModule
     MatButtonToggleModule,
     MatButtonModule,

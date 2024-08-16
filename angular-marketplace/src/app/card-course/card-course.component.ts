@@ -4,7 +4,6 @@ import { Course } from '../list-films/course.model';
 import { CheckoutService } from '../checkout/checkout.service';
 import { MatCardModule } from '@angular/material/card';
 import { SelectButtonComponent } from '../select-button/select-button.component';
-;
 import { MatFormFieldModule } from '@angular/material/form-field';
 
 

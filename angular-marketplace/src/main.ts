@@ -8,6 +8,7 @@ import { provideRouter } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
 import { routes } from './app/app.routes';
 import { AboutUsComponent } from './app/about-us/about-us.component';
+import { CadastrousuarioComponent } from './app/cadastrousuario/cadastrousuario.component';
 
 
 
@@ -38,6 +39,12 @@ bootstrapApplication(NavComponent, {
 
 bootstrapApplication(AboutUsComponent, appConfig)
   .catch((err) => console.error(err));
+
+
+
+  
+bootstrapApplication(CadastrousuarioComponent, appConfig)
+.catch((err) => console.error(err));
 
 
 
