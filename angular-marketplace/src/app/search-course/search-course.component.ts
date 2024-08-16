@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Course } from '../list-films/film.model'; // Verifique se o caminho do seu modelo está correto
+import { Course } from '../list-films/course.model'; // Verifique se o caminho do seu modelo está correto
 import { CheckoutService } from '../checkout/checkout.service';
 import { MatCardModule } from '@angular/material/card';
 import { SelectButtonComponent } from '../select-button/select-button.component';
@@ -8,8 +8,8 @@ import { HttpClient } from '@angular/common/http'; // Importe o HttpClient para 
 import { FormsModule } from '@angular/forms';
 
 @Component({
-  standalone:true,
-  imports:[MatCardModule,CommonModule,SelectButtonComponent,FormsModule],
+  standalone: true,
+  imports: [MatCardModule, CommonModule, SelectButtonComponent, FormsModule],
   selector: 'app-search-course',
   templateUrl: './search-course.component.html',
   styleUrls: ['./search-course.component.scss']
@@ -33,7 +33,7 @@ export class SearchCourseComponent implements OnInit {
   }
 
   filterCourses(): void {
-    this.filteredCourses = this.listCourses.filter(course => 
+    this.filteredCourses = this.listCourses.filter(course =>
       course.name.toLowerCase().includes(this.searchText.toLowerCase())
     );
   }

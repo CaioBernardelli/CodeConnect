@@ -7,7 +7,7 @@ import { HeaderComponent } from './header/header.component';
 import { NavComponent } from './nav/nav.component';
 import { ListFilmsComponent } from './list-films/list-films.component';
 import { HttpClientModule } from '@angular/common/http';
-import { CardFilmComponent } from './card-film/card-film.component';
+import { CardCourseComponent } from './card-course/card-course.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { SearchCourseComponent } from './search-course/search-course.component';
@@ -18,7 +18,7 @@ import { SearchCourseComponent } from './search-course/search-course.component';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'], // Corrigido styleUrls
   imports: [
-    CardFilmComponent,
+    CardCourseComponent,
     RouterOutlet,
     MatToolbarModule,
     MatIconModule,
