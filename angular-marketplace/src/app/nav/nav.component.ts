@@ -3,7 +3,7 @@ import { MatIconModule } from '@angular/material/icon';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
 import { RouterModule } from '@angular/router';
-import { AboutUsComponent } from '../about-us/about-us.component';
+
 
 
 @Component({
@@ -11,7 +11,7 @@ import { AboutUsComponent } from '../about-us/about-us.component';
     standalone: true,
     templateUrl: './nav.component.html',
     styleUrl: './nav.component.scss',
-    imports: [AboutUsComponent,MatIconModule, MatListModule, MatSidenavModule, RouterModule]
+    imports: [MatIconModule, MatListModule, MatSidenavModule, RouterModule]
 })
 export class NavComponent {
 

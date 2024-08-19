@@ -42,9 +42,9 @@ bootstrapApplication(AboutUsComponent, appConfig)
 
 
 
-  
+
 bootstrapApplication(CadastrousuarioComponent, appConfig)
-.catch((err) => console.error(err));
+  .catch((err) => console.error(err));
 
 
 
