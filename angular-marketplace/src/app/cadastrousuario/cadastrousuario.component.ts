@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms'; // Certifique-se de importar isso
@@ -14,6 +14,13 @@ import { ReactiveFormsModule } from '@angular/forms'; // Certifique-se de import
   styleUrl: './cadastrousuario.component.scss'
 })
 export class CadastrousuarioComponent {
+errorMessage() {
+throw new Error('Method not implemented.');
+}
+email: FormControl<any> | undefined;
+updateErrorMessage() {
+throw new Error('Method not implemented.');
+}
   signUpForm: FormGroup;
 hide: any;
 

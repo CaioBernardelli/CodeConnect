@@ -1,38 +1,38 @@
-
-
-.container{
+.container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    align-items: stretch; /* Deixe os itens esticarem para ocupar a altura total */
+    align-items: stretch;
+    /* Deixe os itens esticarem para ocupar a altura total */
     /* Ocupa 100% da altura da janela */
 }
 
 
 /* cadastrousuario.component.css */
-.container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    
-  }
-  
-  .left-panel {
+
+.left-panel {
     flex: 1;
-    
-  }
-  
-  .right-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 40px;
+    /* Alinha o conteúdo ao topo */
+    align-items: flex-start;
+    /* Alinha os itens ao início */
+
+}
+
+.right-panel {
     flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-  
-  .image {
+}
+
+.image {
     max-width: 100%;
     height: 100vh;
 
-  }
-  
+}
+
 //
