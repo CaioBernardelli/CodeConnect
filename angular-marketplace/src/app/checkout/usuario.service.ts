@@ -54,4 +54,20 @@ private validarEmailsDiferentes(usuario: Usuario): Observable<void> {
     })
   );
 }
+
+
+
+autenticar(email: string, senha: string): Observable<Usuario> {
+  return this.httpClient.get<Usuario[]>(`${this.baseUrl}?email=${email}&senha=${senha}`).pipe(
+    map(usuarios => {
+      if (usuarios.length === 0) {
+        throw new Error('Email ou senha incorretos');
+      }
+      return usuarios[0];  // Retorna o usuário encontrado
+    }),
+    catchError(error => {
+      return throwError(() => new Error(error.message));
+    })
+  );
+}
 }

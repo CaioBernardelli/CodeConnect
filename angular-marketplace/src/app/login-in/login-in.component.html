@@ -3,38 +3,27 @@
       <mat-card class="cadastro-card">
         <div class="content">
           <h2>CodeConnect</h2>
-          <h1>Cadastro</h1>
-          <p>Cadastre-se na conta.</p>
+          <h1>Login In</h1>
+          <p>Entrar na conta</p>
         </div>
   
         <div class="forms">
           <mat-card-content>
-            <mat-form-field>
-              <mat-label>Nome Completo</mat-label>
-              <input matInput [(ngModel)]="usuario.nome">
-            </mat-form-field>
   
             <mat-form-field>
               <mat-label>Email Válido</mat-label>
-              <input matInput [(ngModel)]="usuario.email">
+              <input matInput #emailInput>
             </mat-form-field>
   
             <mat-form-field>
-              <mat-label>Idade</mat-label>
-              <input matInput [(ngModel)]="usuario.idade">
+              <mat-label>Senha</mat-label>
+              <input matInputmatInput type="password" #senhaInput>
             </mat-form-field>
           </mat-card-content>
-
-
-          <mat-form-field>
-            <mat-label>Senha</mat-label>
-            <input matInput [(ngModel)]="usuario.senha">
-          </mat-form-field>
-    
           
           <!-- Botão para inserir usuário -->
           <div class="example-button-row">
-            <button mat-raised-button   class="button" color="primary" (click)="inserir(usuario)">Log in</button>
+            <button mat-raised-button   class="button" color="primary" (click)="logar(emailInput.value, senhaInput.value)">Log in</button>
           </div>
           
           

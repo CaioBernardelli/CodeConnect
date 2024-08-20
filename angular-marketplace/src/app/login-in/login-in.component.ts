@@ -13,19 +13,17 @@ import { UsuarioService } from '../checkout/usuario.service';
 import { FormsModule } from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+
 @Component({
-  selector: 'app-cadastrousuario',
+  selector: 'app-login-in',
   standalone: true,
   imports: [MatIconModule,MatButtonModule,FormsModule, MatCardModule, MatFormFieldModule, ReactiveFormsModule, MatInputModule],
-  templateUrl: './cadastrousuario.component.html',
-  styleUrls: ['./cadastrousuario.component.scss']
+  templateUrl: './login-in.component.html',
+  styleUrl: './login-in.component.scss'
 })
-export class CadastrousuarioComponent {
+export class LoginInComponent {
   usuarios: Usuario[] = [];
-  usuario: Usuario = {
-    nome: '', email: '', idade: 0,
-    senha: ''
-  }; // Propriedade `usuario` adicionada
+  
 
 
   constructor(
@@ -40,19 +38,17 @@ export class CadastrousuarioComponent {
     });
   }
 
-  inserir(usuario: Usuario) {
-    try {
-    this.usuarioService.inserir(usuario).subscribe({
-      next: (usuarioInserido) => {
-        this.usuarios.push(usuarioInserido);
-     //   this.roteador.navigate(['listagem-usuarios']);
-        this.mensagemService.sucesso('Usuário cadastrado com sucesso.');
-      },
-      error: (err) => this.mensagemService.erro(err.message),
-    });
-  } catch (e: any) {
-    this.mensagemService.erro(e.message);  // Captura a exceção e exibe a mensagem de erro
-  }
-  }
-
+ 
+    logar(email: string, senha: string) {
+      this.usuarioService.autenticar(email, senha).subscribe({
+        next: (usuario) => {
+          this.mensagemService.sucesso('Login realizado com sucesso');
+          this.roteador.navigate(['pagina-principal']); // Redireciona para a página principal
+        },
+        error: (err) => {
+          this.mensagemService.erro('Email ou senha incorretos');
+        }
+      });
+    }
+    
 }
