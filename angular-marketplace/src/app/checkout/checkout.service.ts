@@ -37,7 +37,7 @@ export class CheckoutService {
   }
 
   getListCourse(): Observable<Course[]> {
-    return this.httpClient.get<Course[]>(this.baseUrl + '/courses')
+    return this.httpClient.get<Course[]>(this.baseUrl)
   }
 
   selectCourse() {
