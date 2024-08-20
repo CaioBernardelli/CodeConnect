@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CardCourseComponent } from '../card-course/card-course.component';
+
 import { RouterModule } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { CheckoutService } from '../checkout/checkout.service';
@@ -15,7 +15,7 @@ import { MatIconModule } from '@angular/material/icon';
     standalone: true,
     templateUrl: './list-films.component.html',
     styleUrl: './list-films.component.scss',
-    imports: [MatIconModule, SelectButtonComponent, CommonModule, FormsModule, MatFormFieldModule, CardCourseComponent, RouterModule, MatCardModule, CarouselComponent]
+    imports: [MatIconModule, SelectButtonComponent, CommonModule, FormsModule, MatFormFieldModule, RouterModule, MatCardModule, CarouselComponent]
 })
 export class ListFilmsComponent implements OnInit {
     listCourses: Course[] = [];
