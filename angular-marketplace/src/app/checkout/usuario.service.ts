@@ -16,8 +16,19 @@ export class UsuarioService {
 
 
   inserir(usuario: Usuario): Observable<Usuario> {
+    this.validarMaiorIdade(usuario);
     return this.httpClient.post<Usuario>(this.baseUrl, usuario);
   }
+
+  private validarMaiorIdade(usuario: Usuario) {
+    if (usuario.idade < 18) {
+        throw new Error('Usuário nao pode ser menor!');
+    }
+}
+
+   private validarEmail(){
+
+   }
  
 
 }

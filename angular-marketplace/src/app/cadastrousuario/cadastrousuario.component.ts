@@ -11,16 +11,18 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MensagemSweetService } from '../checkout/mensagem-sweet.service';
 import { UsuarioService } from '../checkout/usuario.service';
 import { FormsModule } from '@angular/forms';
+import {MatButtonModule} from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 @Component({
   selector: 'app-cadastrousuario',
   standalone: true,
-  imports: [FormsModule, MatCardModule, MatFormFieldModule, ReactiveFormsModule, MatInputModule],
+  imports: [MatIconModule,MatButtonModule,FormsModule, MatCardModule, MatFormFieldModule, ReactiveFormsModule, MatInputModule],
   templateUrl: './cadastrousuario.component.html',
   styleUrls: ['./cadastrousuario.component.scss']
 })
 export class CadastrousuarioComponent {
   usuarios: Usuario[] = [];
-  usuario: Usuario = { nome: '', email: '', idade: '' }; // Propriedade `usuario` adicionada
+  usuario: Usuario = { nome: '', email: '', idade: 0}; // Propriedade `usuario` adicionada
 
 
   constructor(
@@ -36,13 +38,18 @@ export class CadastrousuarioComponent {
   }
 
   inserir(usuario: Usuario) {
+    try {
     this.usuarioService.inserir(usuario).subscribe({
       next: (usuarioInserido) => {
         this.usuarios.push(usuarioInserido);
-        this.roteador.navigate(['listagem-usuarios']);
+     //   this.roteador.navigate(['listagem-usuarios']);
         this.mensagemService.sucesso('Usuário cadastrado com sucesso.');
       },
       error: (err) => this.mensagemService.erro(err.message),
     });
+  } catch (e: any) {
+    this.mensagemService.erro(e.message);  // Captura a exceção e exibe a mensagem de erro
   }
+  }
+
 }

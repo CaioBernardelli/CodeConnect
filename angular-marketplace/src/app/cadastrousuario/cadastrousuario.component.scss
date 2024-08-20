@@ -77,3 +77,22 @@ mat-card-content{
     width: 100%;
 
 }
+
+
+.example-button-row {
+    display: flex;
+    justify-content: center; /* Centraliza o botão horizontalmente */
+    margin-top: 20px;
+  }
+  
+  .button {
+ 
+  //  width: 110px; /* Largura do botão */
+ //   height: 30px; /* Altura do botão */
+   border-radius: 20%; /* Torna o botão circular */
+  
+   
+  }
+  
+
+  
