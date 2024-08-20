@@ -1,13 +1,17 @@
 export class Usuario {
-    id: string;
-    name: string;
+
+    nome: string;
+    email: string;
     idade: string;
 
 
-    constructor(id: string, name: string, idade: string) {
-        this.id = id;
-        this.name = name;
+
+    constructor(nome: string, email: string, idade: string) {
+
+        this.nome = nome;
+        this.email = email
         this.idade = idade;
+
 
 
     }

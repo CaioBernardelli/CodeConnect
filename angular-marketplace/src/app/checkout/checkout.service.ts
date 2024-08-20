@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class CheckoutService {
-  public baseUrl: string = "http://localhost:3000"; // Inicializando corretamente
+  public baseUrl: string = "http://localhost:3000/courses"; // Inicializando corretamente
   public listCurse: Course[] = [];
   public totalPrice: number = 0;
   private _priceHandler: number = 0;

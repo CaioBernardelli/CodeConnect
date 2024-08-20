@@ -28,5 +28,14 @@
       "price": 59,
       "id": 102
     }
+  ],
+  "usuarios": [
+    {
+      "id": "7aed",
+      "nome": "ss",
+      "email": "sss",
+      "idade": "ss"
+    }
+    
   ]
 }
