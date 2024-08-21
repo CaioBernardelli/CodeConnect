@@ -31,43 +31,57 @@ export class UsuarioService {
 
   private validarMaiorIdade(usuario: Usuario) {
     if (usuario.idade < 18) {
-        throw new Error('Usuário nao pode ser menor!');
+      throw new Error('Usuário nao pode ser menor!');
     }
-}
+  }
 
   private validarEmail(email: string) {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(email)) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
       throw new Error('Endereço de email inválido!');
+    }
   }
-}
 
 
 
-private validarEmailsDiferentes(usuario: Usuario): Observable<void> {
-  return this.listar().pipe(
-    map(usuarios => {
-      const usuarioExistente = usuarios.find(u => u.email === usuario.email);
-      if (usuarioExistente) {
-        throw new Error('Usuário já cadastrado com o mesmo endereço!');
-      }
-    })
-  );
-}
+  private validarEmailsDiferentes(usuario: Usuario): Observable<void> {
+    return this.listar().pipe(
+      map(usuarios => {
+        const usuarioExistente = usuarios.find(u => u.email === usuario.email);
+        if (usuarioExistente) {
+          throw new Error('Usuário já cadastrado com o mesmo endereço!');
+        }
+      })
+    );
+  }
 
 
 
-autenticar(email: string, senha: string): Observable<Usuario> {
-  return this.httpClient.get<Usuario[]>(`${this.baseUrl}?email=${email}&senha=${senha}`).pipe(
-    map(usuarios => {
-      if (usuarios.length === 0) {
-        throw new Error('Email ou senha incorretos');
-      }
-      return usuarios[0];  // Retorna o usuário encontrado
-    }),
-    catchError(error => {
-      return throwError(() => new Error(error.message));
-    })
-  );
-}
+
+
+  private validarEmailsDiferente(usuario: Usuario): Observable<void> {
+    return this.listar().pipe(
+      map(usuarios => {
+        const usuarioExistente = usuarios.find(u => u.email === usuario.email);
+        if (usuarioExistente) {
+          throw new Error('Usuário já cadastrado com o mesmo endereço!');
+        }
+      })
+    );
+  }
+
+
+  autenticar(email: string, senha: string): Observable<Usuario> {
+    return this.httpClient.get<Usuario[]>(`${this.baseUrl}?email=${email}&senha=${senha}`).pipe(
+      map(usuarios => {
+        if (usuarios.length === 0 || usuarios[0].senha !== senha) {
+          throw new Error('Email ou senha incorretos');
+        }
+        return usuarios[0];  // Retorna o usuário encontrado
+      }),
+      catchError(error => {
+        return throwError(() => new Error(error.message));
+      })
+    );
+  }
 }
