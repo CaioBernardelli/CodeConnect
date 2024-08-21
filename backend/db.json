@@ -50,6 +50,20 @@
       "email": "isajp2013@hotmail.com",
       "idade": "22",
       "senha": "1234"
+    },
+    {
+      "id": "d5b5",
+      "nome": "admin",
+      "email": "admin@example.com",
+      "idade": "50",
+      "senha": "admin"
+    },
+    {
+      "id": "3ec8",
+      "nome": "gabriel",
+      "email": "gabriel@hotmail.com",
+      "idade": "20",
+      "senha": "123"
     }
   ]
 }

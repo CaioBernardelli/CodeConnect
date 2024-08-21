@@ -25,6 +25,12 @@
                 Login
             </a>
 
+            <a mat-list-item routerLink="/admin" *ngIf="isAdmin">
+                <i class="material-icons middle">admin_panel_settings</i>
+                Administração
+              </a>
+              
+
         </mat-list>
 
     </mat-sidenav>

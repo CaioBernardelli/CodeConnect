@@ -44,7 +44,7 @@ export class LoginInComponent {
     this.usuarioService.autenticar(email, senha).subscribe({
       next: (usuario) => {
         this.mensagemService.sucesso('Login realizado com sucesso');
-        this.roteador.navigate(['pagina-principal']); // Redireciona para a página principal
+        this.roteador.navigate(['']); // Redireciona para a página principal
       },
       error: (err) => {
         this.mensagemService.erro('Email ou senha incorretos');
