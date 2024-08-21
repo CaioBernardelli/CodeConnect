@@ -1,54 +1,55 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatIconModule } from '@angular/material/icon';
-import { CarouselComponent } from '../carousel/carousel.component';
-import { FooterComponent } from '../footer/footer.component';
 import { MatCardModule } from '@angular/material/card';
-import { AppRoutingModule } from '../app.routes';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { ReactiveFormsModule } from '@angular/forms';
+import { Usuario } from '../model/usuario';
+import { MatInputModule } from '@angular/material/input';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MensagemSweetService } from '../checkout/mensagem-sweet.service';
+import { UsuarioService } from '../checkout/usuario.service';
+import { FormsModule } from '@angular/forms';
+import {MatButtonModule} from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { RouterModule } from '@angular/router';
+
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [MatCardModule, CommonModule, MatIconModule, CarouselComponent, FooterComponent],
+  imports: [RouterModule,MatIconModule,MatButtonModule,FormsModule, MatCardModule, MatFormFieldModule, ReactiveFormsModule, MatInputModule],
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrl: './home.component.scss'
 })
 export class HomeComponent {
-  public courses: any[] = [
-    { title: 'Introdução ao Excel', subtitle: 'Aprenda Excel do zero', description: 'Curso completo para iniciantes.', paid: false, img: 'assets/img/catalogocursos-removebg-preview.png' },
-    { title: 'Introdução ao Word', subtitle: 'Aprenda Word do zero', description: 'Curso completo para iniciantes.', paid: false, img: 'assets/img/catalogocursos-removebg-preview.png' },
-    { title: 'Introdução ao PowerPoint', subtitle: 'Aprenda PowerPoint do zero', description: 'Curso completo para iniciantes.', paid: false, img: 'assets/img/catalogocursos-removebg-preview.png' },
-    { title: 'Introdução ao Access', subtitle: 'Aprenda Access do zero', description: 'Curso completo para iniciantes.', paid: false, img: 'assets/img/catalogocursos-removebg-preview.png' },
-    { title: 'Introdução ao Access', subtitle: 'Aprenda Access do zero', description: 'Curso completo para iniciantes.', paid: false, img: 'assets/img/catalogocursos-removebg-preview.png' },
-    { title: 'Introdução ao Access', subtitle: 'Aprenda Access do zero', description: 'Curso completo para iniciantes.', paid: false, img: 'assets/img/catalogocursos-removebg-preview.png' }
-];
-
-public coursespag: any[] = [
-    { title: 'Introdução ao Excel', subtitle: 'Aprenda Excel do zero', img: 'assets/img/catalogocursos-removebg-preview.png', paid: true, price: '9,99' },
-    { title: 'Introdução ao carro', subtitle: 'Aprenda a dirigir do zero', img: 'assets/img/catalogocursos-removebg-preview.png', paid: true, price: '9,99' },
-    { title: 'Introdução ao Excel', subtitle: 'Aprenda Excel do zero', img: 'assets/img/catalogocursos-removebg-preview.png', paid: true, price: '9,99' },
-    { title: 'Introdução ao Canvas', subtitle: 'Aprenda a usar o Canvas', img: 'assets/img/catalogocursos-removebg-preview.png', paid: true, price: '9,99' },
-    { title: 'Introdução ao Excel', subtitle: 'Aprenda Excel do zero', img: 'assets/img/catalogocursos-removebg-preview.png', paid: true, price: '9,99' },
-    { title: 'Introdução ao Excel', subtitle: 'Aprenda Excel do zero', img: 'assets/img/catalogocursos-removebg-preview.png', paid: true, price: '9,99' },
-];
+  usuarios: Usuario[] = [];
+  usuario: Usuario = {
+    nome: '', email: '', idade: 0,
+    senha: ''
+  }; // Propriedade `usuario` adicionada
 
 
-  currentIndexFree = 0;
-  currentIndexPaid = 0;
-  displayCount = 5;  // Número de itens a serem exibidos ao mesmo tempo
-  onPreviousClickFree(): void {
-    this.currentIndexFree = (this.currentIndexFree - 1 + this.courses.length) % this.courses.length;
+  constructor(
+    private roteador: Router,
+    private rotaAtual: ActivatedRoute,
+    private mensagemService: MensagemSweetService,
+    private usuarioService: UsuarioService
+  ) {
+    this.usuarioService.listar().subscribe({
+      next: (usuariosRetornados) => (this.usuarios = usuariosRetornados),
+      error: (err) => this.mensagemService.erro(err.message),
+    });
   }
 
-  onNextClickFree(): void {
-    this.currentIndexFree = (this.currentIndexFree + 1) % this.courses.length;
+ 
+  logar(email: string, senha: string) {
+    this.usuarioService.autenticar(email, senha).subscribe({
+      next: (usuario) => {
+        this.mensagemService.sucesso('Login realizado com sucesso');
+        this.roteador.navigate(['courses-carousel']); // Redireciona para a página principal
+      },
+      error: (err) => {
+        this.mensagemService.erro('Email ou senha incorretos');
+      }
+    });
   }
-
-  onPreviousClickPaid(): void {
-    this.currentIndexPaid = (this.currentIndexPaid - 1 + this.coursespag.length) % this.coursespag.length;
-  }
-
-  onNextClickPaid(): void {
-    this.currentIndexPaid = (this.currentIndexPaid + 1) % this.coursespag.length;
-  }
-
 }
+

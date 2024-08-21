@@ -1,0 +1,55 @@
+<div class="home">
+    <mat-card class="carousel-container1">
+        <h2>Conteúdo Free</h2>
+        <div class="carousel">
+            <div class="carousel-inner"
+                [style.transform]="'translateX(-' + (currentIndexFree * (100 / displayCount)) + '%)'">
+                <mat-card class="carousel-card" *ngFor="let course of courses">
+                    <ng-container>
+                        <mat-card-header>
+                            <mat-card-title class="titlecourse">{{ course.title }}</mat-card-title>
+                            <mat-card-subtitle class="subtitle">{{ course.subtitle }}</mat-card-subtitle>
+                        </mat-card-header>
+                        <a href="#">
+                            <img class="course-image" [src]="course.img" alt="{{ course.title }}">
+                        </a>
+                        <p>Preço: {{course.price || 'Gratis'}}</p>
+                    </ng-container>
+                </mat-card>
+            </div>
+            <button class="control prev" mat-mini-fab aria-label="Previous" (click)="onPreviousClickFree()">
+                <mat-icon>arrow_back</mat-icon>
+            </button>
+            <button class="control next" mat-mini-fab aria-label="Next" (click)="onNextClickFree()">
+                <mat-icon>arrow_forward</mat-icon>
+            </button>
+        </div>
+    </mat-card>
+
+    <mat-card class="carousel-container">
+        <h2>Conteúdo Pago</h2>
+        <div class="carousel">
+            <div class="carousel-inner"
+                [style.transform]="'translateX(-' + (currentIndexPaid * (100 / displayCount)) + '%)'">
+                <mat-card class="carousel-card" *ngFor="let coursepag of coursespag">
+                    <ng-container>
+                        <mat-card-header>
+                            <mat-card-title>{{ coursepag.title }}</mat-card-title>
+                            <mat-card-subtitle class="subtitle">{{ coursepag.subtitle }}</mat-card-subtitle>
+                        </mat-card-header>
+                        <a href="#">
+                            <img mat-card-image [src]="coursepag.img" alt="{{ coursepag.title }}">
+                        </a>
+                        <p>Preço: {{coursepag.price || 'Gratis'}}</p>
+                    </ng-container>
+                </mat-card>
+            </div>
+            <button class="control prev" mat-mini-fab aria-label="Previous" (click)="onPreviousClickPaid()">
+                <mat-icon>arrow_back</mat-icon>
+            </button>
+            <button class="control next" mat-mini-fab aria-label="Next" (click)="onNextClickPaid()">
+                <mat-icon>arrow_forward</mat-icon>
+            </button>
+        </div>
+    </mat-card>
+</div>

@@ -3,7 +3,7 @@
     <mat-sidenav #sidenav class="sidenav" mode="side" opened fixedInViewport="true" fixedTopGap="100">
 
         <mat-list class="mat-list">
-            <a mat-list-item routerLink="/">
+            <a mat-list-item routerLink="/courses-carousel">
                 <i class="material-icons middle">home</i>
                 Home
             </a>
@@ -14,15 +14,6 @@
             <a mat-list-item routerLink="/about-us">
                 <i class="material-icons middle">import_contacts</i>
                 About the author
-            </a>
-            <a mat-list-item routerLink="/cadastro-usuario">
-                <i class="material-icons middle">person</i>
-                Cadastro
-            </a>
-
-            <a mat-list-item routerLink="/login-in">
-                <i class="material-icons middle">person</i>
-                Login
             </a>
 
             <a mat-list-item routerLink="/admin" *ngIf="isAdmin">

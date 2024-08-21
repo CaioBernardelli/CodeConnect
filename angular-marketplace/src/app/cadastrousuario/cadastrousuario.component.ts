@@ -45,7 +45,7 @@ export class CadastrousuarioComponent {
     this.usuarioService.inserir(usuario).subscribe({
       next: (usuarioInserido) => {
         this.usuarios.push(usuarioInserido);
-     //   this.roteador.navigate(['listagem-usuarios']);
+        this.roteador.navigate(['']);
         this.mensagemService.sucesso('Usuário cadastrado com sucesso.');
       },
       error: (err) => this.mensagemService.erro(err.message),

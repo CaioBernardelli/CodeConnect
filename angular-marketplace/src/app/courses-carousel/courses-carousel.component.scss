@@ -1,0 +1,123 @@
+.home{
+    background-color: #f9f9f9;
+  }
+  
+  
+  .carousel {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    overflow: hidden;
+    margin: 0 auto;
+  }
+  
+  .carousel-inner {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+  }
+  
+  mat-card {
+    flex: 0 0 calc(50% / 1);
+    /* Ajuste conforme o displayCount, por exemplo, para 4 cartões visíveis */
+    box-sizing: border-box;
+    padding: 5px;
+    /* Ajuste o padding para diminuir o tamanho do cartão */
+    display: flex;
+  
+    flex-direction: column;
+    align-items: center;
+    /* Altura fixa para todos os cards */
+  }
+  
+  .carousel-container1 {
+    padding-top: 25px;
+    background-color: #f9f9f9;
+  
+  }
+  
+  
+  .carousel-container {
+    padding-bottom: 25px;
+    background-color: #f9f9f9;
+  
+  }
+  
+  mat-card img {
+    transition: transform 0.3s ease-in-out;
+    max-width: 100%;
+    height: auto;
+  }
+  
+  mat-card a:hover img {
+    transform: scale(1.1);
+    /* Ajuste o valor para controlar o quanto a imagem aumenta */
+  }
+  
+  .course-image {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: white;
+    /* Fundo branco */
+    border-radius: 50%;
+    /* Torna o botão arredondado */
+    width: 40px;
+    /* Ajuste o tamanho conforme necessário */
+    height: 40px;
+    /* Ajuste o tamanho conforme necessário */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    /* Sombra opcional */
+  }
+  
+  .control mat-icon {
+    color: #6F42C1;
+    /* Cor da seta */
+  }
+  
+  .prev {
+    left: 10px;
+  }
+  
+  .next {
+    right: 10px;
+  }
+  
+  .control:hover {
+    background-color: #f0f0f0;
+    /* Mudança de cor ao passar o mouse, opcional */
+  }
+  
+  h2 {
+    margin-top: 30px;
+  }
+  
+  /*.carousel-container {
+    border: 2px solid #6F42C1; /* Cor e espessura da borda 
+    padding: 16px; /* Espaçamento interno 
+    top: 10px;
+    border-radius: 8px; /* Cantos arredondados 
+  }*/
+  
+  
+  .carousel-card {
+    border: 2px solid #E6E6FA;
+    /* Cor e espessura da borda */
+    border-radius: 8px;
+    justify-items: center;
+  
+  }
+  
+  
+  .subtitle {
+    padding-left: 16px;
+  
+  
+  }

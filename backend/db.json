@@ -64,6 +64,20 @@
       "email": "gabriel@hotmail.com",
       "idade": "20",
       "senha": "123"
+    },
+    {
+      "id": "8fd7",
+      "nome": "cas",
+      "email": "caio@gmail.com",
+      "idade": "18",
+      "senha": "caio"
+    },
+    {
+      "id": "f20a",
+      "nome": "Caio",
+      "email": "caiojp201@hotmail.com",
+      "idade": "19",
+      "senha": "yy"
     }
   ]
 }
