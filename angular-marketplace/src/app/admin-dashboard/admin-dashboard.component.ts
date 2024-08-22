@@ -4,6 +4,8 @@ import { UsuarioService } from '../checkout/usuario.service';
 import { CheckoutService } from '../checkout/checkout.service';
 import { Usuario } from '../model/usuario';
 import { Course } from '../model/course.model';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -17,6 +19,7 @@ export class AdminDashboardComponent implements OnInit {
   cursos: Course[] = [];
 
   constructor(
+    private router: Router,
     private usuarioService: UsuarioService,
     private checkoutService: CheckoutService
   ) {}
@@ -35,6 +38,10 @@ export class AdminDashboardComponent implements OnInit {
     this.checkoutService.getListCourse().subscribe((cursos) => {
       this.cursos = cursos;
     });
+  }
+
+  adicionarCurso() {
+    this.router.navigate(['/adicionar-curso']); // Redireciona para a página de adicionar curso
   }
 
   editarUsuario(usuario: Usuario) {

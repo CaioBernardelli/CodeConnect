@@ -9,6 +9,7 @@ import { AdminGuard } from './guards/admin.guard';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component'
 import { LayoutComponent } from './layout/layout.component';
 import { CoursesCarouselComponent } from './courses-carousel/courses-carousel.component';
+import { AdicionarCursoComponent } from './adicionar-curso/adicionar-curso.component';
 
 export const routes: Routes = [
    { path: '', component: HomeComponent },//parte de login
@@ -25,6 +26,7 @@ export const routes: Routes = [
 
   { path: 'cadastro-usuario', component: CadastrousuarioComponent },
   { path: 'admin', component: AdminDashboardComponent },
+  { path: 'adicionar-curso', component: AdicionarCursoComponent },
   { path: 'home', component: HomeComponent },
  
 ];
