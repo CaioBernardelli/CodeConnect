@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Course } from '../model/course.model';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { generateUniqueId } from '../Util/id-generator';
 
 @Injectable({
   providedIn: 'root'
@@ -66,6 +67,12 @@ export class CheckoutService {
   
   deleteCourse(id: number): Observable<void> {
     return this.httpClient.delete<void>(`${this.baseUrl}/${id}`);
+  }
+
+  addCourse(course: Course): Observable<Course> {
+    // Gerar um novo ID para o curso
+    const newCourse = { ...course, id: generateUniqueId() };
+    return this.httpClient.post<Course>(this.baseUrl, newCourse);
   }
   
   

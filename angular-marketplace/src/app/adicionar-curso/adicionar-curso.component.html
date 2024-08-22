@@ -1,0 +1,16 @@
+<form (ngSubmit)="adicionarCurso()">
+    <label for="name">Nome:</label>
+    <input id="name" [(ngModel)]="curso.name" name="name" required>
+  
+    <label for="category">Categoria:</label>
+    <input id="category" [(ngModel)]="curso.category" name="category" required>
+  
+    <label for="price">Preço:</label>
+    <input id="price" [(ngModel)]="curso.price" name="price" type="number" required>
+
+    <label for="imgLink">Link Imagem:</label>
+    <input id="imgLink" [(ngModel)]="curso.imgLink" name="imgLink" required>
+  
+    <button type="submit">Adicionar Curso</button>
+  </form>
+  
