@@ -31,67 +31,11 @@
   ],
   "usuarios": [
     {
-      "id": "76c4",
-      "nome": "Caio",
-      "email": "caiobernardelli3@gmail.com",
-      "idade": "20",
-      "senha": "11111"
-    },
-    {
-      "id": "cec6",
-      "nome": "Caio",
-      "email": "caiojp2013@hotmail.com",
-      "idade": "20",
-      "senha": "caiojp123"
-    },
-    {
-      "id": "6017",
-      "nome": "isa",
-      "email": "isajp2013@hotmail.com",
-      "idade": "22",
-      "senha": "1234"
-    },
-    {
       "id": "d5b5",
       "nome": "admin",
       "email": "admin@example.com",
       "idade": "50",
       "senha": "admin"
-    },
-    {
-      "id": "3ec8",
-      "nome": "gabriel",
-      "email": "gabriel@hotmail.com",
-      "idade": "20",
-      "senha": "123"
-    },
-    {
-      "id": "8fd7",
-      "nome": "cas",
-      "email": "caio@gmail.com",
-      "idade": "18",
-      "senha": "caio"
-    },
-    {
-      "id": "f20a",
-      "nome": "Caio",
-      "email": "caiojp201@hotmail.com",
-      "idade": "19",
-      "senha": "yy"
-    },
-    {
-      "id": "30ff",
-      "nome": "Caio Bernardelli",
-      "email": "caio@gmial.com",
-      "idade": "19",
-      "senha": "aa"
-    },
-    {
-      "id": "2a48",
-      "nome": "Caio",
-      "email": "caiojp2013@hoail.com",
-      "idade": "1000",
-      "senha": "12"
     }
   ]
 }
