@@ -19,13 +19,13 @@
   mat-card {
     flex: 0 0 calc(50% / 1);
     /* Ajuste conforme o displayCount, por exemplo, para 4 cartões visíveis */
-    box-sizing: border-box;
+    //box-sizing: border-box;
     padding: 5px;
     /* Ajuste o padding para diminuir o tamanho do cartão */
     display: flex;
   
-    flex-direction: column;
-    align-items: center;
+   // flex-direction: column;
+      align-items: center;
     /* Altura fixa para todos os cards */
   }
   

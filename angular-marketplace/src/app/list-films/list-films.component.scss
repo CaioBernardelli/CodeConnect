@@ -1,18 +1,31 @@
-.card{
+
+.container{
+    display: flex;
+    justify-content: center;
     width: 100%;
+  
+
+
+}
+
+
+.card{
+  width: 100%;
   background-color: #f9f9f9;
-    
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 
 .mat-card-container {
 
-    display: inline-flex;
+    display: flex; //display:inline-flex;
     margin-top: 15px;
     justify-content: center;
-    /* Centraliza horizontalmente os cards */
+    align-items: center;
     flex-wrap: wrap;
-    /* Permite que os cards "quebrem" linha se necessário */
+   
 }
 
 .card-course {
@@ -87,6 +100,7 @@
     margin: 0 auto;
     /* Centraliza horizontalmente */
     width: 50%;
+    border-radius: 10%;
     /* Ajusta a largura do formulário */
 }
 
@@ -130,12 +144,3 @@
 
 }
 
-
-
-.card {
-    display: flex;
-    align-items: center;
-    justify-content: center; 
-  }
-  
- 

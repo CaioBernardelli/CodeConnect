@@ -1,7 +1,7 @@
 .container {
     display: flex;
     height: 100vh;
-    //
+    background-color: #f9f9f9;
     align-items: center;
     justify-content: center;
 
@@ -89,7 +89,7 @@ mat-card-content{
  
   //  width: 110px; /* Largura do botão */
  //   height: 30px; /* Altura do botão */
-   border-radius: 20%; /* Torna o botão circular */
+   border-radius: 10%; /* Torna o botão circular */
   
    
   }
