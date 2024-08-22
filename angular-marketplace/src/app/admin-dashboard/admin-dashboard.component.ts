@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { UsuarioService } from '../checkout/usuario.service';
 import { CheckoutService } from '../checkout/checkout.service';
 import { Usuario } from '../model/usuario';
-import { Course } from '../list-films/course.model';
+import { Course } from '../model/course.model';
 
 @Component({
   selector: 'app-admin-dashboard',
+  standalone: true, // Se for standalone
+  imports: [CommonModule], // Importe o CommonModule diretamente aqui
   templateUrl: './admin-dashboard.component.html',
   styleUrls: ['./admin-dashboard.component.scss']
 })
@@ -13,11 +16,13 @@ export class AdminDashboardComponent implements OnInit {
   usuarios: Usuario[] = [];
   cursos: Course[] = [];
 
-  constructor(private usuarioService: UsuarioService, private checkoutService: CheckoutService) {}
+  constructor(
+    private usuarioService: UsuarioService,
+    private checkoutService: CheckoutService
+  ) {}
 
   ngOnInit(): void {
-    this.carregarUsuarios();
-    this.carregarCursos();
+    // Inicialmente, não carrega nem usuários nem cursos.
   }
 
   carregarUsuarios() {
@@ -32,5 +37,28 @@ export class AdminDashboardComponent implements OnInit {
     });
   }
 
-  // Adicione métodos para editar e remover usuários e cursos
+  editarUsuario(usuario: Usuario) {
+    usuario.nome = prompt('Digite o novo nome:', usuario.nome) || usuario.nome;
+    this.usuarioService.atualizar(usuario).subscribe(() => {
+      this.carregarUsuarios();
+    });
+  }
+  
+
+  removerUsuario(id: string) {
+    this.usuarioService.remover(id).subscribe(() => this.carregarUsuarios());
+  }
+  
+
+  editarCurso(curso: Course) {
+    curso.name = prompt('Digite o novo nome do curso:', curso.name) || curso.name;
+    this.checkoutService.updateCourse(curso).subscribe(() => {
+      this.carregarCursos();
+    });
+  }
+
+  removerCurso(id: number) {
+    this.checkoutService.deleteCourse(id).subscribe(() => this.carregarCursos());
+  }
+  
 }

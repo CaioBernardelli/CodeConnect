@@ -21,7 +21,7 @@ import { RouterModule } from '@angular/router';
 })
 export class LoginInComponent {
   usuarios: Usuario[] = [];
-  usuario: Usuario = {
+  usuario: Usuario = { id: '',
     nome: '', email: '', idade: 0,
     senha: ''
   }; // Propriedade `usuario` adicionada

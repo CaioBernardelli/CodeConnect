@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Course } from '../list-films/course.model'; // Verifique se o caminho do seu modelo está correto
+import { Course } from '../model/course.model'; // Verifique se o caminho do seu modelo está correto
 import { CheckoutService } from '../checkout/checkout.service';
 import { MatCardModule } from '@angular/material/card';
 import { SelectButtonComponent } from '../select-button/select-button.component';

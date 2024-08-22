@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { CheckoutService } from '../checkout/checkout.service';
-import { Course } from './course.model';
+import { Course } from '../model/course.model';
 import { CommonModule } from '@angular/common';
 import { CarouselComponent } from '../carousel/carousel.component';
 import { MatFormFieldModule } from '@angular/material/form-field';

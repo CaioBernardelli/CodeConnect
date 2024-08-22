@@ -1,40 +1,52 @@
 <div class="admin-dashboard">
-    <h2>Gerenciamento de Usuários</h2>
-    <table>
-      <tr>
-        <th>ID</th>
-        <th>Nome</th>
-        <th>Email</th>
-        <th>Ações</th>
-      </tr>
-      <tr *ngFor="let usuario of usuarios">
-        <td>{{ usuario.id }}</td>
-        <td>{{ usuario.nome }}</td>
-        <td>{{ usuario.email }}</td>
-        <td>
-          <button>Editar</button>
-          <button>Remover</button>
-        </td>
-      </tr>
-    </table>
+  <h2>Gerenciamento de Dados</h2>
   
-    <h2>Gerenciamento de Cursos</h2>
-    <table>
-      <tr>
-        <th>ID</th>
-        <th>Nome</th>
-        <th>Preço</th>
-        <th>Ações</th>
-      </tr>
-      <tr *ngFor="let curso of cursos">
-        <td>{{ curso.id }}</td>
-        <td>{{ curso.nome }}</td>
-        <td>{{ curso.preco }}</td>
-        <td>
-          <button>Editar</button>
-          <button>Remover</button>
-        </td>
-      </tr>
-    </table>
+  <!-- Botões para carregar usuários e cursos -->
+  <div class="actions">
+    <button (click)="carregarUsuarios()">Carregar Usuários</button>
+    <button (click)="carregarCursos()">Carregar Cursos</button>
   </div>
-  
+
+  <!-- Tabela de Usuários -->
+  <h3>Gerenciamento de Usuários</h3>
+  <table *ngIf="usuarios.length > 0">
+    <tr>
+      <th>Email</th>
+      <th>Nome</th>
+      <th>Ações</th>
+    </tr>
+    <!-- Substitua o `usuario.email` por `usuario.id` no botão de remover -->
+    <tr *ngFor="let usuario of usuarios">
+      <td>{{ usuario.email }}</td>
+      <td>{{ usuario.nome }}</td>
+      <td>
+        <button (click)="editarUsuario(usuario)">Editar</button>
+        <button (click)="removerUsuario(usuario.id)">Remover</button> <!-- Ajuste aqui -->
+      </td>
+    </tr>
+
+  </table>
+  <p *ngIf="usuarios.length === 0">Nenhum usuário carregado.</p>
+
+  <!-- Tabela de Cursos -->
+  <h3>Gerenciamento de Cursos</h3>
+  <table *ngIf="cursos.length > 0">
+    <tr>
+      <th>Nome</th>
+      <th>Descrição</th>
+      <th>Preço</th>
+      <th>Ações</th>
+    </tr>
+    <tr *ngFor="let curso of cursos">
+      <!-- Certifique-se de que todos os campos necessários existem -->
+      <td>{{ curso.name }}</td>
+      <td>{{ curso.category }}</td>
+      <td>{{ curso.price }}</td>
+      <td>
+        <button (click)="editarCurso(curso)">Editar</button>
+        <button (click)="removerCurso(curso.id)">Remover</button>
+      </td>
+    </tr>
+  </table>
+  <p *ngIf="cursos.length === 0">Nenhum curso carregado.</p>
+</div>

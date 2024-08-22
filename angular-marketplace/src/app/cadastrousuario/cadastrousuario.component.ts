@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -22,7 +22,7 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class CadastrousuarioComponent {
   usuarios: Usuario[] = [];
-  usuario: Usuario = {
+  usuario: Usuario = { id: '',
     nome: '', email: '', idade: 0,
     senha: ''
   }; // Propriedade `usuario` adicionada

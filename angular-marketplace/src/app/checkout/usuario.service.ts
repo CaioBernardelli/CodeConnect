@@ -89,4 +89,21 @@ export class UsuarioService {
   getUsuarioLogadoObservable(): Observable<Usuario | null> {
     return this.usuarioLogado$;
   }
+
+  remover(email: string): Observable<void> {
+    return this.httpClient.delete<void>(`${this.baseUrl}/${email}`);
+  }
+  
+
+  atualizar(usuario: Usuario): Observable<Usuario> {
+    return this.httpClient.put<Usuario>(`${this.baseUrl}/${usuario.id}`, usuario).pipe( // Troquei `email` por `id`
+      catchError((error) => {
+        return throwError(() => new Error(error.message));
+      })
+    );
+  }
+  
+  
+  
+  
 }

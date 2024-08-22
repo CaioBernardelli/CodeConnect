@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Course } from '../list-films/course.model';
+import { Course } from '../model/course.model';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -59,6 +59,16 @@ export class CheckoutService {
     console.log(`Total price after unselecting: ${this.totalPrice}`);
 
   }
+
+  updateCourse(course: Course): Observable<Course> {
+    return this.httpClient.put<Course>(`${this.baseUrl}/${course.id}`, course);
+  }
+  
+  deleteCourse(id: number): Observable<void> {
+    return this.httpClient.delete<void>(`${this.baseUrl}/${id}`);
+  }
+  
+  
 
 
 
