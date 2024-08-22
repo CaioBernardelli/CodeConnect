@@ -36,6 +36,27 @@
       "email": "admin@example.com",
       "idade": "50",
       "senha": "admin"
+    },
+    {
+      "id": "",
+      "nome": "Caio",
+      "email": "caiojp2013@hotmail.com",
+      "idade": "18",
+      "senha": "caio"
+    },
+    {
+      "id": "",
+      "nome": "Caio Bernardelli Quirino",
+      "email": "caio@gm.com",
+      "idade": "19",
+      "senha": "caio1"
+    },
+    {
+      "id": "",
+      "nome": "Caio",
+      "email": "caiojp2013@hol.com",
+      "idade": "19",
+      "senha": "0aa"
     }
   ]
 }
