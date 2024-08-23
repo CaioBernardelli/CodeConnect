@@ -27,14 +27,22 @@
       "category": "Programming",
       "imgLink": "https://cdn.areademembros.com/image?p=instancia_674%2Fimage%2FL3JBx03DanZJEAgePtCfuaX3innGyMlqHVrQWNY4.png&w=550&h=550&t=res&d=default-produto.png&uptkn=da2044befd302d5e9ab81334fad6eeff",
       "price": 59
-    },
+    }
+  ],
+  "usuarios": [
     {
       "id": "d5b5",
       "nome": "admin",
       "email": "admin@example.com",
       "idade": "50",
       "senha": "admin"
+    },
+    {
+      "id": "",
+      "nome": "caio ",
+      "email": "caiojp2013@hotmail.com",
+      "idade": "19",
+      "senha": ""
     }
-  ],
-  "usuarios": []
+  ]
 }
