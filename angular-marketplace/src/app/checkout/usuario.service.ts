@@ -9,11 +9,11 @@ import { Usuario } from '../model/usuario';
 })
 export class UsuarioService {
   private baseUrl: string = "http://localhost:3000/usuarios";
-  private usuarioLogado: Usuario | null = null;
+  private usuarioLogado: Usuario | null = null;//
 
   // Adicione o BehaviorSubject para monitorar o usuário logado
-  private usuarioLogadoSubject = new BehaviorSubject<Usuario | null>(null);
-  usuarioLogado$ = this.usuarioLogadoSubject.asObservable();
+  private usuarioLogadoSubject = new BehaviorSubject<Usuario | null>(null);//
+  usuarioLogado$ = this.usuarioLogadoSubject.asObservable();//
 
   constructor(private httpClient: HttpClient) { }
 
@@ -90,10 +90,11 @@ export class UsuarioService {
     return this.usuarioLogado$;
   }
 
-  remover(email: string): Observable<void> {
-    return this.httpClient.delete<void>(`${this.baseUrl}/${email}`);
+  remover(id: number): Observable<void> {
+    return this.httpClient.delete<void>(`${this.baseUrl}/${id}`);
   }
-  
+
+
 
   atualizar(usuario: Usuario): Observable<Usuario> {
     return this.httpClient.put<Usuario>(`${this.baseUrl}/${usuario.id}`, usuario).pipe( // Troquei `email` por `id`

@@ -1,6 +1,6 @@
 <div class="admin-dashboard">
   <h2>Gerenciamento de Dados</h2>
-  
+
   <!-- Botões para carregar usuários e cursos -->
   <div class="actions">
     <button (click)="carregarUsuarios()">Carregar Usuários</button>
@@ -12,12 +12,14 @@
   <h3>Gerenciamento de Usuários</h3>
   <table *ngIf="usuarios.length > 0">
     <tr>
+      <th>id</th>
       <th>Email</th>
       <th>Nome</th>
       <th>Ações</th>
     </tr>
     <!-- Substitua o `usuario.email` por `usuario.id` no botão de remover -->
     <tr *ngFor="let usuario of usuarios">
+      <td>{{ usuario.id}}</td>
       <td>{{ usuario.email }}</td>
       <td>{{ usuario.nome }}</td>
       <td>

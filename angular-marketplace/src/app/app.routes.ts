@@ -12,23 +12,26 @@ import { CoursesCarouselComponent } from './courses-carousel/courses-carousel.co
 import { AdicionarCursoComponent } from './adicionar-curso/adicionar-curso.component';
 
 export const routes: Routes = [
-   { path: '', component: HomeComponent },//parte de login
-   {
-     path: '',
-   component: LayoutComponent,  // Com layout 
+  { path: '', component: HomeComponent },//parte de login
+  {
+    path: '',
+    component: LayoutComponent,  // Com layout 
     children: [
       { path: 'courses-carousel', component: CoursesCarouselComponent },
-      { path: 'list-films', component: ListFilmsComponent},// canActivate: [AdminGuard] }, // parte de gabriel
+      { path: 'list-films', component: ListFilmsComponent },// canActivate: [AdminGuard] }, // parte de gabriel
       { path: 'about-us', component: AboutUsComponent },
-  ],
+    ],
   },
- 
 
+  {
+    path: 'remover-usuario/:id',
+    component: AdminDashboardComponent
+  },
   { path: 'cadastro-usuario', component: CadastrousuarioComponent },
   { path: 'admin', component: AdminDashboardComponent },
   { path: 'adicionar-curso', component: AdicionarCursoComponent },
   { path: 'home', component: HomeComponent },
- 
+
 ];
 
 @NgModule({

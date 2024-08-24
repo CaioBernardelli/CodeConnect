@@ -8,7 +8,7 @@ import { generateUniqueId } from '../Util/id-generator';
   providedIn: 'root'
 })
 export class CheckoutService {
-  public baseUrl: string = "http://localhost:3000/courses"; // Inicializando corretamente
+  public baseUrl: string = "http://localhost:3000/courses"; 
   public listCurse: Course[] = [];
   public totalPrice: number = 0;
   private _priceHandler: number = 0;
@@ -68,6 +68,7 @@ export class CheckoutService {
   deleteCourse(id: number): Observable<void> {
     return this.httpClient.delete<void>(`${this.baseUrl}/${id}`);
   }
+
 
   addCourse(course: Course): Observable<Course> {
     // Gerar um novo ID para o curso

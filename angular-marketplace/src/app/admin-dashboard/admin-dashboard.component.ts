@@ -52,10 +52,6 @@ export class AdminDashboardComponent implements OnInit {
   }
   
 
-  removerUsuario(id: string) {
-    this.usuarioService.remover(id).subscribe(() => this.carregarUsuarios());
-  }
-  
 
   editarCurso(curso: Course) {
     curso.name = prompt('Digite o novo nome do curso:', curso.name) || curso.name;
@@ -67,5 +63,10 @@ export class AdminDashboardComponent implements OnInit {
   removerCurso(id: number) {
     this.checkoutService.deleteCourse(id).subscribe(() => this.carregarCursos());
   }
+
+  removerUsuario(id: number) {
+    this.usuarioService.remover(id).subscribe(() => this.carregarUsuarios());
+  }
+
   
 }
