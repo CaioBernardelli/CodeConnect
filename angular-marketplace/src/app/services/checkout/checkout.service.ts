@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Course } from '../model/course.model';
+import { Course } from '../../model/course.model';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { generateUniqueId } from '../Util/id-generator';
+import { generateUniqueId } from '../../Util/id-generator';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CheckoutService {
-  public baseUrl: string = "http://localhost:3000/courses"; 
+  public baseUrl: string = "http://localhost:3000/courses";
   public listCurse: Course[] = [];
   public totalPrice: number = 0;
   private _priceHandler: number = 0;
@@ -64,7 +64,7 @@ export class CheckoutService {
   updateCourse(course: Course): Observable<Course> {
     return this.httpClient.put<Course>(`${this.baseUrl}/${course.id}`, course);
   }
-  
+
   deleteCourse(id: number): Observable<void> {
     return this.httpClient.delete<void>(`${this.baseUrl}/${id}`);
   }
@@ -75,8 +75,8 @@ export class CheckoutService {
     const newCourse = { ...course, id: generateUniqueId() };
     return this.httpClient.post<Course>(this.baseUrl, newCourse);
   }
-  
-  
+
+
 
 
 

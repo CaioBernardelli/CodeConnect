@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UsuarioService } from '../checkout/usuario.service';
-import { CheckoutService } from '../checkout/checkout.service';
+import { UsuarioService } from '../services/checkout/usuario.service';
+import { CheckoutService } from '../services/checkout/checkout.service';
 import { Usuario } from '../model/usuario';
 import { Course } from '../model/course.model';
 import { Router } from '@angular/router';
@@ -22,7 +22,7 @@ export class AdminDashboardComponent implements OnInit {
     private router: Router,
     private usuarioService: UsuarioService,
     private checkoutService: CheckoutService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     // Inicialmente, não carrega nem usuários nem cursos.
@@ -50,7 +50,7 @@ export class AdminDashboardComponent implements OnInit {
       this.carregarUsuarios();
     });
   }
-  
+
 
 
   editarCurso(curso: Course) {
@@ -68,5 +68,5 @@ export class AdminDashboardComponent implements OnInit {
     this.usuarioService.remover(id).subscribe(() => this.carregarUsuarios());
   }
 
-  
+
 }

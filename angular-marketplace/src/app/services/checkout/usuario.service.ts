@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { BehaviorSubject, Observable, throwError } from "rxjs";
 import { catchError, map, mergeMap } from "rxjs/operators";
-import { Usuario } from '../model/usuario';
+import { Usuario } from '../../model/usuario';
 
 @Injectable({
   providedIn: 'root'
@@ -74,7 +74,7 @@ export class UsuarioService {
       })
     );
   }
-  
+
 
   getUsuarioLogado(): Usuario | null {
     return this.usuarioLogado;
@@ -103,8 +103,8 @@ export class UsuarioService {
       })
     );
   }
-  
-  
-  
-  
+
+
+
+
 }

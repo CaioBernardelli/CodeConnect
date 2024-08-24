@@ -4,7 +4,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common'; // Importe o CommonModule
-import { UsuarioService } from '../checkout/usuario.service';
+import { UsuarioService } from '../services/checkout/usuario.service';
 
 @Component({
   selector: 'app-nav',

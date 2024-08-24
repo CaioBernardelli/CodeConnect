@@ -5,12 +5,12 @@ import { RouterModule, Router } from '@angular/router';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { MatBadgeModule } from '@angular/material/badge';
-import { UsuarioService } from '../checkout/usuario.service';
-
+import { UsuarioService } from '../services/checkout/usuario.service';
+import { NotificationListComponent } from '../notification-list/notification-list.component';
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [MatToolbarModule, MatIconModule, RouterModule, MatButtonModule, MatMenuModule, MatBadgeModule],
+  imports: [MatToolbarModule, MatIconModule, RouterModule, MatButtonModule, MatMenuModule, MatBadgeModule, NotificationListComponent],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
@@ -21,5 +21,5 @@ export class HeaderComponent {
     this.hidden = !this.hidden;
   }
 
-  
+
 }

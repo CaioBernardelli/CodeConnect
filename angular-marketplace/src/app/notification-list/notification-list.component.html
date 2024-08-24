@@ -1,0 +1,16 @@
+<mat-menu #notificationsMenu="matMenu">
+    <ng-container *ngIf="notifications.length > 0; else noNotifications">
+      <button mat-menu-item *ngFor="let notification of notifications">
+        <mat-icon>notifications</mat-icon>
+        <span>{{ notification.message }}</span>
+        <small>{{ notification.date}}</small>
+      </button>
+    </ng-container>
+    <ng-template #noNotifications>
+      <button mat-menu-item>
+        <mat-icon>notifications_off</mat-icon>
+        <span>No notifications available</span>
+      </button>
+    </ng-template>
+  </mat-menu>
+  

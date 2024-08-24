@@ -1,0 +1,6 @@
+:host {
+    display: block;
+    width: 100%; // Largura mínima para o conteúdo
+    height: auto; // Altura máxima para o conteúdo
+    overflow-y: auto; // Adicionar rolagem vertical
+}

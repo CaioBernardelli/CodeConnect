@@ -5,23 +5,24 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { Usuario } from '../model/usuario';
 import { MatInputModule } from '@angular/material/input';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MensagemSweetService } from '../checkout/mensagem-sweet.service';
-import { UsuarioService } from '../checkout/usuario.service';
+import { MensagemSweetService } from '../services/checkout/mensagem-sweet.service';
+import { UsuarioService } from '../services/checkout/usuario.service';
 import { FormsModule } from '@angular/forms';
-import {MatButtonModule} from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-login-in',
   standalone: true,
-  imports: [RouterModule,MatIconModule,MatButtonModule,FormsModule, MatCardModule, MatFormFieldModule, ReactiveFormsModule, MatInputModule],
+  imports: [RouterModule, MatIconModule, MatButtonModule, FormsModule, MatCardModule, MatFormFieldModule, ReactiveFormsModule, MatInputModule],
   templateUrl: './login-in.component.html',
   styleUrl: './login-in.component.scss'
 })
 export class LoginInComponent {
   usuarios: Usuario[] = [];
-  usuario: Usuario = { id: 0,
+  usuario: Usuario = {
+    id: 0,
     nome: '', email: '', idade: 0,
     senha: ''
   }; // Propriedade `usuario` adicionada
@@ -39,7 +40,7 @@ export class LoginInComponent {
     });
   }
 
- 
+
   logar(email: string, senha: string) {
     this.usuarioService.autenticar(email, senha).subscribe({
       next: (usuario) => {

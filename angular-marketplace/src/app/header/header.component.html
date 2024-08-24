@@ -9,11 +9,8 @@
             <mat-icon matBadge="15" matBadgeColor="primary">notifications</mat-icon>
         </a>
         <mat-menu #notificationsMenu="matMenu">
-            <button mat-menu-item>
-                <mat-icon>notifications_off</mat-icon>
-                <span>Disable alerts</span>
-            </button>
-        </mat-menu>
+            <app-notification-list></app-notification-list>
+          </mat-menu>
         <a mat-icon-button [matMenuTriggerFor]="profileMenu" aria-label="Profile menu">
             <mat-icon>account_circle</mat-icon>
         </a>

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { CheckoutService } from '../checkout/checkout.service';
+import { CheckoutService } from '../services/checkout/checkout.service';
 import { Course } from '../model/course.model';
 import { FormsModule } from '@angular/forms'; // Importar FormsModule
 
