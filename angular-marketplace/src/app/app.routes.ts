@@ -10,6 +10,7 @@ import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.compo
 import { LayoutComponent } from './layout/layout.component';
 import { CoursesCarouselComponent } from './courses-carousel/courses-carousel.component';
 import { AdicionarCursoComponent } from './adicionar-curso/adicionar-curso.component';
+import { NotificationListComponent } from './notification-list/notification-list.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },//parte de login
@@ -31,6 +32,11 @@ export const routes: Routes = [
   { path: 'admin', component: AdminDashboardComponent },
   { path: 'adicionar-curso', component: AdicionarCursoComponent },
   { path: 'home', component: HomeComponent },
+  // Adicione uma rota para teste
+  { path: 'notifications', component: NotificationListComponent },
+  // outras rotas...
+
+
 
 ];
 

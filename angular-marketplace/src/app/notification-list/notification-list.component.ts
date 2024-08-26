@@ -17,10 +17,17 @@ export class NotificationListComponent implements OnInit { // Implementado OnIni
 
   constructor(private notificationService: NotificationService) {}
 
+ // ngOnInit(): void {
+ //   this.notificationService.listar().subscribe({
+  //    next: (notificationsRetornados) => this.notifications = notificationsRetornados,
+    //  error: (err) => console.error('Erro ao carregar notificações', err) // Incluído tratamento de erro
+  //  });
+ // }
+
   ngOnInit(): void {
-    this.notificationService.listar().subscribe({
-      next: (notificationsRetornados) => this.notifications = notificationsRetornados,
-      error: (err) => console.error('Erro ao carregar notificações', err) // Incluído tratamento de erro
-    });
-  }
-}
+    this.notificationService.listar().subscribe((notification) => {
+        this.notifications = notification;
+        
+
+    })
+  }}

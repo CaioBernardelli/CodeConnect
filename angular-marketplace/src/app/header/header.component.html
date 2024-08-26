@@ -5,12 +5,24 @@
     </div>
     <span class="spacer"></span> <!-- Espaçador para empurrar os ícones para a direita -->
     <span class="iconsimport">
+        
+        
+        
         <a mat-icon-button [matMenuTriggerFor]="notificationsMenu" aria-label="Notifications">
-            <mat-icon matBadge="15" matBadgeColor="primary">notifications</mat-icon>
-        </a>
-        <mat-menu #notificationsMenu="matMenu">
-            <app-notification-list></app-notification-list>
-          </mat-menu>
+            <mat-icon matBadge="{{notifications.length}} " matBadgeColor="primary">notifications</mat-icon>
+          </a>
+
+
+
+          <mat-menu #notificationsMenu="matMenu">
+            <app-notification-list></app-notification-list> <!-- Coloque o componente aqui -->
+        </mat-menu>
+
+
+
+
+
+
         <a mat-icon-button [matMenuTriggerFor]="profileMenu" aria-label="Profile menu">
             <mat-icon>account_circle</mat-icon>
         </a>

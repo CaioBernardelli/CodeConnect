@@ -7,6 +7,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatBadgeModule } from '@angular/material/badge';
 import { UsuarioService } from '../services/checkout/usuario.service';
 import { NotificationListComponent } from '../notification-list/notification-list.component';
+import { NotificationService } from '../services/checkout/notification.service';
+import { Notification } from '../model/notificaton';
 @Component({
   selector: 'app-header',
   standalone: true,
@@ -15,11 +17,16 @@ import { NotificationListComponent } from '../notification-list/notification-lis
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-  hidden = false;
+  notifications: Notification[] = []; // Corrigido para 'notifications'
 
-  toggleBadgeVisibility() {
-    this.hidden = !this.hidden;
-  }
+  constructor(private notificationService: NotificationService) {
 
+    this.notificationService.listar().subscribe((notification) => {
+      this.notifications = notification;
+      
+
+  });
 
 }
+}
+

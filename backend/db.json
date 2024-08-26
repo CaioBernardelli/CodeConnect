@@ -38,9 +38,16 @@
       "senha": "admin"
     }
   ],
-  
-    "notifications": [
-      { "id": 1, "message": "New user signed up!", "date": "2024-08-24T10:00:00" },
-      { "id": 2, "message": "Server maintenance at midnight.", "date": "2024-08-23T21:00:00" }
-    ]
+  "notifications": [
+    {
+      "id": "1",
+      "message": "Curso novo lançado!",
+      "date": "2024-08-24T10:00:00"
+    },
+    {
+      "id": "2",
+      "message": "Venha conhecer as promoções.",
+      "date": "2024-08-23T21:00:00"
+    }
+  ]
 }
