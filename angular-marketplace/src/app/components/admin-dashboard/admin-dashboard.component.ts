@@ -65,7 +65,7 @@ export class AdminDashboardComponent implements OnInit {
     this.checkoutService.deleteCourse(id).subscribe(() => this.carregarCursos());
   }
 
-  removerUsuario(id: number) {
+  removerUsuario(id: string) {
     this.usuarioService.remover(id).subscribe(() => this.carregarUsuarios());
   }
 

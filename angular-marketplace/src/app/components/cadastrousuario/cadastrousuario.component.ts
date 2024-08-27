@@ -8,7 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatHint } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ActivatedRoute, Router } from '@angular/router';
-import { generateUniqueId } from '../../Util/id-generator';
+import { generateUniqueId } from '../../Util/id-gerate';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -26,7 +26,7 @@ import { Usuario } from '../../model/usuario';
 export class CadastrousuarioComponent {
   usuarios: Usuario[] = [];
   usuario: Usuario = {
-    id: 0,
+    id: '',
     nome: '', email: '', idade: 0,
     senha: ''
   }; // Propriedade `usuario` adicionada
@@ -44,20 +44,25 @@ export class CadastrousuarioComponent {
     });
   }
 
-  inserir(usuario: Usuario) {
-    try {
-      usuario.id = generateUniqueId();
-      this.usuarioService.inserir(usuario).subscribe({
-        next: (usuarioInserido) => {
+ inserir(usuario: Usuario) {
+  try {
+
+    usuario.id = generateUniqueId();
+    this.usuarioService.inserir(usuario).subscribe({
+      next: (usuarioInserido) => {
+        if (usuarioInserido && usuarioInserido.id) {  // Verifica se o ID está presente
           this.usuarios.push(usuarioInserido);
           this.roteador.navigate(['']);
           this.mensagemService.sucesso('Usuário cadastrado com sucesso.');
-        },
-        error: (err) => this.mensagemService.erro(err.message),
-      });
-    } catch (e: any) {
-      this.mensagemService.erro(e.message);  // Captura a exceção e exibe a mensagem de erro
-    }
+        } else {
+          this.mensagemService.erro('Erro ao cadastrar usuário: ID não gerado.');
+        }
+      },
+      error: (err) => this.mensagemService.erro(`Erro ao cadastrar usuário: ${err.message}`),
+    });
+  } catch (e: any) {
+    this.mensagemService.erro(`Erro inesperado: ${e.message}`);  // Captura a exceção e exibe a mensagem de erro
   }
+}
 
 }

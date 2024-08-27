@@ -90,8 +90,14 @@ export class UsuarioService {
     return this.usuarioLogado$;
   }
 
-  remover(id: number): Observable<void> {
-    return this.httpClient.delete<void>(`${this.baseUrl}/${id}`);
+  remover(id: string): Observable<void> {
+    console.log(`Removendo usuário com ID: ${id}`); // Adicione este log para verificar o ID
+    return this.httpClient.delete<void>(`${this.baseUrl}/${id}`).pipe(
+      catchError((error) => {
+        console.error(`Erro ao remover usuário com ID: ${id}`, error);
+        return throwError(() => new Error(error.message));
+      })
+    );
   }
 
 

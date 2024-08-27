@@ -1,11 +1,11 @@
 export class Usuario {
-  id: number;
+  id: string;
   nome: string;
   email: string;
   idade: number;
   senha: string;
 
-  constructor(id: number, nome: string, email: string, idade: number, senha: string,) {
+  constructor(id: string, nome: string, email: string, idade: number, senha: string,) {
     this.id = id;
     this.nome = nome;
     this.email = email;

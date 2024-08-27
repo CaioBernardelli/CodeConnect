@@ -23,7 +23,7 @@ import { UsuarioService } from '../../services/checkout/usuario.service';
 export class LoginInComponent {
   usuarios: Usuario[] = [];
   usuario: Usuario = {
-    id: 0,
+    id:'',
     nome: '', email: '', idade: 0,
     senha: ''
   }; // Propriedade `usuario` adicionada
