@@ -6,6 +6,7 @@ import { Course } from '../../model/course.model';
 import { Router } from '@angular/router';
 import { UsuarioService } from '../../services/checkout/usuario.service';
 import { CheckoutService } from '../../services/checkout/checkout.service';
+import { RouterLink } from '@angular/router';
 
 
 @Component({
@@ -69,5 +70,10 @@ export class AdminDashboardComponent implements OnInit {
     this.usuarioService.remover(id).subscribe(() => this.carregarUsuarios());
   }
 
-
+  voltarParaHome() {
+    this.router.navigate(['/']);
+  }
+  voltarParaInicio() {
+    this.router.navigate(['/courses-carousel']);
+  }
 }

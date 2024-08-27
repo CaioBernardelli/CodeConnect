@@ -19,18 +19,17 @@ export const routes: Routes = [
     component: LayoutComponent,  // Com layout 
     children: [
       { path: 'courses-carousel', component: CoursesCarouselComponent },
-      { path: 'list-films', component: ListFilmsComponent },// canActivate: [AdminGuard] }, // parte de gabriel
+      { path: 'list-films', component: ListFilmsComponent },
       { path: 'about-us', component: AboutUsComponent },
+   
     ],
   },
 
-  {
-    path: 'remover-usuario/:id',
-    component: AdminDashboardComponent
-  },
+
+
+  { path: 'admin', component: AdminDashboardComponent, canActivate: [AdminGuard] },
   { path: 'cadastro-usuario', component: CadastrousuarioComponent },
-  { path: 'admin', component: AdminDashboardComponent },
-  { path: 'adicionar-curso', component: AdicionarCursoComponent },
+  { path: 'adicionar-curso', component: AdicionarCursoComponent, },
   { path: 'home', component: HomeComponent },
   // Adicione uma rota para teste
   { path: 'notifications', component: NotificationListComponent },
