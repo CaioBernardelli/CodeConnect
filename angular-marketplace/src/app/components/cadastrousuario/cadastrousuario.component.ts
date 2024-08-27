@@ -26,7 +26,7 @@ import { Usuario } from '../../model/usuario';
 export class CadastrousuarioComponent {
   usuarios: Usuario[] = [];
   usuario: Usuario = {
-    id: 1,
+    id: 0,
     nome: '', email: '', idade: 0,
     senha: ''
   }; // Propriedade `usuario` adicionada

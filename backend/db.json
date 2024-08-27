@@ -36,20 +36,6 @@
       "email": "admin@example.com",
       "idade": "50",
       "senha": "admin"
-    },
-    {
-      "id": 1,
-      "nome": "Caio",
-      "email": "caio2013@htmail.com",
-      "idade": "34",
-      "senha": "3434"
-    },
-    {
-      "id": 3,
-      "nome": "rwerwer",
-      "email": "admin@mple.com",
-      "idade": "45",
-      "senha": "erer"
     }
   ],
   "notifications": [
@@ -61,6 +47,11 @@
     {
       "id": "2",
       "message": "Venha conhecer as promoções.",
+      "date": "2024-08-23T21:00:00"
+    },
+    {
+      "id": "3",
+      "message": "Hoje e dia.",
       "date": "2024-08-23T21:00:00"
     }
   ]
