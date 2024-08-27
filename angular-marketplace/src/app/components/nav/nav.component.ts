@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common'; // Importe o CommonModule
 import { UsuarioService } from '../../services/checkout/usuario.service';
 
+
 @Component({
   selector: 'app-nav',
   standalone: true,

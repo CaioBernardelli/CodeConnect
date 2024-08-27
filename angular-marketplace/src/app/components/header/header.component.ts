@@ -5,10 +5,10 @@ import { RouterModule, Router } from '@angular/router';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { MatBadgeModule } from '@angular/material/badge';
-import { UsuarioService } from '../../services/checkout/usuario.service';
 import { NotificationListComponent } from '../notification-list/notification-list.component';
-import { NotificationService } from '../../services/checkout/notification.service';
+
 import { Notification } from '../../model/notificaton';
+import { NotificationService } from '../../services/checkout/notification.service';
 @Component({
   selector: 'app-header',
   standalone: true,

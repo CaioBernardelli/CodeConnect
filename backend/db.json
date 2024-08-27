@@ -40,9 +40,16 @@
     {
       "id": 1,
       "nome": "Caio",
-      "email": "caiojp2013@hotmail.com",
-      "idade": "23",
-      "senha": "19"
+      "email": "caio2013@htmail.com",
+      "idade": "34",
+      "senha": "3434"
+    },
+    {
+      "id": 3,
+      "nome": "rwerwer",
+      "email": "admin@mple.com",
+      "idade": "45",
+      "senha": "erer"
     }
   ],
   "notifications": [

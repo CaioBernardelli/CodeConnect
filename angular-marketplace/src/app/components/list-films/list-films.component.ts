@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
 import { RouterModule } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
-import { CheckoutService } from '../../services/checkout/checkout.service';
 import { Course } from '../../model/course.model';
 import { CommonModule } from '@angular/common';
 import { CarouselComponent } from '../carousel/carousel.component';
@@ -10,6 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { SelectButtonComponent } from '../select-button/select-button.component';
 import { MatIconModule } from '@angular/material/icon';
+import { CheckoutService } from '../../services/checkout/checkout.service';
 @Component({
     selector: 'app-list-films',
     standalone: true,

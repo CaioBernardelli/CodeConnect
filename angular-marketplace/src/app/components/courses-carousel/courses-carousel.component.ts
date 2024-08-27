@@ -2,13 +2,13 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { CarouselComponent } from '../carousel/carousel.component';
-import { FooterComponent } from './footer/footer.component';
+import { FooterComponent } from '../footer/footer.component';
 import { MatCardModule } from '@angular/material/card';
 import { NotificationListComponent } from "../notification-list/notification-list.component";
 @Component({
   selector: 'app-courses-carousel',
   standalone: true,
-  imports: [MatCardModule, CommonModule, MatIconModule, CarouselComponent, FooterComponent, NotificationListComponent],
+  imports: [MatCardModule, CommonModule, MatIconModule, CarouselComponent, FooterComponent],
   templateUrl: './courses-carousel.component.html',
   styleUrl: './courses-carousel.component.scss'
 })

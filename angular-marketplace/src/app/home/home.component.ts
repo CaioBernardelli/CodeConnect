@@ -5,12 +5,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { Usuario } from '../model/usuario';
 import { MatInputModule } from '@angular/material/input';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MensagemSweetService } from '../services/checkout/mensagem-sweet.service';
-import { UsuarioService } from '../services/checkout/usuario.service';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
+import { MensagemSweetService } from '../services/checkout/mensagem-sweet.service';
+import { UsuarioService } from '../services/checkout/usuario.service';
 
 @Component({
   selector: 'app-home',

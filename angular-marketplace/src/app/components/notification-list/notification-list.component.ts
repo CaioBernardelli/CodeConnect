@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Notification } from '../../model/notificaton';
-import { NotificationService } from '../../services/checkout/notification.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { CommonModule } from '@angular/common';
+import { NotificationService } from '../../services/checkout/notification.service';
 
 @Component({
   selector: 'app-notification-list',

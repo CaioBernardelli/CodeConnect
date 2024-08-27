@@ -3,7 +3,7 @@ import { appConfig } from './app/app.config';
 import { AppComponent } from './app/app.component';
 import { HeaderComponent } from './app/components/header/header.component';
 import { NavComponent } from './app/components/nav/nav.component';
-import { FooterComponent } from './app/components/courses-carousel/footer/footer.component';
+import { FooterComponent } from './app/components/footer/footer.component';
 import { provideRouter } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
 import { routes } from './app/app.routes';

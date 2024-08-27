@@ -4,16 +4,17 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
-import { Usuario } from '../../model/usuario';
+
 import { MatHint } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MensagemSweetService } from '../../services/checkout/mensagem-sweet.service';
-import { UsuarioService } from '../../services/checkout/usuario.service';
+import { generateUniqueId } from '../../Util/id-generator';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { generateUniqueId } from '../../Util/id-generator';
+import { MensagemSweetService } from '../../services/checkout/mensagem-sweet.service';
+import { UsuarioService } from '../../services/checkout/usuario.service';
+import { Usuario } from '../../model/usuario';
 
 @Component({
   selector: 'app-cadastrousuario',
@@ -25,7 +26,7 @@ import { generateUniqueId } from '../../Util/id-generator';
 export class CadastrousuarioComponent {
   usuarios: Usuario[] = [];
   usuario: Usuario = {
-    id: 0,
+    id: 1,
     nome: '', email: '', idade: 0,
     senha: ''
   }; // Propriedade `usuario` adicionada
