@@ -4,3 +4,10 @@
     height: auto; // Altura máxima para o conteúdo
     overflow-y: auto; // Adicionar rolagem vertical
 }
+
+
+.notification-container{
+    display: flex;
+    flex-direction: column;
+
+}

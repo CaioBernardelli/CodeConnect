@@ -36,6 +36,13 @@
       "email": "admin@example.com",
       "idade": "50",
       "senha": "admin"
+    },
+    {
+      "id": 1,
+      "nome": "Caio",
+      "email": "caiojp2013@hotmail.com",
+      "idade": "23",
+      "senha": "19"
     }
   ],
   "notifications": [
