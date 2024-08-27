@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UsuarioService } from '../services/checkout/usuario.service';
-import { CheckoutService } from '../services/checkout/checkout.service';
-import { Usuario } from '../model/usuario';
-import { Course } from '../model/course.model';
+import { UsuarioService } from '../../services/checkout/usuario.service';
+import { CheckoutService } from '../../services/checkout/checkout.service';
+import { Usuario } from '../../model/usuario';
+import { Course } from '../../model/course.model';
 import { Router } from '@angular/router';
 
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Course } from '../model/course.model'; // Verifique se o caminho do seu modelo está correto
-import { CheckoutService } from '../services/checkout/checkout.service';
+import { Course } from '../../model/course.model'; // Verifique se o caminho do seu modelo está correto
+import { CheckoutService } from '../../services/checkout/checkout.service';
 import { MatCardModule } from '@angular/material/card';
 import { SelectButtonComponent } from '../select-button/select-button.component';
 import { HttpClient } from '@angular/common/http'; // Importe o HttpClient para fazer requisições HTTP

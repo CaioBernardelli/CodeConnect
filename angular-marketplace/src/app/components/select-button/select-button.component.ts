@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { CheckoutService } from '../services/checkout/checkout.service';
+import { CheckoutService } from '../../services/checkout/checkout.service';
 @Component({
   selector: 'app-select-button',
   standalone: true,
