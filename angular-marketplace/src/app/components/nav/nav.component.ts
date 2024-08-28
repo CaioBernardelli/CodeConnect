@@ -18,8 +18,8 @@ export class NavComponent {
   isAdmin: boolean = false;
 
   constructor(public usuarioService: UsuarioService) {
-    this.usuarioService.getUsuarioLogadoObservable().subscribe((usuario) => {
-      this.isAdmin = usuario?.email === 'admin@example.com';
+    this.usuarioService.isAdmin().subscribe(isAdmin => {
+      this.isAdmin = isAdmin;
     });
   }
 }

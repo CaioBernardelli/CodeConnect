@@ -12,8 +12,8 @@ export class UsuarioService {
   private usuarioLogado: Usuario | null = null;//
 
   // Adicione o BehaviorSubject para monitorar o usuário logado
-  private usuarioLogadoSubject = new BehaviorSubject<Usuario | null>(null);//
-  usuarioLogado$ = this.usuarioLogadoSubject.asObservable();//
+  private usuarioLogadoSubject = new BehaviorSubject<Usuario | null>(null);// mantém o valor atual e o emite a novos assinantes.
+  usuarioLogado$ = this.usuarioLogadoSubject.asObservable();//Um BehaviorSubject para monitorar o usuário logado e permitir a atualização de forma reativa.
 
   constructor(private httpClient: HttpClient) { }
 
@@ -34,6 +34,8 @@ export class UsuarioService {
     );
   }
 
+
+  // Validações Inserir 
   private validarMaiorIdade(usuario: Usuario) {
     if (usuario.idade < 18) {
       throw new Error('Usuário não pode ser menor de idade!');
@@ -64,9 +66,10 @@ export class UsuarioService {
         if (usuarios.length === 0 || usuarios[0].senha !== senha) {
           throw new Error('Email ou senha incorretos');
         }
-        this.usuarioLogado = usuarios[0];
+
+        // Se o usuário estiiver logado
+        this.usuarioLogado = usuarios[0]; // atribua o usuário retornado a o logado
         this.usuarioLogadoSubject.next(this.usuarioLogado); // Atualiza o BehaviorSubject
-        console.log('Usuário autenticado:', this.usuarioLogado); // Verifique se o usuário correto está sendo autenticado
         return usuarios[0];
       }),
       catchError(error => {
@@ -76,25 +79,9 @@ export class UsuarioService {
   }
 
 
-  getUsuarioLogado(): Usuario | null {
-    return this.usuarioLogado;
-  }
-
-  logout(): void {
-    this.usuarioLogado = null;
-    this.usuarioLogadoSubject.next(null); // Atualiza o BehaviorSubject
-  }
-
-  // Método que retorna o Observable do BehaviorSubject
-  getUsuarioLogadoObservable(): Observable<Usuario | null> {
-    return this.usuarioLogado$;
-  }
-
   remover(id: string): Observable<void> {
-    console.log(`Removendo usuário com ID: ${id}`); // Adicione este log para verificar o ID
     return this.httpClient.delete<void>(`${this.baseUrl}/${id}`).pipe(
       catchError((error) => {
-        console.error(`Erro ao remover usuário com ID: ${id}`, error);
         return throwError(() => new Error(error.message));
       })
     );
@@ -110,6 +97,29 @@ export class UsuarioService {
     );
   }
 
+//
+  isAdmin(): Observable<boolean> {  // vai fazer a 
+    return this.usuarioLogado$.pipe(
+      map(usuario => usuario?.email === 'admin@example.com')
+    );
+  }
+
+//
+  getUsuarioLogado(): Usuario | null {//Pode ser usado quando você deseja acessar diretamente o valor do usuário logado sem se inscrever em um Observable.
+    return this.usuarioLogado;        // Para proxima entrega
+  }
+
+  logout(): void {
+    this.usuarioLogado = null;            // Para proxima entrega 
+    this.usuarioLogadoSubject.next(null); // Atualiza o BehaviorSubject
+    // Define o usuário logado como null e notifica todos os assinantes do BehaviorSubject que o usuário foi desconectado.
+  }
+//Retorna o Observable do BehaviorSubject para que outros componentes possam se inscrever e reagir a mudanças no usuário logado.
+  getUsuarioLogadoObservable(): Observable<Usuario | null> {     //Permite a reatividade em componentes 
+    return this.usuarioLogado$;
+  }
+
+ 
 
 
 
