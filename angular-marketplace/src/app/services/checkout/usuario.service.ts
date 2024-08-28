@@ -9,11 +9,13 @@ import { Usuario } from '../../model/usuario';
 })
 export class UsuarioService {
   private baseUrl: string = "http://localhost:3000/usuarios";
-  private usuarioLogado: Usuario | null = null;//
+  public usuarioLogado: Usuario | null = null;
 
+
+  // Tentar utilizar na proxima entrega 
   // Adicione o BehaviorSubject para monitorar o usuário logado
-  private usuarioLogadoSubject = new BehaviorSubject<Usuario | null>(null);// mantém o valor atual e o emite a novos assinantes.
-  usuarioLogado$ = this.usuarioLogadoSubject.asObservable();//Um BehaviorSubject para monitorar o usuário logado e permitir a atualização de forma reativa.
+  //private usuarioLogadoSubject = new BehaviorSubject<Usuario | null>(null);// mantém o valor atual e o emite a novos assinantes.
+  //usuarioLogado$ = this.usuarioLogadoSubject.asObservable();//Um BehaviorSubject para monitorar o usuário logado e permitir a atualização de forma reativa.
 
   constructor(private httpClient: HttpClient) { }
 
@@ -66,10 +68,10 @@ export class UsuarioService {
         if (usuarios.length === 0 || usuarios[0].senha !== senha) {
           throw new Error('Email ou senha incorretos');
         }
-
+       
         // Se o usuário estiiver logado
-        this.usuarioLogado = usuarios[0]; // atribua o usuário retornado a o logado
-        this.usuarioLogadoSubject.next(this.usuarioLogado); // Atualiza o BehaviorSubject
+        this.usuarioLogado = usuarios[0]; // atribua o usuário(em forma de array) ao usuarioLogado.
+        //this.usuarioLogadoSubject.next(this.usuarioLogado); // Atualiza o BehaviorSubject
         return usuarios[0];
       }),
       catchError(error => {
@@ -77,6 +79,12 @@ export class UsuarioService {
       })
     );
   }
+
+
+  isAdmin(): boolean { // Método que verifica se o usuário logado é um admin
+    return this.usuarioLogado?.email === 'admin@example.com';
+  }
+
 
 
   remover(id: string): Observable<void> {
@@ -98,11 +106,7 @@ export class UsuarioService {
   }
 
 //
-  isAdmin(): Observable<boolean> {  // vai fazer a 
-    return this.usuarioLogado$.pipe(
-      map(usuario => usuario?.email === 'admin@example.com')
-    );
-  }
+  
 
 //
   getUsuarioLogado(): Usuario | null {//Pode ser usado quando você deseja acessar diretamente o valor do usuário logado sem se inscrever em um Observable.
@@ -110,17 +114,14 @@ export class UsuarioService {
   }
 
   logout(): void {
-    this.usuarioLogado = null;            // Para proxima entrega 
-    this.usuarioLogadoSubject.next(null); // Atualiza o BehaviorSubject
+  //  this.usuarioLogado = null;            // Para proxima entrega 
+   // this.usuarioLogadoSubject.next(null); // Atualiza o BehaviorSubject
     // Define o usuário logado como null e notifica todos os assinantes do BehaviorSubject que o usuário foi desconectado.
   }
 //Retorna o Observable do BehaviorSubject para que outros componentes possam se inscrever e reagir a mudanças no usuário logado.
-  getUsuarioLogadoObservable(): Observable<Usuario | null> {     //Permite a reatividade em componentes 
-    return this.usuarioLogado$;
+ // getUsuarioLogadoObservable(): Observable<Usuario | null> {     //Permite a reatividade em componentes 
+   // return this.usuarioLogado$;
   }
 
  
 
-
-
-}

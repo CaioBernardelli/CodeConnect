@@ -18,8 +18,11 @@ export class NavComponent {
   isAdmin: boolean = false;
 
   constructor(public usuarioService: UsuarioService) {
-    this.usuarioService.isAdmin().subscribe(isAdmin => {
-      this.isAdmin = isAdmin;
-    });
+    this.isAdmin = this.usuarioService.isAdmin();
+   
+   
+    //this.usuarioService.isAdmin().subscribe(isAdmin => {
+     // this.isAdmin = isAdmin;
+ //   });
   }
 }
