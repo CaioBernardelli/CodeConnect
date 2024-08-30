@@ -14,7 +14,8 @@
                             <mat-card-subtitle class="subtitle">{{ course.subtitle }}</mat-card-subtitle>
                         </mat-card-header>
                         <a href="#">
-                            <img class="course-image" [src]="course.img" alt="{{ course.title }}">
+                            <img class="course-image" [src]="course.img" alt="{{ course.title }}"
+                            height="200px">
                         </a>
                         <p>Preço: {{course.price || 'Gratis'}}</p>
                     </ng-container>

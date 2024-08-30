@@ -14,7 +14,7 @@ import { NotificationListComponent } from "../notification-list/notification-lis
 })
 export class CoursesCarouselComponent {
   public courses: any[] = [
-    { title: 'Introdução ao Excel', subtitle: 'Aprenda Excel do zero', description: 'Curso completo para iniciantes.', paid: false, img: 'assets/img/catalogocursos-removebg-preview.png' },
+    { title: 'Introdução ao Excel', subtitle: 'Aprenda Excel do zero', description: 'Curso completo para iniciantes.', paid: false, img: 'assets/img/AEsf7a6J2NEbmqX30vSFIF4INQVpAY80zZN7paS4-550x550-resized.png' },
     { title: 'Introdução ao Word', subtitle: 'Aprenda Word do zero', description: 'Curso completo para iniciantes.', paid: false, img: 'assets/img/catalogocursos-removebg-preview.png' },
     { title: 'Introdução ao PowerPoint', subtitle: 'Aprenda PowerPoint do zero', description: 'Curso completo para iniciantes.', paid: false, img: 'assets/img/catalogocursos-removebg-preview.png' },
     { title: 'Introdução ao Access', subtitle: 'Aprenda Access do zero', description: 'Curso completo para iniciantes.', paid: false, img: 'assets/img/catalogocursos-removebg-preview.png' },

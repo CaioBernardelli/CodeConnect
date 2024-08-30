@@ -10,9 +10,14 @@ import { generateUniqueId } from '../../Util/id-generator';
 export class CheckoutService {
   public baseUrl: string = "http://localhost:3000/courses";
   public listCurse: Course[] = [];
+
+
   public totalPrice: number = 0;
   private _priceHandler: number = 0;
   public listSelectdCurse: Course[] = []
+  private _courseHander !: Course;
+
+
   constructor(private httpClient: HttpClient) { }
 
 
@@ -25,7 +30,6 @@ export class CheckoutService {
     this._priceHandler = value;
   }
 
-  private _courseHander !: Course;
 
   getCourse(): Course {
     return this._courseHander;

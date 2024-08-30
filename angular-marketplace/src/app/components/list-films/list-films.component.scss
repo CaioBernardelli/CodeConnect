@@ -24,12 +24,18 @@
   justify-content: center;
 
 }
-
-.teste{
+.teste {
+ 
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
+    
+
+    align-items: flex-start; /* Alinha os itens ao topo */
+    align-self: flex-end; 
+    
+    gap: 16px; /* Espaçamento entre os elementos dentro do container */
+    padding: 20px; /* Adiciona espaçamento interno de 16px em todos os lados */
+    box-sizing: border-box; /* Inclui padding e border na largura e altura do elemento */
 }
 
 
@@ -38,7 +44,9 @@
     display: flex; //display:inline-flex;
     margin-top: 15px;
     flex-direction: row ;
-    flex-wrap: flex-wrap;
+    justify-content: center; /* Alinha os itens à esquerda */
+    align-items: center; /* Alinha os itens ao topo */
+    
 
 }
 
@@ -156,6 +164,4 @@
 .title{
     padding-top: 30px;
     
-
-
 }
