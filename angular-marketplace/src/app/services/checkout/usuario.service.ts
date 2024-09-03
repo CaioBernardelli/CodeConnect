@@ -65,7 +65,7 @@ export class UsuarioService {
   autenticar(email: string, senha: string): Observable<Usuario> {
     return this.httpClient.get<Usuario[]>(`${this.baseUrl}?email=${email}&senha=${senha}`).pipe(
       map(usuarios => {
-        if (usuarios.length === 0 || usuarios[0].senha !== senha) {
+        if (usuarios.length === 0 || usuarios[0].senha !== senha || usuarios[0].email !== email) {
           throw new Error('Email ou senha incorretos');
         }
        

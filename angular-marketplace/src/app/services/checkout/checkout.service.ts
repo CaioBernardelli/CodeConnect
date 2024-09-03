@@ -14,7 +14,7 @@ export class CheckoutService {
 
   public totalPrice: number = 0;
   private _priceHandler: number = 0;
-  public listSelectdCurse: Course[] = []
+  public listSelectdCourse: Course[] = []
   private _courseHander !: Course;
 
 
@@ -26,8 +26,9 @@ export class CheckoutService {
 
   }
 
-  setPrice(value: number) {
-    this._priceHandler = value;
+  setPrice(value: number): void {
+    this._priceHandler = value;//  mudificado pelo metodo do list-cursos 
+  
   }
 
 
@@ -36,7 +37,7 @@ export class CheckoutService {
 
   }
 
-  setcourses(value: Course) {
+  setCourse(value: Course): void {
     this._courseHander = value;
 
   }
@@ -45,25 +46,30 @@ export class CheckoutService {
     return this.httpClient.get<Course[]>(this.baseUrl)
   }
 
-  selectCourse() {
-    setTimeout(() => {
-      this._priceHandler += this.getPrice();
-      console.log(this.totalPrice)
-
-    }, 1);
-    this._priceHandler += this.getPrice();
-    console.log(this.totalPrice)
+  selectCourse(course: Course, price: number) {
+      this._priceHandler += price;
+      this.listSelectdCourse.push(course);
+      console.log(`Total price after selecting: ${this._priceHandler}`);
+      console.log(`Selected courses:`, this.listSelectdCourse.map(c => c.name)); // Exibe os nomes dos cursos selecionados
   }
 
 
-  unselectCourse() {
-    this._priceHandler -= this.getPrice();
-    if (this.totalPrice < 0) {
-      this.totalPrice = 0;
+  unselectCourse(course: Course ,price:number) {
+    this._priceHandler -= price;
+    if (this._priceHandler < 0) {
+      this._priceHandler = 0;
     }
-    console.log(`Total price after unselecting: ${this.totalPrice}`);
 
+    const index = this.listSelectdCourse.findIndex(
+      (selectedCourse) => selectedCourse.id === course.id
+    );
+    if (index > -1) {
+      this.listSelectdCourse.splice(index, 1);
+    }
+    console.log(`Total price after unselecting: ${this._priceHandler}`);
+    console.log(`UnSelected courses:`, this.listSelectdCourse.map(c => c.name)); // Exibe os nomes dos cursos selecionados
   }
+  
 
   updateCourse(course: Course): Observable<Course> {
     return this.httpClient.put<Course>(`${this.baseUrl}/${course.id}`, course);

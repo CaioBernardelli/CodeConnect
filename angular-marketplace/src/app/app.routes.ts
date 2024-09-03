@@ -21,7 +21,8 @@ export const routes: Routes = [
       { path: 'courses-carousel', component: CoursesCarouselComponent },
       { path: 'list-films', component: ListFilmsComponent },
       { path: 'about-us', component: AboutUsComponent },
-   
+
+
     ],
   },
 

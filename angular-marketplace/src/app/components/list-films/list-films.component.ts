@@ -49,7 +49,5 @@ export class ListFilmsComponent implements OnInit {
         // Adicione qualquer lógica adicional aqui
     }
 
-    selectCourse(course: Course): void {
-        this.checkoutService.setPrice(course.price);
-    }//tirado do card-film 
+
 }

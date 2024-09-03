@@ -44,7 +44,7 @@
        <p>
          {{course.price}}
        </p>
-       <app-select-button (click)="selectCourse(course)"></app-select-button>
+       <app-select-button [course]="course"></app-select-button>
      </mat-card-content>
    </mat-card>
  </mat-card-content>
