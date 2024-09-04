@@ -1,13 +1,49 @@
 <mat-card class="mat-car-main mat-elevation-z4">
-  
-<mat-card-title>
-<h2> Checkout</h2>
-</mat-card-title>
 
-<mat-card>
- <h2>{{listSelectedCourses.length}} Select Itens</h2>
- <h3>Total cost: {{totalPrice}}</h3>
- <mat-card class="mat-card-course" [class.isValid]="disabled === true"></mat-card>
-</mat-card>
+    <mat-card-title>
+        <h2> Checkout</h2>
+    </mat-card-title>
 
+    <mat-card>
+        <h2>{{listSelectedCourses.length}} Select Itens</h2>
+        <h3>Total cost: {{totalPrice}}</h3>
+        <mat-card class="mat-card-course" [class.isValid]="disabled === true"
+            *ngFor="let course of listSelectedCourses">
+            <mat-card-content>
+                <div>
+                    <mat-card-title>
+                        <h2>{{course.name}}</h2>
+                    </mat-card-title>
+                    <mat-card-subtitle>
+                        {{course.price}}
+                    </mat-card-subtitle>
+                </div>
+                <button mat-flat-button color="warn" (click)="excluir(course)">Excluir</button>
+            </mat-card-content>
+
+        </mat-card>
+    </mat-card>
+    <mat-card-actions>
+        <button mat-flat-button color="warn" (click)="excluirTudo()" [disabled]="disabled === true" class="excludeAll">Excluir Tudo</button>
+    </mat-card-actions>
+    <mat-card class="mat-form">
+        <form id="form">
+            <strong>Fill in the courses</strong>
+           <p>
+            <mat-form-field class="input-form">
+                <mat-label>
+                    Qual seu nome;
+                    ?
+                </mat-label>
+             
+              
+                <input matInput placeholder="Seu nome" required name="name" [disabled]="disabled == true">
+                <i class="material-icons middle" matSuffix required>person</i>
+               
+              
+            </mat-form-field>
+           </p>
+        </form>
+
+    </mat-card>
 </mat-card>

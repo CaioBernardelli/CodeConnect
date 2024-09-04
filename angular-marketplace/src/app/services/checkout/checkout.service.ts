@@ -57,8 +57,7 @@ export class CheckoutService {
 
   unselectCourse(course: Course ,price:number) {
     this.totalPrice -= price;
-    
-
+  
     if (this.totalPrice < 0) {
       this.totalPrice  = 0;
     }
@@ -68,6 +67,7 @@ export class CheckoutService {
     );
     if (index > -1) {
       this.listSelectdCourse.splice(index, 1);
+      this.listSelectdCourse = [...this.listSelectdCourse];
     }
     console.log(`Total price after unselecting: ${this.totalPrice }`);
     console.log(`UnSelected courses:`, this.listSelectdCourse.map(c => c.name)); // Exibe os nomes dos cursos selecionados
