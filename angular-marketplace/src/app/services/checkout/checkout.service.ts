@@ -47,17 +47,20 @@ export class CheckoutService {
   }
 
   selectCourse(course: Course, price: number) {
-      this._priceHandler += price;
+      this.totalPrice  += price;
+    
       this.listSelectdCourse.push(course);
-      console.log(`Total price after selecting: ${this._priceHandler}`);
+      console.log(`Total price after selecting: ${this.totalPrice }`);
       console.log(`Selected courses:`, this.listSelectdCourse.map(c => c.name)); // Exibe os nomes dos cursos selecionados
   }
 
 
   unselectCourse(course: Course ,price:number) {
-    this._priceHandler -= price;
-    if (this._priceHandler < 0) {
-      this._priceHandler = 0;
+    this.totalPrice -= price;
+    
+
+    if (this.totalPrice < 0) {
+      this.totalPrice  = 0;
     }
 
     const index = this.listSelectdCourse.findIndex(
@@ -66,7 +69,7 @@ export class CheckoutService {
     if (index > -1) {
       this.listSelectdCourse.splice(index, 1);
     }
-    console.log(`Total price after unselecting: ${this._priceHandler}`);
+    console.log(`Total price after unselecting: ${this.totalPrice }`);
     console.log(`UnSelected courses:`, this.listSelectdCourse.map(c => c.name)); // Exibe os nomes dos cursos selecionados
   }
   

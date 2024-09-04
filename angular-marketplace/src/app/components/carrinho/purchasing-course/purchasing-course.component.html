@@ -1,1 +1,23 @@
-<p>purchasing-course works!</p>
+<mat-card class="mat-car-main mat-elevation-z4">
+    <mat-card-title>
+      <h2>Checkout</h2>
+    </mat-card-title>
+  
+    <mat-card-content>
+      <ng-container *ngIf="listSelectedCourses.length > 0; else emptyState">
+        <mat-list>
+          <mat-list-item *ngFor="let course of listSelectedCourses">
+            <h3>{{ course.name }}</h3>
+            <p>Category: {{ course.category }}</p>
+            <p>Price: {{ course.price | currency }}</p>
+          </mat-list-item>
+        </mat-list>
+        <h3>Total Price: {{ totalPrice | currency }}</h3>
+      </ng-container>
+  
+      <ng-template #emptyState>
+        <p>No courses selected.</p>
+      </ng-template>
+    </mat-card-content>
+  </mat-card>
+  
