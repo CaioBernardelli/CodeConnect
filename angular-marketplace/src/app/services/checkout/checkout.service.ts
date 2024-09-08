@@ -15,7 +15,6 @@ export class CheckoutService {
   public totalPrice: number = 0;
   private _priceHandler: number = 0;
   public listSelectdCourse: Course[] = []
-  private _courseHander !: Course;
 
 
   constructor(private httpClient: HttpClient) { }
@@ -28,7 +27,7 @@ export class CheckoutService {
 
   setPrice(value: number): void {
     this._priceHandler = value;//  mudificado pelo metodo do list-cursos 
-  
+
   }
 
 
@@ -42,24 +41,81 @@ export class CheckoutService {
 
   }
 
+
+  private _courseHander !: Course;
+
+
+
+
+
+
+
+
   getListCourse(): Observable<Course[]> {
     return this.httpClient.get<Course[]>(this.baseUrl)
   }
 
+
+
+
+
+
+
   selectCourse(course: Course, price: number) {
-      this.totalPrice  += price;
-    
-      this.listSelectdCourse.push(course);
-      console.log(`Total price after selecting: ${this.totalPrice }`);
-      console.log(`Selected courses:`, this.listSelectdCourse.map(c => c.name)); // Exibe os nomes dos cursos selecionados
+    this.totalPrice += price;
+
+    this.listSelectdCourse.push(course);
+    console.log(`Total price after selecting: ${this.totalPrice}`);
+    console.log(`Selected courses:`, this.listSelectdCourse.map(c => c.name)); // Exibe os nomes dos cursos selecionados
   }
 
 
-  unselectCourse(course: Course ,price:number) {
-    this.totalPrice -= price;
-  
+
+
+
+
+
+
+  selectCourse1() {
+
+    setTimeout(() => {
+
+      this.totalPrice += this.getPrice();
+
+      this.listSelectdCourse.push(this.getCourse())
+      console.log(this.totalPrice);
+      console.log(this.listSelectdCourse)
+    }, 1);
+
+
+  }
+
+
+  unselectCourse2() {
+    this.totalPrice -= this.getPrice();
+
     if (this.totalPrice < 0) {
-      this.totalPrice  = 0;
+      this.totalPrice = 0;
+    }
+
+    let index = this.listSelectdCourse.indexOf(this.getCourse());
+    if (index > -1 || index === this.listSelectdCourse.indexOf(this.getCourse())) {
+      this.listSelectdCourse.splice(index, 1)
+
+    }
+
+    console.log(this.totalPrice);
+    console.log(this.listSelectdCourse)
+
+
+  }
+
+
+  unselectCourse(course: Course, price: number) {
+    this.totalPrice -= price;
+
+    if (this.totalPrice < 0) {
+      this.totalPrice = 0;
     }
 
     const index = this.listSelectdCourse.findIndex(
@@ -69,10 +125,10 @@ export class CheckoutService {
       this.listSelectdCourse.splice(index, 1);
       this.listSelectdCourse = [...this.listSelectdCourse];
     }
-    console.log(`Total price after unselecting: ${this.totalPrice }`);
+    console.log(`Total price after unselecting: ${this.totalPrice}`);
     console.log(`UnSelected courses:`, this.listSelectdCourse.map(c => c.name)); // Exibe os nomes dos cursos selecionados
   }
-  
+
 
   updateCourse(course: Course): Observable<Course> {
     return this.httpClient.put<Course>(`${this.baseUrl}/${course.id}`, course);

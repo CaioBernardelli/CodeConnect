@@ -14,20 +14,32 @@ import { MatFormFieldModule } from '@angular/material/form-field';
   styleUrls: ['./purchasing-course.component.scss']
 })
 export class PurchasingCourseComponent implements OnInit {
-  @Input() course!: Course; // Recebe o curso do componente pai
   listSelectedCourses: Course[] = [];
   totalPrice!: number; // Inicializando com 0 para evitar problemas com valores indefinidos
   disabled = false;
   hide = true;
+  form: any;
+  client: any = {};
 
   constructor(private checkoutService: CheckoutService) {}
 
   ngOnInit(): void {
+    this.form = document.querySelector('#form');
+    this.form.addEventListener('click', (event: any) => {
+      event.preventDefault();
+    })
     this.totalPrice = this.checkoutService.totalPrice;
-    this.atualizarCursos()
+    this.listSelectedCourses = this.checkoutService.listSelectdCourse;
     this.toggleButton();
+
   }
 
+  
+ 
+
+  trackByCourseId(index: number, course: Course): number {
+    return course.id; // Supondo que o curso tenha um campo 'id'
+  }
 
   toggleButton() {
     if(this.listSelectedCourses.length == 0){
@@ -42,17 +54,24 @@ export class PurchasingCourseComponent implements OnInit {
     this.checkoutService.listSelectdCourse = [];
     this.listSelectedCourses = [];
     this.toggleButton();
+    
     }
     
-    excluir(course: Course) : void{
+    excluir(course: Course, card: HTMLElement) : void{
     this.totalPrice -= course.price;
 
-    this.checkoutService.unselectCourse(course,course.price);//total nec
+    this.checkoutService.setCourse(course);//total nec
+    this.checkoutService.unselectCourse2();//total nec
+     if (this.totalPrice <= 0){
 
-    this.listSelectedCourses = [...this.checkoutService.listSelectdCourse];
+      this.excluirTudo();
+     }
+     this.excluirtemplate(card)
 
    console.log('Curso removido:', course);
-  console.log('Cursos restantes:', this.listSelectedCourses);
+    console.log('Cursos restantes:', this.listSelectedCourses);
+
+    this.atualizarCursos();
     }
 
 
@@ -60,4 +79,10 @@ export class PurchasingCourseComponent implements OnInit {
       this.totalPrice = this.checkoutService.totalPrice;
       this.listSelectedCourses = this.checkoutService.listSelectdCourse;
     }
+
+    excluirtemplate(card: HTMLElement): void {
+      // Adiciona a classe "hidden" ao elemento do curso para escondê-lo
+      card.classList.add('hidden');
+    }
+    
 }

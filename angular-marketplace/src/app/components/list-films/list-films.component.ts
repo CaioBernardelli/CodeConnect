@@ -53,4 +53,16 @@ export class ListFilmsComponent implements OnInit {
     carrinho() {
         this.router.navigate(['/carrinho']); // Redireciona para a página de adicionar curso
       }
+
+
+
+      selectCourse(course: Course): void {
+        
+        this.checkoutService.setPrice(course.price)
+        this.checkoutService.setCourse(course)
+        console.log(course)
+
+
+
+      }
 }

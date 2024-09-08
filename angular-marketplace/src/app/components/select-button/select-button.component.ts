@@ -21,14 +21,16 @@ export class SelectButtonComponent {
 
   selectCurse() {
     this.disabled = true; // Ajusta o estado do botão se necessário
-    this.checkoutService.selectCourse(this.course,this.course.price);
+   // this.checkoutService.selectCourse(this.course,this.course.price);
+   this.checkoutService.selectCourse1();
+
 
   }
 
   unselectCurse() {
     this.disabled = false; // Ajusta o estado do botão se necessário
-    this.checkoutService.unselectCourse(this.course,this.course.price);
-
+ //   this.checkoutService.unselectCourse(this.course,this.course.price);
+ this.checkoutService.unselectCourse2();
   }
 }
 
