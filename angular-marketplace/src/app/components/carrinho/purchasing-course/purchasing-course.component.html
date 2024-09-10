@@ -1,31 +1,39 @@
 <mat-card class="mat-car-main mat-elevation-z4">
-
+    <div class="title-card">
     <mat-card-title>
-        <h2> Checkout</h2>
+        <h2> Carrinho de Compras </h2>
     </mat-card-title>
+   </div>
 
     <mat-card>
-        <h2>{{listSelectedCourses.length}} Select Itens</h2>
-        <h3>Total cost: {{totalPrice}}</h3>
-    
+        <h2 *ngIf="listSelectedCourses.length > 0">{{listSelectedCourses.length}} Cursos Selecionados</h2>
+       
+        <div>
         <mat-card class="mat-card-course"  [class.isValid]="disabled === true"
             *ngFor="let course of listSelectedCourses; trackBy: trackByCourseId"  >
             <div #card>
-            <mat-card-content>
-                
+            <mat-card-content class="mat-card-content">
+
+                 <div class="container-esquerda">
+                   <img src="{{course.imgLink}}" class="image-small">
                     <mat-card-title>
                         <h2>{{course.name}}</h2>
                     </mat-card-title>
-                    <mat-card-subtitle>
+                </div>
+              <div class="container-direita">
+                  <mat-card-subtitle>
                         {{course.price}}
                     </mat-card-subtitle>
                     <button mat-flat-button color="warn" (click)="excluir(course,card)">Excluir</button>
-            
+            </div>
                   
             </mat-card-content>
+
+      
        
         </div>
         </mat-card>
+    </div>
 
         <mat-card *ngIf="listSelectedCourses.length === 0">
             <mat-card-title>
@@ -36,8 +44,7 @@
        
     </mat-card>
     <mat-card-actions>
-        <button mat-flat-button color="warn" (click)="excluirTudo()" [disabled]="disabled === true"
-            class="excludeAll">Excluir Tudo</button>
+   
     </mat-card-actions>
 
     <mat-card class="mat-form">

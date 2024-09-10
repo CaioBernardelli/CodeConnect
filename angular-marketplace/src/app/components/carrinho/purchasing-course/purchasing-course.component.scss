@@ -1,4 +1,21 @@
 .hidden {
     display: none;
   }
+
+.title-card{
+  display: flex;
+  justify-content: center;
+}
+
+img{
+ width: 100px;
+
   
+}
+
+
+.mat-card-content{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}

@@ -15,6 +15,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 })
 export class PurchasingCourseComponent implements OnInit {
   listSelectedCourses: Course[] = [];
+   listSelectedCourses2: Course[] = [];
   totalPrice!: number; // Inicializando com 0 para evitar problemas com valores indefinidos
   disabled = false;
   hide = true;
@@ -24,6 +25,8 @@ export class PurchasingCourseComponent implements OnInit {
   constructor(private checkoutService: CheckoutService) {}
 
   ngOnInit(): void {
+
+
     this.form = document.querySelector('#form');
     this.form.addEventListener('click', (event: any) => {
       event.preventDefault();
@@ -31,6 +34,9 @@ export class PurchasingCourseComponent implements OnInit {
     this.totalPrice = this.checkoutService.totalPrice;
     this.listSelectedCourses = this.checkoutService.listSelectdCourse;
     this.toggleButton();
+
+
+    
 
   }
 
