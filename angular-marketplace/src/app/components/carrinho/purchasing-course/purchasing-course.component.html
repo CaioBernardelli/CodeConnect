@@ -1,70 +1,81 @@
+
+<div class="">
 <mat-card class="mat-car-main mat-elevation-z4">
-    <div class="title-card">
+  <div class="title-card">
     <mat-card-title>
-        <h2> Carrinho de Compras </h2>
+      <h2>Carrinho de Compras</h2>
     </mat-card-title>
-   </div>
+  </div>
 
-    <mat-card>
-        <h2 *ngIf="listSelectedCourses.length > 0">{{listSelectedCourses.length}} Cursos Selecionados</h2>
-       
-        <div>
-        <mat-card class="mat-card-course"  [class.isValid]="disabled === true"
-            *ngFor="let course of listSelectedCourses; trackBy: trackByCourseId"  >
-            <div #card>
-            <mat-card-content class="mat-card-content">
+  <mat-card>
+    <h2 *ngIf="listSelectedCourses.length > 0">
+ Cursos Selecionados : {{ listSelectedCourses.length }}
+    </h2>
 
-                 <div class="container-esquerda">
-                   <img src="{{course.imgLink}}" class="image-small">
-                    <mat-card-title>
-                        <h2>{{course.name}}</h2>
-                    </mat-card-title>
-                </div>
-              <div class="container-direita">
-                  <mat-card-subtitle>
-                        {{course.price}}
-                    </mat-card-subtitle>
-                    <button mat-flat-button color="warn" (click)="excluir(course,card)">Excluir</button>
+    <div>
+      <mat-card
+        class="mat-card-course"
+        [class.isValid]="disabled === true"
+        *ngFor="let course of listSelectedCourses; trackBy: trackByCourseId"
+      >
+        <div #card>
+          <mat-card-content class="mat-card-content">
+            <div class="container-esquerda">
+              <img src="{{ course.imgLink }}" class="image-small" />
+              <mat-card-title>
+                <h2>{{ course.name }}</h2>
+              </mat-card-title>
             </div>
-                  
-            </mat-card-content>
-
-      
+            <div class="container-direita">
+              <mat-card-subtitle>
+                <h2>Subtotal : {{ course.price }}</h2>
+              </mat-card-subtitle>
+              <button
+                mat-flat-button
+                color="warn"
+                (click)="excluir(course, card)"
+              >
+                Excluir
+              </button>
+            </div>
        
+          </mat-card-content>
         </div>
-        </mat-card>
+      </mat-card>
+     
     </div>
 
-        <mat-card *ngIf="listSelectedCourses.length === 0">
-            <mat-card-title>
-                <h2>Nenhum curso selecionado</h2>
-            </mat-card-title>
-        </mat-card>
+    
 
-       
+    <mat-card *ngIf="listSelectedCourses.length === 0">
+      <mat-card-title>
+        <h2>Nenhum curso selecionado</h2>
+      </mat-card-title>
     </mat-card>
-    <mat-card-actions>
-   
-    </mat-card-actions>
+  </mat-card>
+  <mat-card-actions> </mat-card-actions>
 
-    <mat-card class="mat-form">
-        <form id="form">
-            <strong>Fill in the courses</strong>
-            <p>
-                <mat-form-field appearance="outline" class="input-form">
-                    <mat-label>
-                        Qual seu nome;
-                        ?
-                    </mat-label>
+  <mat-card class="mat-form">
+    <form id="form">
+      <strong>Fill in the courses</strong>
+      <p>
+        <mat-form-field appearance="outline" class="input-form">
+          <mat-label> Qual seu nome; ? </mat-label>
 
+          <input
+            matInput
+            placeholder="Seu nome"
+            required
+            name="name"
+            [disabled]="disabled == true"
+          />
+          <i class="material-icons middle" matSuffix required>person</i>
+          <mat-hint> Ex:João</mat-hint>
+        </mat-form-field>
+      </p>
+    </form>
 
-                    <input matInput placeholder="Seu nome" required name="name" [disabled]="disabled == true">
-                    <i class="material-icons middle" matSuffix required>person</i>
-                    <mat-hint> Ex:João</mat-hint>
-
-                </mat-form-field>
-            </p>
-        </form>
-
-    </mat-card>
+    <h1>Preço Total : {{totalPrice}}</h1>
+  </mat-card>
 </mat-card>
+</div>

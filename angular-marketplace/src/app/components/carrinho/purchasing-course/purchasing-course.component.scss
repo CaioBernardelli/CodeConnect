@@ -2,10 +2,15 @@
     display: none;
   }
 
+
+
+
 .title-card{
   display: flex;
   justify-content: center;
 }
+
+
 
 img{
  width: 100px;
@@ -16,6 +21,21 @@ img{
 
 .mat-card-content{
   display: flex;
-  flex-direction: row;
-  width: 100%;
+
+}
+
+
+
+.container-esquerda {
+  display: flex;
+  align-items: center;
+}
+
+.container-direita {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: auto; /* Move o conteúdo para o lado direito */
+  text-align: right; /* Opcional: alinha o texto à direita */
+
 }

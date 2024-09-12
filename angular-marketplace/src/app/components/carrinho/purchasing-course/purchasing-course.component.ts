@@ -5,15 +5,16 @@ import { CheckoutService } from '../../../services/checkout/checkout.service';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 import { MatFormFieldModule } from '@angular/material/form-field';
-
+import { MatTableModule } from '@angular/material/table';
 @Component({
   selector: 'app-purchasing-course',
   standalone: true,
-  imports: [MatFormFieldModule,CommonModule,MatCardModule,MatListModule],
+  imports: [MatFormFieldModule,CommonModule,MatCardModule,MatListModule,MatTableModule],
   templateUrl: './purchasing-course.component.html',
   styleUrls: ['./purchasing-course.component.scss']
 })
 export class PurchasingCourseComponent implements OnInit {
+  displayedColumns: string[] = ['produto', 'preco', 'acao'];
   listSelectedCourses: Course[] = [];
    listSelectedCourses2: Course[] = [];
   totalPrice!: number; // Inicializando com 0 para evitar problemas com valores indefinidos
