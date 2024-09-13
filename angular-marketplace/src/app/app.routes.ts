@@ -12,7 +12,7 @@ import { CoursesCarouselComponent } from './components/courses-carousel/courses-
 import { AdicionarCursoComponent } from './components/adicionar-curso/adicionar-curso.component';
 import { NotificationListComponent } from './components/notification-list/notification-list.component';
 import { PurchasingCourseComponent } from './components/carrinho/purchasing-course/purchasing-course.component';
-import { UsuariosfirebaseComponent } from './components/usuariosfirebase/usuariosfirebase.component';
+
 export const routes: Routes = [
   { path: '', component: HomeComponent },//parte de login
   {
@@ -22,7 +22,7 @@ export const routes: Routes = [
       { path: 'courses-carousel', component: CoursesCarouselComponent },
       { path: 'list-films', component: ListFilmsComponent },
       { path: 'about-us', component: AboutUsComponent },
-      { path: 'firebase', component: UsuariosfirebaseComponent }
+
       
 
       

@@ -1,28 +1,20 @@
 import { Injectable } from '@angular/core';
-import {Usuario} from "../model/usuario";
-import {AngularFirestore} from "@angular/fire/compat/firestore";
-import {Observable} from "rxjs";
+import { AngularFirestore, AngularFirestoreCollection} from "@angular/fire/compat/firestore";
+import { Observable } from 'rxjs';
+import { Usuario } from '../model/usuario';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsuarioFirestoreService {
+  colecaoUsuarios!: AngularFirestoreCollection<Usuario>;
+  private collectionName: string = 'usuarios'; 
 
-  private collectionName = 'usuarios';
-
-  constructor(private firestore: AngularFirestore) { }
+  constructor(private firestore : AngularFirestore) { 
+    this.colecaoUsuarios = firestore.collection(this.collectionName);
+  }
 
   listar(): Observable<Usuario[]> {
-    return this.firestore.collection<Usuario>(this.collectionName).valueChanges();
+    return this.colecaoUsuarios.valueChanges({idField: 'id'})
   }
-
-  inserir(usuario: Usuario): Promise<void> {
-    const id = this.firestore.createId();
-    return this.firestore.collection(this.collectionName).doc(id).set({ ...usuario, id });
-  }
-
-  remover(id: string): Promise<void> {
-    return this.firestore.collection(this.collectionName).doc(id).delete();
-  }
-
 }

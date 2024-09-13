@@ -6,7 +6,7 @@ import { Course } from '../../model/course.model';
 import { Router } from '@angular/router';
 import { UsuarioService } from '../../services/checkout/usuario.service';
 import { CheckoutService } from '../../services/checkout/checkout.service';
-import { UsuarioFirestoreService } from '../../services/usuario-firestore.service';
+
 
 
 @Component({
