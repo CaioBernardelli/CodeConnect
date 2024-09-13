@@ -8,8 +8,6 @@ body, html {
 
 
 
-
-
 .content-container{
    
     width: 100%;
@@ -17,6 +15,14 @@ body, html {
     flex-grow: 1; /* Permitir que o conteúdo principal cresça */
    // min-height: calc(100vh - 100px); /* Garante que o conteúdo ocupe o espaço acima do footer */
 }
+
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Garante que o container ocupe a altura total da tela */
+}
+
 
 
 

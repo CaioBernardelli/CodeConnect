@@ -6,7 +6,7 @@ import { Course } from '../../model/course.model';
 import { Router } from '@angular/router';
 import { UsuarioService } from '../../services/checkout/usuario.service';
 import { CheckoutService } from '../../services/checkout/checkout.service';
-import { RouterLink } from '@angular/router';
+import { UsuarioFirestoreService } from '../../services/usuario-firestore.service';
 
 
 @Component({
@@ -23,11 +23,13 @@ export class AdminDashboardComponent implements OnInit {
   constructor(
     private router: Router,
     private usuarioService: UsuarioService,
-    private checkoutService: CheckoutService
+    private checkoutService: CheckoutService, 
+    //private usuarioFirestoreService  : UsuarioFirestoreService ,
+    
   ) { }
 
   ngOnInit(): void {
-    // Inicialmente, não carrega nem usuários nem cursos.
+    this.carregarUsuarios()// Inicialmente, não carrega nem usuários nem cursos.
   }
 
   carregarUsuarios() {
