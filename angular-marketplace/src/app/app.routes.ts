@@ -11,7 +11,7 @@ import { CoursesCarouselComponent } from './components/courses-carousel/courses-
 import { AdicionarCursoComponent } from './components/adicionar-curso/adicionar-curso.component';
 import { NotificationListComponent } from './components/notification-list/notification-list.component';
 import { PurchasingCourseComponent } from './components/carrinho/purchasing-course/purchasing-course.component';
-import { UsuariofirebaseComponent } from './usuariofirebase/usuariofirebase.component';
+import { UsuariofirebaseComponent } from './components/usuariofirebase/usuariofirebase.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -22,7 +22,9 @@ export const routes: Routes = [
       { path: 'courses-carousel', component: CoursesCarouselComponent },
       { path: 'list-films', component: ListFilmsComponent },
       { path: 'about-us', component: AboutUsComponent },
-      { path: 'carrinho', component: PurchasingCourseComponent }
+      { path: 'carrinho', component: PurchasingCourseComponent },
+      { path: 'firebase', component: UsuariofirebaseComponent }
+
     ],
   },
   { path: 'admin', component: AdminDashboardComponent, canActivate: [AdminGuard] },
@@ -30,8 +32,6 @@ export const routes: Routes = [
   { path: 'adicionar-curso', component: AdicionarCursoComponent },
   { path: 'home', component: HomeComponent },
   { path: 'notifications', component: NotificationListComponent },
-  // Adicione a rota para o componente Usuariofirebase
-  { path: 'caio', component: UsuariofirebaseComponent },
   // Adicione uma rota wildcard para tratar rotas não encontradas
   { path: '**', redirectTo: '' }
 ];
