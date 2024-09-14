@@ -5,7 +5,7 @@ import { MatListModule } from '@angular/material/list';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common'; // Importe o CommonModule
 import { UsuarioService } from '../../services/checkout/usuario.service';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav',
@@ -17,7 +17,7 @@ import { UsuarioService } from '../../services/checkout/usuario.service';
 export class NavComponent {
   isAdmin: boolean = false;
 
-  constructor(public usuarioService: UsuarioService) {
+  constructor(public usuarioService: UsuarioService,private router: Router) {
     this.isAdmin = this.usuarioService.isAdmin();
    
    
@@ -25,4 +25,8 @@ export class NavComponent {
      // this.isAdmin = isAdmin;
  //   });
   }
+  link() {
+    this.router.navigate(['/caio']); // Redireciona para a página de adicionar curso
+  }
+
 }

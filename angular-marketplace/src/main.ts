@@ -9,6 +9,10 @@ import { provideHttpClient } from '@angular/common/http';
 import { routes } from './app/app.routes';
 import { AboutUsComponent } from './app/components/about-us/about-us.component';
 import { CadastrousuarioComponent } from './app/components/cadastrousuario/cadastrousuario.component';
+import { firebaseConfig } from './app/firestore.config';
+import { initializeApp } from 'firebase/app';
+import { provideFirebaseApp } from '@angular/fire/app';
+
 
 
 
@@ -21,30 +25,6 @@ bootstrapApplication(AppComponent, {
   ]
 }).catch(err => console.error(err));
 //chatgpt
-
-
-
-bootstrapApplication(HeaderComponent, appConfig)
-  .catch((err) => console.error(err));
-
-bootstrapApplication(NavComponent, {
-  providers: [
-    provideRouter(routes),
-    provideHttpClient(), // Adicionando o provedor HttpClient
-    ...appConfig.providers
-  ]
-}).catch(err => console.error(err));
-//chatgpt
-
-
-bootstrapApplication(AboutUsComponent, appConfig)
-  .catch((err) => console.error(err));
-
-
-
-
-bootstrapApplication(CadastrousuarioComponent, appConfig)
-  .catch((err) => console.error(err));
 
 
 
