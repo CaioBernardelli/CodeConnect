@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Firestore, collectionData, collection } from '@angular/fire/firestore';
+import { Firestore, collectionData, collection, addDoc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Usuario } from '../model/usuario';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +9,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 export class UsuarioFirestoreService {
   private collectionName: string = 'usuarios'; 
 
-  constructor(private firestore: Firestore,private angularfirestore: AngularFirestore) {}
+  constructor(private firestore: Firestore) {}
 
   listar(): Observable<Usuario[]> {
     const usuariosCollection = collection(this.firestore, this.collectionName);
@@ -18,10 +17,17 @@ export class UsuarioFirestoreService {
   }
 
   inserir(usuario: Usuario): Promise<void> {
-    const id = this.angularfirestore.createId();
-    return this.angularfirestore.collection(this.collectionName).doc(id).set({ ...usuario, id });
+    
+    const { id, ...usuarioSemId } = usuario;
+    const usuariosCollection = collection(this.firestore, this.collectionName); // Referência à coleção 'usuarios'
+    return addDoc(usuariosCollection, usuarioSemId) // Adiciona um novo documento com os dados do usuário
+      .then(() => {
+        console.log("Usuário adicionado com sucesso!");
+      })
+      .catch((error) => {
+        console.error("Erro ao adicionar usuário: ", error);
+      });
+
+    
   }
-
-
-
 }

@@ -15,6 +15,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MensagemSweetService } from '../../services/checkout/mensagem-sweet.service';
 import { UsuarioService } from '../../services/checkout/usuario.service';
 import { Usuario } from '../../model/usuario';
+import { UsuarioFirestoreService } from '../../services/usuario-firestore.service';
 
 @Component({
   selector: 'app-cadastrousuario',
@@ -36,7 +37,9 @@ export class CadastrousuarioComponent {
     private roteador: Router,
     private rotaAtual: ActivatedRoute,
     private mensagemService: MensagemSweetService,
-    private usuarioService: UsuarioService
+    private usuarioService: UsuarioService,
+    private usuarioFirestoreService: UsuarioFirestoreService,
+    
   ) {
     this.usuarioService.listar().subscribe({
       next: (usuariosRetornados) => (this.usuarios = usuariosRetornados),
@@ -44,25 +47,29 @@ export class CadastrousuarioComponent {
     });
   }
 
- inserir(usuario: Usuario) {
-  try {
 
-    usuario.id = generateUniqueId();
-    this.usuarioService.inserir(usuario).subscribe({
-      next: (usuarioInserido) => {
-        if (usuarioInserido && usuarioInserido.id) {  // Verifica se o ID está presente
-          this.usuarios.push(usuarioInserido);
-          this.roteador.navigate(['']);
-          this.mensagemService.sucesso('Usuário cadastrado com sucesso.');
-        } else {
-          this.mensagemService.erro('Erro ao cadastrar usuário: ID não gerado.');
-        }
-      },
-      error: (err) => this.mensagemService.erro(`Erro ao cadastrar usuário: ${err.message}`),
-    });
+     
+       
+
+
+inserir(usuario: Usuario) {
+  try {
+   
+
+    // Inserir o usuário no Firestore
+    this.usuarioFirestoreService.inserir(usuario)
+      .then(() => {
+        this.mensagemService.sucesso('Usuário cadastrado com sucesso.');
+        // Adicionar o usuário inserido na lista local de usuários
+        this.usuarios.push(usuario);
+        // Navegar para outra página ou resetar o formulário após o cadastro
+        this.roteador.navigate(['']);
+      })
+      .catch((err) => {
+        this.mensagemService.erro(`Erro ao cadastrar usuário: ${err.message}`);
+      });
   } catch (e: any) {
-    this.mensagemService.erro(`Erro inesperado: ${e.message}`);  // Captura a exceção e exibe a mensagem de erro
+    this.mensagemService.erro(`Erro inesperado: ${e.message}`);
   }
 }
-
 }
