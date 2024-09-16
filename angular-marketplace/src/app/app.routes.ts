@@ -22,11 +22,11 @@ export const routes: Routes = [
       { path: 'courses-carousel', component: CoursesCarouselComponent },
       { path: 'list-films', component: ListFilmsComponent },
       { path: 'about-us', component: AboutUsComponent },
-      { path: 'carrinho', component: PurchasingCourseComponent },
       { path: 'firebase', component: UsuariofirebaseComponent }
 
     ],
   },
+  { path: 'carrinho', component: PurchasingCourseComponent },
   { path: 'admin', component: AdminDashboardComponent, canActivate: [AdminGuard] },
   { path: 'cadastro-usuario', component: CadastrousuarioComponent },
   { path: 'adicionar-curso', component: AdicionarCursoComponent },

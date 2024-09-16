@@ -1,0 +1,40 @@
+:host {
+    display: block;
+    width: 100%; // Largura mínima para o conteúdo
+    height: auto; // Altura máxima para o conteúdo
+    overflow-y: auto; // Adicionar rolagem vertical
+}
+
+
+.course-container{
+    display: flex;
+    flex-direction: column;
+
+}
+
+.mat-card-content{
+    display: flex;
+  
+  }
+  
+  
+  
+  .container-esquerda {
+    display: flex;
+    align-items: center;
+  }
+  
+  .container-direita {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: auto; /* Move o conteúdo para o lado direito */
+    text-align: right; /* Opcional: alinha o texto à direita */
+  
+  }
+
+  img{
+    width: 50px;
+   
+     
+   }

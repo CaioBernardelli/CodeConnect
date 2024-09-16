@@ -2,8 +2,7 @@
 
 //ok
 .container{
-    height: 100vh;
-    width: 100%;
+
     justify-content: center;
     
   
@@ -164,4 +163,11 @@
 .title{
     padding-top: 30px;
     
+}
+
+
+.carrinho-button{
+    display: flex;
+    justify-content: center;
+    padding: 40px;
 }

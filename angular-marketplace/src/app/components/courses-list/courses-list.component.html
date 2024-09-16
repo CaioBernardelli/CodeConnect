@@ -1,0 +1,28 @@
+<div class="course-container">
+    <button mat-menu-item *ngFor="let course of listSelectedCourses">
+      <!-- Ícone alterado para carrinho de compras -->
+      <mat-icon>shopping_cart</mat-icon>
+  
+      <div #card>
+        <mat-card-content class="mat-card-content">
+          <div class="container-esquerda">
+            <!-- Imagem do curso -->
+            <img src="{{ course.imgLink }}" class="image-small" alt="Imagem do curso" />
+          </div>
+  
+          <div class="container-direita">
+            <!-- Título do curso -->
+            <mat-card-title>
+              <h2>{{ course.name }}</h2>
+            </mat-card-title>
+  
+            <!-- Subtotal do curso -->
+            <mat-card-subtitle>
+              <h2>Subtotal: {{ course.price | currency }}</h2>
+            </mat-card-subtitle>
+          </div>
+        </mat-card-content>
+      </div>
+    </button>
+  </div>
+  

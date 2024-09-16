@@ -12,11 +12,22 @@
             <mat-icon matBadge="{{notifications.length}} " matBadgeColor="primary">notifications</mat-icon>
           </a>
 
-
-
           <mat-menu #notificationsMenu="matMenu">
             <app-notification-list></app-notification-list> <!-- Coloque o componente aqui -->
         </mat-menu>
+
+
+        <!-- Alterar o label de "Notifications" para "Carrinho de Compras" -->
+<a mat-icon-button [matMenuTriggerFor]="cartMenu" aria-label="Carrinho de Compras">
+    <!-- Alterar o ícone para "shopping_cart" e manter o contador de itens -->
+    <mat-icon matBadge="{{listSelectedCourses.length}}" matBadgeColor="primary">shopping_cart</mat-icon>
+  </a>
+  
+  <!-- Alterar a referência do menu de notificações para o menu do carrinho -->
+  <mat-menu #cartMenu="matMenu">
+    <app-courses-list></app-courses-list>
+  </mat-menu>
+  
 
 
 

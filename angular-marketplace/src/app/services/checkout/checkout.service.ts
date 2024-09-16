@@ -41,26 +41,13 @@ export class CheckoutService {
 
   }
 
-
   private _courseHander !: Course;
-
-
-
-
-
-
 
 
   getListCourse(): Observable<Course[]> {
     return this.httpClient.get<Course[]>(this.baseUrl)
   }
-
-
-
-
-
-
-
+// nao usado
   selectCourse(course: Course, price: number) {
     this.totalPrice += price;
 
@@ -68,12 +55,6 @@ export class CheckoutService {
     console.log(`Total price after selecting: ${this.totalPrice}`);
     console.log(`Selected courses:`, this.listSelectdCourse.map(c => c.name)); // Exibe os nomes dos cursos selecionados
   }
-
-
-
-
-
-
 
 
   selectCourse1() {
@@ -110,7 +91,7 @@ export class CheckoutService {
 
   }
 
-
+//nao usado
   unselectCourse(course: Course, price: number) {
     this.totalPrice -= price;
 
