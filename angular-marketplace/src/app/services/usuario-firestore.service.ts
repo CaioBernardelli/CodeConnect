@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Firestore, collectionData, collection, addDoc, where, query, getDocs } from '@angular/fire/firestore';
+import { Firestore, collectionData, collection, addDoc, where, query, getDocs, doc, deleteDoc } from '@angular/fire/firestore';
 import { catchError, map, Observable, throwError } from 'rxjs';
 import { Usuario } from '../model/usuario';
 
@@ -8,19 +8,35 @@ import { Usuario } from '../model/usuario';
 })
 export class UsuarioFirestoreService {
   private collectionName: string = 'usuarios'; 
+
  
 
   constructor(private firestore: Firestore) {}
+  
 
   listar(): Observable<Usuario[]> {
     const usuariosCollection = collection(this.firestore, this.collectionName);
     return collectionData(usuariosCollection, { idField: 'id' }) as Observable<Usuario[]>;
   }
+  async remover(id: string): Promise<void> {
+    // Verifica se o ID foi passad
+    // Obtém a referência da coleção de usuários
+    const usuarioDoc = doc(this.firestore, `${this.collectionName}/${id}`);  // Referência ao documento pelo ID
+    // Remove o documento do Firestore
+    return deleteDoc(usuarioDoc).then(() => {
+      console.log('Usuário removido com sucesso!');
+    }).catch(error => {
+      // Lida com erros de remoção
+      console.error('Erro ao remover usuário:', error);
+      throw new Error('Erro ao remover o usuário!');
+    });
+  }
+  
 
   async inserir(usuario: Usuario): Promise<void> {
     // Espera a validação do e-mail antes de continuar
     await this.validarEmailsDiferentes(usuario.email);
-    
+    this.validarEmail(usuario.email) 
     // Realiza as outras validações
     this.validarMaiorIdade(usuario);
 
@@ -58,3 +74,6 @@ export class UsuarioFirestoreService {
     }
   }
 }
+
+
+

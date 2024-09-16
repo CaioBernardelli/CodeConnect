@@ -6,6 +6,7 @@ import { Course } from '../../model/course.model';
 import { Router } from '@angular/router';
 import { UsuarioService } from '../../services/checkout/usuario.service';
 import { CheckoutService } from '../../services/checkout/checkout.service';
+import { UsuarioFirestoreService } from '../../services/usuario-firestore.service';
 
 
 
@@ -24,6 +25,7 @@ export class AdminDashboardComponent implements OnInit {
     private router: Router,
     private usuarioService: UsuarioService,
     private checkoutService: CheckoutService, 
+    private usuariouirestoreService : UsuarioFirestoreService,
     //private usuarioFirestoreService  : UsuarioFirestoreService ,
     
   ) { }
@@ -33,8 +35,8 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   carregarUsuarios() {
-    this.usuarioService.listar().subscribe((usuarios) => {
-      this.usuarios = usuarios;
+    this.usuariouirestoreService.listar().subscribe((dados: Usuario[]) => {
+      this.usuarios = dados; // Armazena os usuários retornados
     });
   }
 
@@ -69,7 +71,9 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   removerUsuario(id: string) {
-    this.usuarioService.remover(id).subscribe(() => this.carregarUsuarios());
+    this.usuariouirestoreService.remover(id).then(() => {
+      this.carregarUsuarios();  // Atualiza a lista de usuários após a remoção
+    });
   }
 
   voltarParaHome() {

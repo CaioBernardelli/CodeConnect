@@ -33,8 +33,34 @@
   
   }
 
-  img{
+img{
     width: 50px;
    
-     
    }
+
+
+
+
+ 
+
+
+
+.button-fim {
+    display: flex;
+    justify-content: center;
+
+    button {
+      background-color: yellowgreen;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin-right: 10px;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 16px;
+
+      &:hover {
+        background-color: #0056b3;
+      }
+    }
+  }
