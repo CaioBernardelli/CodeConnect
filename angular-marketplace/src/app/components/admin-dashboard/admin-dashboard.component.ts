@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { UsuarioService } from '../../services/checkout/usuario.service';
 import { CheckoutService } from '../../services/checkout/checkout.service';
 import { UsuarioFirestoreService } from '../../services/usuario-firestore.service';
+import { NotificationService } from '../../services/checkout/notification.service';
 
 
 
@@ -20,9 +21,12 @@ import { UsuarioFirestoreService } from '../../services/usuario-firestore.servic
 export class AdminDashboardComponent implements OnInit {
   usuarios: Usuario[] = [];
   cursos: Course[] = [];
+  notifications: Notification[] = [];
+  
 
   constructor(
     private router: Router,
+   // private notificationService : NotificationService ,
     private usuarioService: UsuarioService,
     private checkoutService: CheckoutService, 
     private usuariouirestoreService : UsuarioFirestoreService,
@@ -33,6 +37,7 @@ export class AdminDashboardComponent implements OnInit {
   ngOnInit(): void {
     this.carregarUsuarios()// Inicialmente, não carrega nem usuários nem cursos.
   }
+
 
   carregarUsuarios() {
     this.usuariouirestoreService.listar().subscribe((dados: Usuario[]) => {

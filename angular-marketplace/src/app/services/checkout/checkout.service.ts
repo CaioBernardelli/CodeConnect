@@ -126,8 +126,4 @@ export class CheckoutService {
     return this.httpClient.post<Course>(this.baseUrl, newCourse);
   }
 
-
-
-
-
 }

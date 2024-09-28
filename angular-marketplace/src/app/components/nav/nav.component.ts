@@ -26,7 +26,7 @@ export class NavComponent {
  //   });
   }
   link() {
-    this.router.navigate(['/caio']); // Redireciona para a página de adicionar curso
+    this.router.navigate(['/caio']); 
   }
 
 }
