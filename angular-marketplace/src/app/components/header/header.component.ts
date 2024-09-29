@@ -11,6 +11,8 @@ import { Notification } from '../../model/notificaton';
 import { NotificationService } from '../../services/checkout/notification.service';
 import { CheckoutService } from '../../services/checkout/checkout.service';
 import { Course } from '../../model/course.model';
+import { UsuarioFirestoreService } from '../../services/usuario-firestore.service';
+
 @Component({
   selector: 'app-header',
   standalone: true,
@@ -22,7 +24,7 @@ export class HeaderComponent {
   notifications: Notification[] = []; // Corrigido para 'notifications'
   listSelectedCourses: Course[] = [];
  
-  constructor(private notificationService: NotificationService, private checkoutService : CheckoutService) {
+  constructor(private notificationService: NotificationService, private checkoutService : CheckoutService, private usuarioService: UsuarioFirestoreService, private router: Router) {
 //
     this.notificationService.listar().subscribe((notification) => {
       this.notifications = notification;
@@ -30,6 +32,11 @@ export class HeaderComponent {
       this.listSelectedCourses = this.checkoutService.listSelectdCourse;
     });
 
+  }
+
+  logout() {
+    this.usuarioService.logout();  // Limpa os dados de autenticação
+    this.router.navigate(['/login']);  // Redireciona para a página de login
   }
 }
 

@@ -1,23 +1,20 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
-import { UsuarioService } from '../services/checkout/usuario.service';
-
+import { UsuarioFirestoreService } from '../services/usuario-firestore.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdminGuard implements CanActivate {
 
-  constructor(private usuarioService: UsuarioService, private router: Router) { }
+  constructor(private usuarioFirestoreService: UsuarioFirestoreService, private router: Router) { }
 
   canActivate(): boolean {
-    const user = this.usuarioService.getUsuarioLogado();
-
-    if (user && user.email === 'admin@example.com') {
-       // Substitua pelo email do admin real
-      return true;
+    if (this.usuarioFirestoreService.isAdmin()) {
+      return true;  // Usuário é admin, pode acessar
     }
 
+    // Redireciona para outra página se o usuário não for admin
     this.router.navigate(['/courses-carousel']);
     return false;
   }

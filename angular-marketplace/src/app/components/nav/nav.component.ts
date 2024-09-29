@@ -4,7 +4,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common'; // Importe o CommonModule
-import { UsuarioService } from '../../services/checkout/usuario.service';
+import { UsuarioFirestoreService } from '../../services/usuario-firestore.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -12,21 +12,20 @@ import { Router } from '@angular/router';
   standalone: true,
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.scss'],
-  imports: [CommonModule, MatIconModule, MatListModule, MatSidenavModule, RouterModule] // Adicione o CommonModule aqui
+  imports: [CommonModule, MatIconModule, MatListModule, MatSidenavModule, RouterModule],
 })
 export class NavComponent {
   isAdmin: boolean = false;
 
-  constructor(public usuarioService: UsuarioService,private router: Router) {
-    this.isAdmin = this.usuarioService.isAdmin();
-   
-   
-    //this.usuarioService.isAdmin().subscribe(isAdmin => {
-     // this.isAdmin = isAdmin;
- //   });
-  }
-  link() {
-    this.router.navigate(['/caio']); 
+  constructor(public usuarioService: UsuarioFirestoreService, private router: Router) {
+    this.verificarAdmin();
   }
 
+  verificarAdmin() {
+    this.isAdmin = this.usuarioService.isAdmin(); // Verifica se o usuário é admin
+  }
+
+  link() {
+    this.router.navigate(['/caio']);
+  }
 }

@@ -6,37 +6,26 @@
     <span class="spacer"></span> <!-- Espaçador para empurrar os ícones para a direita -->
     <span class="iconsimport">
         
-        
-        
         <a mat-icon-button [matMenuTriggerFor]="notificationsMenu" aria-label="Notifications">
-            <mat-icon matBadge="{{notifications.length}} " matBadgeColor="primary">notifications</mat-icon>
-          </a>
+            <mat-icon matBadge="{{notifications.length}}" matBadgeColor="primary">notifications</mat-icon>
+        </a>
 
-          <mat-menu #notificationsMenu="matMenu">
-            <app-notification-list></app-notification-list> <!-- Coloque o componente aqui -->
+        <mat-menu #notificationsMenu="matMenu">
+            <app-notification-list></app-notification-list>
         </mat-menu>
 
+        <a mat-icon-button [matMenuTriggerFor]="cartMenu" aria-label="Carrinho de Compras">
+            <mat-icon matBadge="{{listSelectedCourses.length}}" matBadgeColor="primary">shopping_cart</mat-icon>
+        </a>
 
-        <!-- Alterar o label de "Notifications" para "Carrinho de Compras" -->
-<a mat-icon-button [matMenuTriggerFor]="cartMenu" aria-label="Carrinho de Compras">
-    <!-- Alterar o ícone para "shopping_cart" e manter o contador de itens -->
-    <mat-icon matBadge="{{listSelectedCourses.length}}" matBadgeColor="primary">shopping_cart</mat-icon>
-  </a>
-  
-  <!-- Alterar a referência do menu de notificações para o menu do carrinho -->
-  <mat-menu #cartMenu="matMenu">
-    <app-courses-list></app-courses-list>
-  </mat-menu>
-  
-
-
-
-
-
+        <mat-menu #cartMenu="matMenu">
+            <app-courses-list></app-courses-list>
+        </mat-menu>
 
         <a mat-icon-button [matMenuTriggerFor]="profileMenu" aria-label="Profile menu">
             <mat-icon>account_circle</mat-icon>
         </a>
+
         <mat-menu #profileMenu="matMenu">
             <button mat-menu-item routerLink="/profile">
                 <mat-icon>account_circle</mat-icon>
@@ -46,7 +35,7 @@
                 <mat-icon>import_contacts</mat-icon>
                 <span>Certificados</span>
             </button>
-            <button mat-menu-item routerLink="/" >
+            <button mat-menu-item (click)="logout()">
                 <mat-icon>logout</mat-icon>
                 <span>Sair</span>
             </button>

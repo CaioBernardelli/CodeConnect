@@ -5,19 +5,56 @@ import { Usuario } from '../model/usuario';
 
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UsuarioFirestoreService {
-  private collectionName: string = 'usuarios'; 
+  private collectionName: string = 'usuarios';
   public usuarioLogado: Usuario | null = null;
 
- 
+  constructor(private firestore: Firestore) {
+    // Tenta carregar o usuário do localStorage ao inicializar
+    const usuarioString = localStorage.getItem('usuarioLogado');
+    if (usuarioString) {
+      this.usuarioLogado = JSON.parse(usuarioString);
+    }
+  }
 
-  constructor(private firestore: Firestore) {}
-
-  isAdmin(): boolean { // Método que verifica se o usuário logado é um admin
+  isAdmin(): boolean {
     return this.usuarioLogado?.email === 'admin@example.com';
   }
+
+  autenticar(email: string, senha: string): Observable<Usuario> {
+    const usuariosCollection = collection(this.firestore, this.collectionName);
+    const q = query(usuariosCollection, where('email', '==', email), where('senha', '==', senha));
+
+    return new Observable<Usuario>((observer) => {
+      getDocs(q)
+        .then((querySnapshot) => {
+          if (querySnapshot.empty) {
+            throw new Error('Email ou senha incorretos');
+          } else {
+            const usuario = querySnapshot.docs[0].data() as Usuario;
+            this.usuarioLogado = usuario;
+
+            // Armazena o usuário logado no localStorage
+            localStorage.setItem('usuarioLogado', JSON.stringify(usuario));
+
+            observer.next(usuario);
+            observer.complete();
+          }
+        })
+        .catch((error) => {
+          observer.error(new Error(error.message));
+        });
+    });
+  }
+
+  logout() {
+    this.usuarioLogado = null;
+    localStorage.removeItem('usuarioLogado'); // Remove o usuário do localStorage ao deslogar
+  }
+
+
   
 
   listar(): Observable<Usuario[]> {
@@ -35,27 +72,6 @@ export class UsuarioFirestoreService {
   }
 
 
-  autenticar(email: string, senha: string): Observable<Usuario> {
-    const usuariosCollection = collection(this.firestore, this.collectionName);
-    const q = query(usuariosCollection, where('email', '==', email), where('senha', '==', senha));
-  
-    return new Observable<Usuario>(observer => {
-      getDocs(q)
-        .then(querySnapshot => {
-          if (querySnapshot.empty) {
-            throw new Error('Email ou senha incorretos');
-          } else {
-            const usuario = querySnapshot.docs[0].data() as Usuario;
-            this.usuarioLogado = usuario;
-            observer.next(usuario);
-            observer.complete();
-          }
-        })
-        .catch(error => {
-          observer.error(new Error(error.message));
-        });
-    });
-  }
   
   
 
