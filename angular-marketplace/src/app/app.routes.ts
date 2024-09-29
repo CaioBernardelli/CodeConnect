@@ -12,6 +12,7 @@ import { AdicionarCursoComponent } from './components/adicionar-curso/adicionar-
 import { NotificationListComponent } from './components/notification-list/notification-list.component';
 import { PurchasingCourseComponent } from './components/carrinho/purchasing-course/purchasing-course.component';
 import { UsuariofirebaseComponent } from './components/usuariofirebase/usuariofirebase.component';
+import { AuthGuard } from './AuthGuard/auth.guard';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -23,18 +24,17 @@ export const routes: Routes = [
       { path: 'list-films', component: ListFilmsComponent },
       { path: 'about-us', component: AboutUsComponent },
       { path: 'firebase', component: UsuariofirebaseComponent }
-
-    ],
+    ], canActivate: [AuthGuard] 
   },
-  { path: 'carrinho', component: PurchasingCourseComponent },
+  { path: 'carrinho', component: PurchasingCourseComponent, canActivate: [AuthGuard] },  // Protegido
   { path: 'admin', component: AdminDashboardComponent, canActivate: [AdminGuard] },
   { path: 'cadastro-usuario', component: CadastrousuarioComponent },
-  { path: 'adicionar-curso', component: AdicionarCursoComponent },
+  { path: 'adicionar-curso', component: AdicionarCursoComponent, canActivate: [AuthGuard] },  // Protegido
   { path: 'home', component: HomeComponent },
-  { path: 'notifications', component: NotificationListComponent },
-  // Adicione uma rota wildcard para tratar rotas não encontradas
+  { path: 'notifications', component: NotificationListComponent, canActivate: [AuthGuard] },  // Protegido
   { path: '**', redirectTo: '' }
 ];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

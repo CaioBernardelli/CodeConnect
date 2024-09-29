@@ -82,6 +82,7 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   voltarParaHome() {
+    this.usuariouirestoreService.logout();  // Limpa os dados de autenticação
     this.router.navigate(['/']);
   }
   voltarParaInicio() {
