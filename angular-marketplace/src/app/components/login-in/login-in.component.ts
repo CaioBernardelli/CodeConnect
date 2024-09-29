@@ -11,7 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import { MensagemSweetService } from '../../services/checkout/mensagem-sweet.service';
-import { UsuarioService } from '../../services/checkout/usuario.service';
+import { UsuarioFirestoreService } from '../../services/usuario-firestore.service';
 
 @Component({
   selector: 'app-login-in',
@@ -33,24 +33,18 @@ export class LoginInComponent {
     private roteador: Router,
     private rotaAtual: ActivatedRoute,
     private mensagemService: MensagemSweetService,
-    private usuarioService: UsuarioService
-  ) {
-    this.usuarioService.listar().subscribe({
-      next: (usuariosRetornados) => (this.usuarios = usuariosRetornados),
-      error: (err) => this.mensagemService.erro(err.message),
-    });
-  }
-
-
-  logar(email: string, senha: string) {
-    this.usuarioService.autenticar(email, senha).subscribe({
-      next: (usuario) => {
-        this.mensagemService.sucesso('Login realizado com sucesso');
-        this.roteador.navigate(['home']); // Redireciona para nossa home 
-      },
-      error: (err) => {
-        this.mensagemService.erro('Email ou senha incorretos');
-      }
-    });
-  }
+    private usuarioService: UsuarioFirestoreService // Atualizado para usar o Firestore service
+  ) {}
+  
+    logar(email: string, senha: string) {
+      this.usuarioService.autenticar(email, senha).subscribe({
+        next: (usuario) => {
+          this.mensagemService.sucesso('Login realizado com sucesso');
+          this.roteador.navigate(['home']); // Redireciona para a home
+        },
+        error: (err) => {
+          this.mensagemService.erro('Email ou senha incorretos');
+        }
+      });
+    }
 }

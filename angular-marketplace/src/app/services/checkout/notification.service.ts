@@ -9,7 +9,7 @@ import { Notification } from '../../model/notificaton';
 export class NotificationService {
   private notificationsSubject = new BehaviorSubject<Notification[]>([]);
   public notifications$ = this.notificationsSubject.asObservable();
-  public baseUrl: string = "http://localhost:3000/notifications";
+  public baseUrl: string = "http://localhost:8080/notifications";
 
   constructor(private httpClient: HttpClient) {
    }

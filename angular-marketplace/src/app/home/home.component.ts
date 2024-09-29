@@ -10,14 +10,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import { MensagemSweetService } from '../services/checkout/mensagem-sweet.service';
-import { UsuarioService } from '../services/checkout/usuario.service';
+import { UsuarioFirestoreService } from '../services/usuario-firestore.service';
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [RouterModule, MatIconModule, MatButtonModule, FormsModule, MatCardModule, MatFormFieldModule, ReactiveFormsModule, MatInputModule],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+  styleUrls: ['./home.component.scss'] // Corrigido para `styleUrls`
 })
 export class HomeComponent {
   usuarios: Usuario[] = [];
@@ -25,32 +25,24 @@ export class HomeComponent {
     id: '',
     nome: '', email: '', idade: 0,
     senha: ''
-  }; // Propriedade `usuario` adicionada
-
+  };
 
   constructor(
     private roteador: Router,
     private rotaAtual: ActivatedRoute,
     private mensagemService: MensagemSweetService,
-    private usuarioService: UsuarioService
-  ) {
-    this.usuarioService.listar().subscribe({
-      next: (usuariosRetornados) => (this.usuarios = usuariosRetornados),
-      error: (err) => this.mensagemService.erro(err.message),
-    });
-  }
-
+    private usuarioService: UsuarioFirestoreService // Certifique-se de que o método 'autenticar' existe
+  ) {}
 
   logar(email: string, senha: string) {
     this.usuarioService.autenticar(email, senha).subscribe({
-      next: (usuario) => {
+      next: (usuario: Usuario) => { // Definir o tipo explicitamente
         this.mensagemService.sucesso('Login realizado com sucesso');
-        this.roteador.navigate(['courses-carousel']); // Redireciona para a página principal
+        this.roteador.navigate(['/courses-carousel']); // Redireciona para a home
       },
-      error: (err) => {
+      error: (err: any) => { // Definir o tipo do erro como 'any'
         this.mensagemService.erro('Email ou senha incorretos');
       }
     });
   }
 }
-

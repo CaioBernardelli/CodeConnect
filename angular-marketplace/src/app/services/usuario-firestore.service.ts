@@ -33,6 +33,30 @@ export class UsuarioFirestoreService {
       throw new Error('Erro ao remover o usuário!');
     });
   }
+
+
+  autenticar(email: string, senha: string): Observable<Usuario> {
+    const usuariosCollection = collection(this.firestore, this.collectionName);
+    const q = query(usuariosCollection, where('email', '==', email), where('senha', '==', senha));
+  
+    return new Observable<Usuario>(observer => {
+      getDocs(q)
+        .then(querySnapshot => {
+          if (querySnapshot.empty) {
+            throw new Error('Email ou senha incorretos');
+          } else {
+            const usuario = querySnapshot.docs[0].data() as Usuario;
+            this.usuarioLogado = usuario;
+            observer.next(usuario);
+            observer.complete();
+          }
+        })
+        .catch(error => {
+          observer.error(new Error(error.message));
+        });
+    });
+  }
+  
   
 
   async inserir(usuario: Usuario): Promise<void> {
