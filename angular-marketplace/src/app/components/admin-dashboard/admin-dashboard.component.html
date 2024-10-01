@@ -6,6 +6,7 @@
     <button (click)="carregarUsuarios()">Carregar Usuários</button>
     <button (click)="carregarCursos()">Carregar Cursos</button>
     <button (click)="adicionarCurso()">Adicionar Curso</button>
+    <button (click)="cadastrarUsuario()">Cadastrar Usuário</button> <!-- Novo botão -->
     <button (click)="voltarParaHome()">Voltar para Login</button>
     <button (click)="voltarParaInicio()">Voltar para Home</button>
   </div>
@@ -19,17 +20,15 @@
       <th>Nome</th>
       <th>Ações</th>
     </tr>
-    <!-- Substitua o `usuario.email` por `usuario.id` no botão de remover -->
     <tr *ngFor="let usuario of usuarios">
-      <td>{{ usuario.id}}</td>
+      <td>{{ usuario.id }}</td>
       <td>{{ usuario.email }}</td>
       <td>{{ usuario.nome }}</td>
       <td>
         <button (click)="editarUsuario(usuario)">Editar</button>
-        <button (click)="removerUsuario(usuario.id)">Remover</button> <!-- Ajuste aqui -->
+        <button (click)="removerUsuario(usuario.id)">Remover</button>
       </td>
     </tr>
-
   </table>
   <p *ngIf="usuarios.length === 0">Nenhum usuário carregado.</p>
 
@@ -43,7 +42,6 @@
       <th>Ações</th>
     </tr>
     <tr *ngFor="let curso of cursos">
-      <!-- Certifique-se de que todos os campos necessários existem -->
       <td>{{ curso.name }}</td>
       <td>{{ curso.category }}</td>
       <td>{{ curso.price }}</td>

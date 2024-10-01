@@ -16,22 +16,47 @@ import { UsuarioFirestoreService } from '../../services/usuario-firestore.servic
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [MatToolbarModule, MatIconModule, RouterModule, MatButtonModule, MatMenuModule, MatBadgeModule, NotificationListComponent,CoursesListComponent],
+  imports: [
+    MatToolbarModule, 
+    MatIconModule, 
+    RouterModule, 
+    MatButtonModule, 
+    MatMenuModule, 
+    MatBadgeModule, 
+    NotificationListComponent,
+    CoursesListComponent
+  ],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-  notifications: Notification[] = []; // Corrigido para 'notifications'
+  notifications: Notification[] = [];
   listSelectedCourses: Course[] = [];
- 
-  constructor(private notificationService: NotificationService, private checkoutService : CheckoutService, private usuarioService: UsuarioFirestoreService, private router: Router) {
-//
-    this.notificationService.listar().subscribe((notification) => {
-      this.notifications = notification;
-   //   
-      this.listSelectedCourses = this.checkoutService.listSelectdCourse;
+  isAdmin: boolean = false;
+
+  constructor(
+    private notificationService: NotificationService,
+    private checkoutService: CheckoutService,
+    private usuarioService: UsuarioFirestoreService,
+    private router: Router
+  ) {
+    // Verifica se o usuário é administrador
+    this.isAdmin = this.usuarioService.isAdmin();
+
+    // Subscreve às notificações do serviço
+    this.notificationService.getNotifications().subscribe((notifications) => {
+      this.notifications = notifications;
     });
 
+    // Carrega notificações conforme o tipo de usuário
+    if (this.isAdmin) {
+      this.notificationService.listarPorTipo('admin').subscribe();
+    } else {
+      this.notificationService.listarPorTipo('usuario').subscribe();
+    }
+
+    // Carrega os cursos selecionados
+    this.listSelectedCourses = this.checkoutService.listSelectdCourse;
   }
 
   logout() {
@@ -39,4 +64,3 @@ export class HeaderComponent {
     this.router.navigate(['/login']);  // Redireciona para a página de login
   }
 }
-
