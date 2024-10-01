@@ -30,6 +30,8 @@ export class HeaderComponent {
       this.notifications = notification;
    //   
       this.listSelectedCourses = this.checkoutService.listSelectdCourse;
+ 
+      console.log("oi")
     });
 
   }

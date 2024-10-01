@@ -22,11 +22,15 @@ import { MatListModule } from '@angular/material/list';
 })
 export class CoursesListComponent {
   listSelectedCourses: Course[] = [];// Corrigido para 'notifications'
+  totalPrice!: number;
 
   constructor(private checkoutService: CheckoutService) { }
 
   ngOnInit(): void {
     this.listSelectedCourses = this.checkoutService.listSelectdCourse;
+    console.log(this.listSelectedCourses.length)
+
+    this.totalPrice = this.checkoutService.totalPrice;
 
 
     }
