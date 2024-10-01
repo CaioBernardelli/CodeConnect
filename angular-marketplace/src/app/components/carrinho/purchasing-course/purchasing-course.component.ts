@@ -40,7 +40,7 @@ export class PurchasingCourseComponent implements OnInit, AfterViewInit {
     }
   }
 
-  trackByCourseId(index: number, course: Course): number {
+  trackByCourseId(index: number, course: Course): string {
     return course.id;
   }
 

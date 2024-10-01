@@ -14,7 +14,7 @@ import { CheckoutService } from '../../services/checkout/checkout.service';
   imports: [FormsModule] // Adicionar FormsModule aqui
 })
 export class AdicionarCursoComponent {
-  curso: Course = new Course(0, '', '', '', 0);
+  curso: Course = new Course("", '', '', '', 0);
 
   constructor(private cursoService: CheckoutService, private router: Router) { }
 

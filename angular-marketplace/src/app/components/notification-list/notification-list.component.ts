@@ -4,6 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { CommonModule } from '@angular/common';
 import { NotificationService } from '../../services/checkout/notification.service';
+import { UsuarioFirestoreService } from '../../services/usuario-firestore.service'; // Importe o serviço de usuário
 
 @Component({
   selector: 'app-notification-list',
@@ -12,23 +13,25 @@ import { NotificationService } from '../../services/checkout/notification.servic
   templateUrl: './notification-list.component.html',
   styleUrl: './notification-list.component.scss'
 })
-export class NotificationListComponent implements OnInit { // Implementado OnInit
-  notifications: Notification[] = []; // Corrigido para 'notifications'
+export class NotificationListComponent implements OnInit {
+  notifications: Notification[] = [];
 
-  constructor(private notificationService: NotificationService) { }
-
-  // ngOnInit(): void {
-  //   this.notificationService.listar().subscribe({
-  //    next: (notificationsRetornados) => this.notifications = notificationsRetornados,
-  //  error: (err) => console.error('Erro ao carregar notificações', err) // Incluído tratamento de erro
-  //  });
-  // }
+  constructor(
+    private notificationService: NotificationService,
+    private usuarioFirestoreService: UsuarioFirestoreService
+  ) {}
 
   ngOnInit(): void {
-    this.notificationService.listar().subscribe((notification) => {
-      this.notifications = notification;
+    // Subscreve às notificações do serviço
+    this.notificationService.getNotifications().subscribe((notifications) => {
+      this.notifications = notifications;
+    });
 
-
-    })
+    // Verifica se o usuário é administrador e carrega as notificações
+    if (this.usuarioFirestoreService.isAdmin()) {
+      this.notificationService.listarPorTipo('admin').subscribe();
+    } else {
+      this.notificationService.listarPorTipo('user').subscribe();
+    }
   }
 }

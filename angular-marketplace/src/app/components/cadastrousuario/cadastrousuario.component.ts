@@ -41,7 +41,7 @@ export class CadastrousuarioComponent {
     private usuarioFirestoreService: UsuarioFirestoreService,
     
   ) {
-    this.usuarioService.listar().subscribe({
+    this.usuarioFirestoreService.listar().subscribe({
       next: (usuariosRetornados) => (this.usuarios = usuariosRetornados),
       error: (err) => this.mensagemService.erro(err.message),
     });

@@ -1,10 +1,7 @@
-
-   <div class="notification-container">
-      <button mat-menu-item *ngFor="let notification of notifications">
-        <mat-icon>notifications</mat-icon>
-       
-        <span>{{ notification.message }}</span><br>
-        <small>{{ notification.date}}</small>
-      </button>
-
-    </div>
+<div class="notification-container">
+  <button mat-menu-item *ngFor="let notification of notifications">
+    <mat-icon>notifications</mat-icon>
+    <span>{{ notification.message }}</span><br>
+    <small>{{ notification.date }}</small>
+  </button>
+</div>

@@ -21,27 +21,21 @@ import { NotificationService } from '../../services/checkout/notification.servic
 export class AdminDashboardComponent implements OnInit {
   usuarios: Usuario[] = [];
   cursos: Course[] = [];
-  notifications: Notification[] = [];
   
-
   constructor(
     private router: Router,
-   // private notificationService : NotificationService ,
     private usuarioService: UsuarioService,
     private checkoutService: CheckoutService, 
-    private usuariouirestoreService : UsuarioFirestoreService,
-    //private usuarioFirestoreService  : UsuarioFirestoreService ,
-    
+    private usuarioFirestoreService: UsuarioFirestoreService,
   ) { }
 
   ngOnInit(): void {
-    this.carregarUsuarios()// Inicialmente, não carrega nem usuários nem cursos.
+    this.carregarUsuarios(); // Carrega usuários ao iniciar
   }
 
-
   carregarUsuarios() {
-    this.usuariouirestoreService.listar().subscribe((dados: Usuario[]) => {
-      this.usuarios = dados; // Armazena os usuários retornados
+    this.usuarioFirestoreService.listar().subscribe((dados: Usuario[]) => {
+      this.usuarios = dados;
     });
   }
 
@@ -52,17 +46,26 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   adicionarCurso() {
-    this.router.navigate(['/adicionar-curso']); // Redireciona para a página de adicionar curso
+    this.router.navigate(['/adicionar-curso']);
   }
 
-  editarUsuario(usuario: Usuario) {
+  cadastrarUsuario() {
+    this.router.navigate(['/cadastro-usuario']); // Navegação para a página de cadastro
+  }
+
+  async editarUsuario(usuario: Usuario) {
     usuario.nome = prompt('Digite o novo nome:', usuario.nome) || usuario.nome;
-    this.usuarioService.atualizar(usuario).subscribe(() => {
+      await this.usuarioFirestoreService.atualizarUsuario(usuario);
+      this.carregarUsuarios();
+    
+  }
+  
+
+  removerUsuario(id: string) {
+    this.usuarioFirestoreService.remover(id).then(() => {
       this.carregarUsuarios();
     });
   }
-
-
 
   editarCurso(curso: Course) {
     curso.name = prompt('Digite o novo nome do curso:', curso.name) || curso.name;
@@ -71,20 +74,15 @@ export class AdminDashboardComponent implements OnInit {
     });
   }
 
-  removerCurso(id: number) {
+  removerCurso(id: string) {
     this.checkoutService.deleteCourse(id).subscribe(() => this.carregarCursos());
   }
 
-  removerUsuario(id: string) {
-    this.usuariouirestoreService.remover(id).then(() => {
-      this.carregarUsuarios();  // Atualiza a lista de usuários após a remoção
-    });
-  }
-
   voltarParaHome() {
-    this.usuariouirestoreService.logout();  // Limpa os dados de autenticação
+    this.usuarioFirestoreService.logout();
     this.router.navigate(['/']);
   }
+
   voltarParaInicio() {
     this.router.navigate(['/courses-carousel']);
   }
