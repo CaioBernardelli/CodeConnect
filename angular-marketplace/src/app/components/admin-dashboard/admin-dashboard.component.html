@@ -11,6 +11,14 @@
     <button (click)="voltarParaInicio()">Voltar para Home</button>
   </div>
 
+   <!-- Campo de texto para enviar notificações -->
+   <div class="notification-section">
+    <h3>Enviar Notificação para Usuários</h3>
+    <textarea [(ngModel)]="mensagemNotificacao" placeholder="Digite a mensagem da notificação"></textarea>
+    <button (click)="enviarNotificacao()">Enviar Notificação</button>
+  </div>
+
+
   <!-- Tabela de Usuários -->
   <h3>Gerenciamento de Usuários</h3>
   <table *ngIf="usuarios.length > 0">

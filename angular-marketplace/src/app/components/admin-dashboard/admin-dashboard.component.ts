@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';  // Importe o FormsModule
+
 
 import { Usuario } from '../../model/usuario';
 import { Course } from '../../model/course.model';
@@ -14,19 +17,23 @@ import { NotificationService } from '../../services/checkout/notification.servic
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true, // Se for standalone
-  imports: [CommonModule], // Importe o CommonModule diretamente aqui
+  imports: [CommonModule, FormsModule], // Importe o CommonModule diretamente aqui
   templateUrl: './admin-dashboard.component.html',
   styleUrls: ['./admin-dashboard.component.scss']
 })
 export class AdminDashboardComponent implements OnInit {
   usuarios: Usuario[] = [];
   cursos: Course[] = [];
+  mensagemNotificacao: string = ''; // Adicionado para controlar a mensagem de notificação
+
   
   constructor(
     private router: Router,
     private usuarioService: UsuarioService,
     private checkoutService: CheckoutService, 
     private usuarioFirestoreService: UsuarioFirestoreService,
+    private httpClient: HttpClient // Importando HttpClient
+
   ) { }
 
   ngOnInit(): void {
@@ -85,5 +92,21 @@ export class AdminDashboardComponent implements OnInit {
 
   voltarParaInicio() {
     this.router.navigate(['/courses-carousel']);
+  }
+
+  enviarNotificacao() {
+    const notification = {
+      message: this.mensagemNotificacao,
+      date: new Date().toISOString(),
+      type: 'user'
+    };
+
+    this.httpClient.post('http://localhost:8080/notification', notification).subscribe(() => {
+      alert('Notificação enviada com sucesso!');
+      this.mensagemNotificacao = ''; // Limpa o campo de notificação
+    }, error => {
+      console.error('Erro ao enviar notificação:', error);
+      alert('Erro ao enviar notificação');
+    });
   }
 }
