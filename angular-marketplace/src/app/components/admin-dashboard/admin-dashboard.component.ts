@@ -14,6 +14,7 @@ import { NotificationService } from '../../services/checkout/notification.servic
 
 
 
+
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true, // Se for standalone
@@ -32,12 +33,14 @@ export class AdminDashboardComponent implements OnInit {
     private usuarioService: UsuarioService,
     private checkoutService: CheckoutService, 
     private usuarioFirestoreService: UsuarioFirestoreService,
-    private httpClient: HttpClient // Importando HttpClient
+    private httpClient: HttpClient ,// Importando HttpClient,
+    private notificationService :  NotificationService
 
   ) { }
 
   ngOnInit(): void {
-    this.carregarUsuarios(); // Carrega usuários ao iniciar
+    this.carregarUsuarios(); 
+    this.carregarCursos()// Carrega usuários ao iniciar
   }
 
   carregarUsuarios() {
@@ -100,8 +103,8 @@ export class AdminDashboardComponent implements OnInit {
       date: new Date().toISOString(),
       type: 'user'
     };
-
-    this.httpClient.post('http://localhost:8080/notification', notification).subscribe(() => {
+  
+    this.notificationService.enviarNotificacao(notification).subscribe(() => {
       alert('Notificação enviada com sucesso!');
       this.mensagemNotificacao = ''; // Limpa o campo de notificação
     }, error => {

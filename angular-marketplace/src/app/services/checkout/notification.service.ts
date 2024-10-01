@@ -42,4 +42,14 @@ export class NotificationService {
     console.error('Erro ao obter notificações:', error);
     return throwError(() => new Error('Erro ao carregar notificações, tente novamente mais tarde.'));
   }
+
+
+  enviarNotificacao(notification: { message: string; date: string; type: string }): Observable<any> {
+    return this.httpClient.post(this.baseUrl, notification).pipe(
+      tap(() => {
+        console.log('Notificação enviada com sucesso!');
+      }),
+      catchError(this.handleError)
+    );
+  }
 }

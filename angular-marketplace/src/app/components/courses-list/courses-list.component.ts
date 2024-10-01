@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { CheckoutService } from '../../services/checkout/checkout.service';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -21,19 +22,30 @@ import { MatListModule } from '@angular/material/list';
   styleUrl: './courses-list.component.scss'
 })
 export class CoursesListComponent {
+
   listSelectedCourses: Course[] = [];// Corrigido para 'notifications'
   totalPrice!: number;
 
-  constructor(private checkoutService: CheckoutService) { }
+  constructor(private checkoutService: CheckoutService,private router: Router) { }
 
   ngOnInit(): void {
     this.listSelectedCourses = this.checkoutService.listSelectdCourse;
     console.log(this.listSelectedCourses.length)
 
-    this.totalPrice = this.checkoutService.totalPrice;
+    this.atualizarCursos()
 
 
     }
+
+
+    atualizarCursos(): void {
+      this.totalPrice = this.checkoutService.totalPrice;
+      this.listSelectedCourses = this.checkoutService.listSelectdCourse;
+    }
+
+    comprar() : void{
+      this.router.navigate(['/carrinho']);
+      }
   }
 
 

@@ -16,7 +16,7 @@
         
 
         <a mat-icon-button [matMenuTriggerFor]="cartMenu" aria-label="Carrinho de Compras">
-            <mat-icon matBadge="" matBadgeColor="primary">shopping_cart</mat-icon>
+            <mat-icon matBadge="{{ listSelectedCourses.length}}" matBadgeColor="primary">shopping_cart</mat-icon>
         </a>
 
         <mat-menu #cartMenu="matMenu">

@@ -36,9 +36,8 @@
 
 <!-- Botão "Finalizar" -->
  <div *ngIf="listSelectedCourses.length > 0">
-  <h1>Preço Total : {{totalPrice}}</h1>
   <div class="button-fim">
-  <button class="finalize">Finalizar</button>
+  <button  (click)="comprar()" class="finalize">Finalizar</button>
 </div>
 </div>
 
