@@ -54,5 +54,15 @@
       "message": "Hoje e dia.",
       "date": "2024-08-23T21:00:00"
     }
+  ],
+  "posts": [
+    {
+      "id": "bf65de2d-898e-47c6-a4dd-598a8586c20f",
+      "message": "AAAaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    {
+      "id": "21bc70db-6e3f-4572-b717-bd58ec897675",
+      "message": "qqqqqqqqqqqqqqqqqqqqqqqqqqq"
+    }
   ]
 }

@@ -13,6 +13,8 @@ import { NotificationListComponent } from './components/notification-list/notifi
 import { PurchasingCourseComponent } from './components/carrinho/purchasing-course/purchasing-course.component';
 import { UsuariofirebaseComponent } from './components/usuariofirebase/usuariofirebase.component';
 import { AuthGuard } from './AuthGuard/auth.guard';
+import { JobListComponent } from './components/job-list/job-list.component';
+import { FeedPostComponent } from './components/feed-post/feed-post.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -23,7 +25,10 @@ export const routes: Routes = [
       { path: 'courses-carousel', component: CoursesCarouselComponent },
       { path: 'list-films', component: ListFilmsComponent },
       { path: 'about-us', component: AboutUsComponent },
-      { path: 'firebase', component: UsuariofirebaseComponent }
+      { path: 'firebase', component: UsuariofirebaseComponent },
+      {path: 'joblist', component: JobListComponent},
+      {path: 'feed-post', component: FeedPostComponent}
+
     ], canActivate: [AuthGuard] 
   },
   { path: 'carrinho', component: PurchasingCourseComponent, canActivate: [AuthGuard] },  // Protegido
