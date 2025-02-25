@@ -1,34 +1,103 @@
+/* Garante que a página ocupe toda a altura e o conteúdo fique centralizado */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4; /* Cor de fundo leve */
+}
+
+/* Container principal */
+.container {
+  flex: 1; /* Faz o conteúdo expandir para ocupar o espaço disponível */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 1200px; /* Limita a largura para não ficar muito esticado */
+  margin-top: 50px;
+  padding: 20px;
+}
+
+/* Ajusta a seção de mensagens para ocupar o máximo possível de largura */
+.col-md-8 {
+  width: 100%;
+  max-width: 800px; /* Aumenta o limite para ocupar mais espaço */
+}
+
+/* Ajusta os cartões */
+mat-card {
+  width: 100%;
+  max-width: 100%; /* Faz com que os cards ocupem a largura máxima */
+  text-align: center;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  background-color: white;
+}
+
+/* Imagem do perfil */
 img {
-    width: 150px;
-  }
-  
-  .buttons {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px; /* Espaçamento entre os botões */
-  }
-  
-  .mat-card-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .mat-card-content p {
-    text-align: center;
-  }
-  
-  .mat-card-header {
-    display: flex;
-    justify-content: center;
-  }
-  
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid #007bff; /* Adiciona uma borda azul para destaque */
+}
 
+/* Ajusta a disposição dos botões */
+.buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
 
-.container{ 
-    margin-top: 50px;
+/* Melhor disposição dos conteúdos dentro dos cards */
+.mat-card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
 
+/* Centraliza os textos dentro dos cards */
+.mat-card-content p {
+  text-align: center;
+  color: #333;
+}
 
+/* Centraliza os títulos dos cards */
+.mat-card-header {
+  display: flex;
+  justify-content: center;
+}
+
+/* Ajusta os formulários para ficarem mais bonitos e largos */
+.mat-form-field {
+  width: 100%;
+  max-width: 700px; /* O formulário agora ocupa quase toda a tela */
+}
+
+/* Botões com melhor aparência */
+button {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 8px;
+}
+
+/* Footer fixo na parte de baixo */
+footer {
+  width: 100%;
+  background-color: #007bff;
+  color: white;
+  text-align: center;
+  padding: 15px 0;
+  position: relative;
+  bottom: 0;
 }

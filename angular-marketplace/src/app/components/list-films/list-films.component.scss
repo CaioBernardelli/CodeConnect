@@ -1,173 +1,135 @@
-
-
-//ok
-.container{
-
+/* Container principal */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
-    
-  
+    padding: 20px;
+    background-color: #f4f4f9;
 }
 
-.cabeçalho{
-    display: flex;
-    flex-direction: column;
+/* Cabeçalho */
+.cabeçalho {
     text-align: center;
+    margin-bottom: 20px;
+    padding-top: 20px; /* Adicionado espaçamento superior */
 }
 
-//apaguei o card
-.card{
-
-  background-color: #f9f9f9;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-}
-.teste {
- 
-    display: flex;
-    flex-wrap: wrap;
-    
-
-    align-items: flex-start; /* Alinha os itens ao topo */
-    align-self: flex-end; 
-    
-    gap: 16px; /* Espaçamento entre os elementos dentro do container */
-    padding: 20px; /* Adiciona espaçamento interno de 16px em todos os lados */
-    box-sizing: border-box; /* Inclui padding e border na largura e altura do elemento */
+.title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #6F42C1;
+    margin-top: 20px; /* Adicionado espaçamento superior */
 }
 
-
-.mat-card-container {
-
-    display: flex; //display:inline-flex;
-    margin-top: 15px;
-    flex-direction: row ;
-    justify-content: center; /* Alinha os itens à esquerda */
-    align-items: center; /* Alinha os itens ao topo */
-    
-
-}
-
-
-//ok
-.card-course {
-    width: 300px;
-    height: auto;
-    /* Ajusta a altura automaticamente ao conteúdo */
-    margin: 0 15px 15px 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    /* Centraliza os elementos filhos horizontalmente */
-    text-align: center;
-    /* Centraliza o texto */
-}
-
-.card-course h2,
-.card-course h3 {
-    margin: 0;
-}
-
-.mat-card-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    /* Centraliza os elementos filhos horizontalmente */
-    padding: 5px;
-}
-
-.card-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    /* Centraliza os elementos filhos horizontalmente */
-    text-align: center;
-    /* Centraliza o texto */
-    padding: 5px;
-}
-
-.card-content img {
-    width: -10px;
-    opacity: .8;
-    transition: .2s;
-    margin-bottom: 15px;
-    /* Adiciona espaço abaixo da imagem */
-}
-
-.card-content img:hover {
-    opacity: 1;
-}
-
-.card-description {
-    text-align: left;
-    /* Alinha o texto da descrição à esquerda */
-}
-
-
-/* Adicione isso ao seu arquivo CSS */
-.image-small {
-    width: 100px;
-    /* Defina a largura desejada */
-    height: auto;
-    /* Ajusta a altura automaticamente para manter a proporção */
-}
-
-
-
-//button 
+/* Formulário de busca */
 .search-form {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto;
-    /* Centraliza horizontalmente */
-    width: 50%;
-    border-radius: 10%;
-    /* Ajusta a largura do formulário */
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 25px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+    margin-bottom: 20px;
 }
 
 .search-input {
     flex: 1;
-    padding: 8px;
+    padding: 10px;
+    border: none;
     font-size: 16px;
     color: #343A40;
-    /* Texto Preto */
-    max-width: 300px;
-    /* Define uma largura máxima para o input */
+    outline: none;
 }
 
 .search-button {
     background-color: #6F42C1;
-    /* Roxo */
     color: #FFFFFF;
-    /* Branco */
     border-radius: 50%;
     width: 40px;
     height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-left: 8px;
+    cursor: pointer;
+    border: none;
+    transition: background 0.3s;
 }
 
-.search-button mat-icon {
-    font-size: 24px;
+.search-button:hover {
+    background-color: #5a32a3;
 }
 
-.mat-mdc-card-content {
-
-    padding: 0 15px;
+/* Listagem de cursos */
+.teste {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+    padding: 20px;
 }
 
-.title{
-    padding-top: 30px;
-    
+.card-course {
+    width: 300px;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+    padding: 15px;
+    text-align: center;
 }
 
+.card-course:hover {
+    transform: scale(1.05);
+}
 
-.carrinho-button{
+.card-course h2 {
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.card-course h3 {
+    font-size: 1rem;
+    color: #777;
+    margin-bottom: 10px;
+}
+
+.image-small {
+    width: 100px;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.description {
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.5;
+    text-align: left;
+}
+
+/* Botão do carrinho */
+.carrinho-button {
     display: flex;
     justify-content: center;
     padding: 40px;
+}
+
+.carrinho-button button {
+    background-color: #28a745;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.carrinho-button button:hover {
+    background-color: #218838;
 }

@@ -28,6 +28,9 @@ import { generateUniqueId } from '../../Util/id-gerate'; // Importa a função
   styleUrls: ['./feed-post.component.scss']
 })
 export class FeedPostComponent implements OnInit {
+remover(_t55: Post) {
+throw new Error('Method not implemented.');
+}
 
   listPost: Post[] = [];
   postAdd: Post = new Post('',undefined);  // ID indefinido para novos posts

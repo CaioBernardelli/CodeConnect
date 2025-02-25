@@ -25,43 +25,46 @@
       </div>
   
       <div class="col-md-8">
-        <form [formGroup]="postForm" (ngSubmit)="publicarMensagem()">
-          <h3 class="text-center mb-4">Digite abaixo seus comentários</h3>
-  
-          <mat-form-field class="w-100">
-            <mat-label>Mensagem</mat-label>
-            <textarea matInput id="mensagem" formControlName="mensagem" rows="4" placeholder="Digite a sua mensagem"></textarea>
-            <mat-error *ngIf="postForm.get('mensagem')?.invalid && postForm.get('mensagem')?.touched">
-              Mensagem é obrigatória e deve ter pelo menos 10 caracteres.
-            </mat-error>
-          </mat-form-field>
-  
-          <div class="d-flex justify-content-center mt-4">
-            <button mat-raised-button color="primary" type="submit" [disabled]="postForm.invalid">Publicar</button>
-          </div>
-        </form>
-  
+        <mat-card class="mat-elevation-z4 p-4">
+          <h3 class="text-center mb-4">Deixe seu comentário</h3>
+      
+          <form [formGroup]="postForm" (ngSubmit)="publicarMensagem()">
+            <mat-form-field class="w-100">
+              <mat-label>Escreva sua mensagem</mat-label>
+              <textarea matInput id="mensagem" formControlName="mensagem" rows="4" 
+                        placeholder="Compartilhe sua opinião..."></textarea>
+              <mat-error *ngIf="postForm.get('mensagem')?.invalid && postForm.get('mensagem')?.touched">
+                Mensagem é obrigatória e deve ter pelo menos 10 caracteres.
+              </mat-error>
+            </mat-form-field>
+      
+            <div class="d-flex justify-content-center mt-4">
+              <button mat-raised-button color="primary" type="submit" [disabled]="postForm.invalid">
+                <mat-icon>send</mat-icon> Publicar
+              </button>
+            </div>
+          </form>
+        </mat-card>
+      
         <mat-divider class="mt-5 mb-5"></mat-divider>
+      
         <h3 class="text-center mb-5">Comentários adicionados</h3>
-  
+      
         <div class="container">
-          <mat-card *ngFor="let postagem of listPost" class="mb-4 mat-elevation-z2">
-            <mat-card-header>
-              <mat-card-title class="text-center">{{postagem.id}}</mat-card-title>
+          <mat-card *ngFor="let postagem of listPost" class="mb-4 mat-elevation-z2 p-3">
+            <mat-card-header class="d-flex align-items-center">
+              <img src="https://i.pravatar.cc/40" class="rounded-circle me-2" alt="Avatar do usuário">
+              <mat-card-title class="m-0">{{postagem.id}}</mat-card-title>
             </mat-card-header>
             <mat-card-content>
               <p>{{postagem.message}}</p>
             </mat-card-content>
-            <div class="buttons d-flex justify-content-center">
-              <!-- Botão para remover -->
+            <div class="buttons d-flex justify-content-end">
               <button mat-icon-button color="warn" (click)="remover(postagem)">
                 <mat-icon>delete</mat-icon>
               </button>
-              <!-- Botão para alterar -->
             </div>
           </mat-card>
         </div>
       </div>
-    </div>
-  </div>
-  
+      
