@@ -1,66 +1,59 @@
 :host {
-    display: block;
-    width: 100%; // Largura mínima para o conteúdo
-    height: auto; // Altura máxima para o conteúdo
-    overflow-y: auto; // Adicionar rolagem vertical
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow-y: auto; // Permite rolagem vertical quando necessário
 }
 
-
-.course-container{
-    display: flex;
-    flex-direction: column;
-
+.course-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; // Adiciona espaçamento entre os itens
 }
 
-.mat-card-content{
-    display: flex;
-  
-  }
-  
-  
-  
-  .container-esquerda {
-    display: flex;
-    align-items: center;
-  }
-  
-  .container-direita {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin-left: auto; /* Move o conteúdo para o lado direito */
-    text-align: right; /* Opcional: alinha o texto à direita */
-  
-  }
+.mat-card-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
-img{
-    width: 50px;
-   
-   }
+.container-esquerda {
+  display: flex;
+  align-items: center;
+  gap: 10px; // Espaçamento entre a imagem e o texto
+}
 
+.container-direita {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: auto;
+  text-align: right;
+}
 
-
-
- 
-
-
+img {
+  width: 50px;
+  height: 50px;
+  border-radius: 8px; // Cantos arredondados para um visual mais moderno
+}
 
 .button-fim {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
+  margin-top: 15px; // Adiciona espaçamento antes dos botões
 
-    button {
+  button {
       background-color: yellowgreen;
       color: white;
       border: none;
       padding: 10px 20px;
-      margin-right: 10px;
-      cursor: pointer;
       border-radius: 5px;
       font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
 
       &:hover {
-        background-color: #0056b3;
+          background-color: #0056b3;
       }
-    }
   }
+}
