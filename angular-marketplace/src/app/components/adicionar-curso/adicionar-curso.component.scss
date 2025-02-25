@@ -1,0 +1,44 @@
+.adicionar-curso-card {
+    max-width: 500px;
+    margin: 40px auto; 
+    padding: 20px;
+  
+    mat-card-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: #6F42C1;
+    }
+  
+    .step-by-step {
+      font-size: 0.9rem;
+      margin-bottom: 20px;
+      p {
+        margin: 0 0 5px 0;
+        color: #555;
+      }
+    }
+  
+    .curso-form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+  
+      mat-form-field {
+        width: 100%;
+      }
+    }
+  
+    .buttons {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+      
+      button {
+        padding: 10px 20px;
+        font-size: 1rem;
+        border-radius: 8px;
+      }
+    }
+  }
+  

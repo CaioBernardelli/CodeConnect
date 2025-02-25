@@ -1,0 +1,8 @@
+<!-- Se o usuário não comprou, mostra aviso -->
+<div *ngIf="!purchased">
+    <p>Você não tem acesso a este vídeo. Adquira o curso primeiro.</p>
+  </div>
+  
+  <!-- Se comprou, exibe o DIV onde o player será renderizado -->
+  <div *ngIf="purchased" id="player"></div>
+  

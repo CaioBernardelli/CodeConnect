@@ -1,45 +1,52 @@
-
 <mat-sidenav-container class="nav-container">
     <mat-sidenav #sidenav class="sidenav" mode="side" opened fixedInViewport="true" fixedTopGap="100">
+  
+      <mat-list class="mat-list">
+        <a mat-list-item routerLink="/courses-carousel">
+          <i class="material-icons middle">home</i>
+          Home
+        </a>
+        <a mat-list-item routerLink="/list-films">
+          <i class="material-icons middle">theaters</i>
+          Aulas e Projetos
+        </a>
+        <a mat-list-item routerLink="/about-us">
+          <i class="material-icons middle">import_contacts</i>
+          About the author
+        </a>
+  
+        <a mat-list-item routerLink="/admin" *ngIf="isAdmin">
+          <i class="material-icons middle">admin_panel_settings</i>
+          Administração
+        </a>
+  
+        <a mat-list-item routerLink="/joblist">
+          <i class="material-icons middle">work</i>
+          Vagas de emprego
+        </a>
+  
+        <a mat-list-item routerLink="/feed-post">
+          <i class="material-icons middle">rss_feed</i>
+          Feed
+        </a>
+  
+        <!-- Novo link para adicionar curso -->
+        <a mat-list-item routerLink="/adicionar-curso">
+          <i class="material-icons middle">video_library</i>
+          Adicionar Curso
+        </a>
 
-        <mat-list class="mat-list">
-            <a mat-list-item routerLink="/courses-carousel">
-                <i class="material-icons middle">home</i>
-                Home
-            </a>
-            <a mat-list-item routerLink="/list-films">
-                <i class="material-icons middle">theaters</i>
-                Aulas e Projetos
-            </a>
-            <a mat-list-item routerLink="/about-us">
-                <i class="material-icons middle">import_contacts</i>
-                About the author
-            </a>
-
-            <a mat-list-item routerLink="/admin" *ngIf="isAdmin">
-                <i class="material-icons middle">admin_panel_settings</i>
-                Administração
-              </a>
-
-
-              <a mat-list-item routerLink="/joblist">
-                <i class="material-icons middle">work</i>
-                Vagas de emprego
-              </a>
-              
-              <a mat-list-item routerLink="/feed-post">
-                <i class="material-icons middle">rss_feed</i>
-                Feed
-              </a>
-            
-
-        </mat-list>
-
+        <a mat-list-item routerLink="/purchased-courses">
+            <i class="material-icons middle">library_books</i>
+            Meus Cursos
+          </a>
+          
+  
+      </mat-list>
+  
     </mat-sidenav>
     <mat-sidenav-content class="content" style="margin-left: 199px;padding-top: 0px;padding-right: 0px;">
-
-        <router-outlet></router-outlet>
-
-
+      <router-outlet></router-outlet>
     </mat-sidenav-content>
-</mat-sidenav-container>
+  </mat-sidenav-container>
+  

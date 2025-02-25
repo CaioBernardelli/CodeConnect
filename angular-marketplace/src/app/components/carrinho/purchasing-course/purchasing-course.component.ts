@@ -1,10 +1,11 @@
-import { Component, Input, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Course } from '../../../model/course.model';
 import { CheckoutService } from '../../../services/checkout/checkout.service';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { Router } from '@angular/router';  // ✅ Importação do Router
 
 
 @Component({
@@ -14,65 +15,41 @@ import { MatFormFieldModule } from '@angular/material/form-field';
   templateUrl: './purchasing-course.component.html',
   styleUrls: ['./purchasing-course.component.scss']
 })
-export class PurchasingCourseComponent implements OnInit, AfterViewInit {
+export class PurchasingCourseComponent implements OnInit {
   listSelectedCourses: Course[] = [];
-  totalPrice!: number;
-  disabled = false;
-  form: any;
-  client: any = {};
+  totalPrice: number = 0;
 
-  constructor(private checkoutService: CheckoutService) {}
+  constructor(private checkoutService: CheckoutService,
+    private router: Router  // <--- injetar
+  ) {}
 
   ngOnInit(): void {
-    this.totalPrice = this.checkoutService.totalPrice;
     this.listSelectedCourses = this.checkoutService.listSelectdCourse;
-    this.toggleButton();
+    this.totalPrice = this.checkoutService.totalPrice;
   }
 
-  ngAfterViewInit(): void {
-    this.form = document.querySelector('#form');
-    if (this.form) {
-      this.form.addEventListener('click', (event: any) => {
-        event.preventDefault();
-      });
-    } else {
-      console.warn('Elemento form não encontrado');
-    }
-  }
-
-  trackByCourseId(index: number, course: Course): string {
-    return course.id;
-  }
-
-  toggleButton() {
-    this.disabled = this.listSelectedCourses.length === 0;
+  excluir(course: Course): void {
+    this.checkoutService.removeFromCart(course);
+    this.listSelectedCourses = [...this.checkoutService.listSelectdCourse];
+    this.totalPrice = this.checkoutService.totalPrice;
   }
 
   excluirTudo() {
-    this.checkoutService.totalPrice = 0;
-    this.totalPrice = 0;
-    this.checkoutService.listSelectdCourse = [];
+    this.checkoutService.clearCart();
     this.listSelectedCourses = [];
-    this.toggleButton();
+    this.totalPrice = 0;
   }
 
-  excluir(course: Course, card: HTMLElement): void {
-    this.totalPrice -= course.price;
-    this.checkoutService.setCourse(course);
-    this.checkoutService.unselectCourse2();
-    if (this.totalPrice <= 0) {
-      this.excluirTudo();
-    }
-    this.excluirtemplate(card);
-    this.atualizarCursos();
+  finalizarCompra() {
+    // Cada curso do carrinho é marcado como comprado
+    this.listSelectedCourses.forEach(course => {
+      this.checkoutService.comprarCurso(course);
+    });
+  
+    // Depois redireciona para a página "Meus Cursos"
+    this.router.navigate(['/purchased-courses']);
   }
 
-  atualizarCursos(): void {
-    this.totalPrice = this.checkoutService.totalPrice;
-    this.listSelectedCourses = this.checkoutService.listSelectdCourse;
-  }
-
-  excluirtemplate(card: HTMLElement): void {
-    card.classList.add('hidden');
-  }
+  
+  
 }

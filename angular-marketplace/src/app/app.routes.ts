@@ -15,6 +15,8 @@ import { UsuariofirebaseComponent } from './components/usuariofirebase/usuariofi
 import { AuthGuard } from './AuthGuard/auth.guard';
 import { JobListComponent } from './components/job-list/job-list.component';
 import { FeedPostComponent } from './components/feed-post/feed-post.component';
+import { PurchasedCoursesComponent } from './components/purchased-courses/purchased-courses.component';
+
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -27,7 +29,9 @@ export const routes: Routes = [
       { path: 'about-us', component: AboutUsComponent },
       { path: 'firebase', component: UsuariofirebaseComponent },
       {path: 'joblist', component: JobListComponent},
-      {path: 'feed-post', component: FeedPostComponent}
+      {path: 'feed-post', component: FeedPostComponent},
+      { path: 'purchased-courses', component: PurchasedCoursesComponent }
+
 
     ], canActivate: [AuthGuard] 
   },

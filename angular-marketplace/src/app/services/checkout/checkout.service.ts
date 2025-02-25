@@ -4,6 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, tap, switchMap } from 'rxjs';
 import { NotificationService } from './notification.service';  // Importe o serviço de notificação
 import { generateUniqueId } from '../../Util/id-generator';
+import { UsuarioFirestoreService } from '../usuario-firestore.service'; // Exemplo
+
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +17,8 @@ export class CheckoutService {
   private _priceHandler: number = 0;
   public listSelectdCourse: Course[] = [];
 
-  constructor(private httpClient: HttpClient, private notificationService: NotificationService) {}  // Injete o serviço de notificação
+  constructor(private httpClient: HttpClient, private notificationService: NotificationService,
+    private usuarioService: UsuarioFirestoreService ) {}  // Injete o serviço de notificação
 
 
 
@@ -148,6 +151,8 @@ export class CheckoutService {
       })
     );
   }
+
+  
   
   
 
@@ -166,6 +171,69 @@ export class CheckoutService {
             this.httpClient.post('http://localhost:8080/notification', notification).subscribe();
         })
     );
+}
+
+private getUserKey(): string {
+  // Se não tiver user logado, usar algo como "guest" 
+  // ou ID fixo para não quebrar a lógica
+  let userId = 'guest';
+  if (this.usuarioService.usuarioLogado) {
+    userId = this.usuarioService.usuarioLogado.email || this.usuarioService.usuarioLogado.id;
+  }
+  return userId;
+}
+
+private getCartKey(): string {
+  return 'cart_' + this.getUserKey();
+}
+
+private getPurchasedKey(): string {
+  return 'purchased_' + this.getUserKey();
+}
+
+private carregarCarrinho() {
+  const savedCart = localStorage.getItem(this.getCartKey());
+  if (savedCart) {
+    this.listSelectdCourse = JSON.parse(savedCart);
+    this.totalPrice = this.listSelectdCourse.reduce((sum, course) => sum + course.price, 0);
+  }
+}
+
+private salvarCarrinho() {
+  localStorage.setItem(this.getCartKey(), JSON.stringify(this.listSelectdCourse));
+}
+
+addToCart(course: Course) {
+  if (!this.listSelectdCourse.find(c => c.id === course.id)) {
+    this.listSelectdCourse.push(course);
+    this.totalPrice += course.price;
+    this.salvarCarrinho();
+  }
+}
+
+removeFromCart(course: Course) {
+  this.listSelectdCourse = this.listSelectdCourse.filter(c => c.id !== course.id);
+  this.totalPrice = this.listSelectdCourse.reduce((sum, c) => sum + c.price, 0);
+  this.salvarCarrinho();
+}
+
+clearCart() {
+  this.listSelectdCourse = [];
+  this.totalPrice = 0;
+  localStorage.removeItem(this.getCartKey());
+}
+
+comprarCurso(course: Course) {
+  // "cursoAdquiridoKey" baseado no usuário
+  let key = this.getPurchasedKey();
+  let cursosAdquiridos = JSON.parse(localStorage.getItem(key) || '[]');
+
+  if (!cursosAdquiridos.some((c: Course) => c.id === course.id)) {
+    cursosAdquiridos.push(course);
+    localStorage.setItem(key, JSON.stringify(cursosAdquiridos));
+  }
+
+  this.clearCart();
 }
 
 

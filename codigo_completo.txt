@@ -1,0 +1,4968 @@
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\index.html ###
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>AngularMarketplace</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body class="mat-typography">
+
+  <app-root></app-root>
+</body>
+
+
+</html>
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\main.ts ###
+import { bootstrapApplication } from '@angular/platform-browser';
+import { appConfig } from './app/app.config';
+import { AppComponent } from './app/app.component';
+import { provideRouter } from '@angular/router';
+import { provideHttpClient } from '@angular/common/http';
+import { routes } from './app/app.routes';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { firebaseConfig } from './app/firestore.config';
+import { provideFirestore, getFirestore } from '@angular/fire/firestore'; 
+
+bootstrapApplication(AppComponent, {
+  providers: [
+    provideRouter(routes),
+    provideHttpClient(),
+    provideFirebaseApp(() => initializeApp(firebaseConfig)),
+    provideFirestore(() => getFirestore()),  // Adicionando o provedor HttpClient
+    ...appConfig.providers
+  ]
+}).catch(err => console.error(err));
+
+
+//chatgpt
+
+
+
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\styles.scss ###
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\app.component.html ###
+<router-outlet></router-outlet>
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\app.component.scss ###
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\app.component.ts ###
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+
+
+
+
+
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'], // Corrigido styleUrls
+  imports: [
+    RouterOutlet,
+  ]
+})
+export class AppComponent {
+  title = 'angular-marketplace';
+}
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\app.config.ts ###
+import { ApplicationConfig } from '@angular/core';
+import { provideRouter } from '@angular/router';
+import { provideAnimations } from '@angular/platform-browser/animations'; // Corrigi para usar provideAnimations
+
+import { routes } from './app.routes';
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideRouter(routes),
+    provideAnimations() // Certifique-se de usar o provideAnimations correto
+  ]
+};
+
+
+
+
+
+
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\app.routes.ts ###
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { HomeComponent } from './home/home.component';
+import { ListFilmsComponent } from './components/list-films/list-films.component';
+import { AboutUsComponent } from './components/about-us/about-us.component';
+import { CadastrousuarioComponent } from './components/cadastrousuario/cadastrousuario.component';
+import { AdminGuard } from './guards/admin.guard';
+import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
+import { LayoutComponent } from './layout/layout.component';
+import { CoursesCarouselComponent } from './components/courses-carousel/courses-carousel.component';
+import { AdicionarCursoComponent } from './components/adicionar-curso/adicionar-curso.component';
+import { NotificationListComponent } from './components/notification-list/notification-list.component';
+import { PurchasingCourseComponent } from './components/carrinho/purchasing-course/purchasing-course.component';
+import { UsuariofirebaseComponent } from './components/usuariofirebase/usuariofirebase.component';
+import { AuthGuard } from './AuthGuard/auth.guard';
+import { JobListComponent } from './components/job-list/job-list.component';
+import { FeedPostComponent } from './components/feed-post/feed-post.component';
+
+export const routes: Routes = [
+  { path: '', component: HomeComponent },
+  {
+    path: '',
+    component: LayoutComponent,
+    children: [
+      { path: 'courses-carousel', component: CoursesCarouselComponent },
+      { path: 'list-films', component: ListFilmsComponent },
+      { path: 'about-us', component: AboutUsComponent },
+      { path: 'firebase', component: UsuariofirebaseComponent },
+      {path: 'joblist', component: JobListComponent},
+      {path: 'feed-post', component: FeedPostComponent}
+
+    ], canActivate: [AuthGuard] 
+  },
+  { path: 'carrinho', component: PurchasingCourseComponent, canActivate: [AuthGuard] },  // Protegido
+  { path: 'admin', component: AdminDashboardComponent, canActivate: [AdminGuard] },
+  { path: 'cadastro-usuario', component: CadastrousuarioComponent },
+  { path: 'adicionar-curso', component: AdicionarCursoComponent, canActivate: [AuthGuard] },  // Protegido
+  { path: 'home', component: HomeComponent },
+  { path: 'notifications', component: NotificationListComponent, canActivate: [AuthGuard] },  // Protegido
+  { path: '**', redirectTo: '' }
+];
+
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\firestore.config.ts ###
+// Import the functions you need from the SDKs you need
+
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+ export const firebaseConfig = {
+  apiKey: "AIzaSyBu9eFBfrhi4NkQyRC2yKICK-brw6Gg9f4",
+  authDomain: "codeconnect-deb4c.firebaseapp.com",
+  projectId: "codeconnect-deb4c",
+  storageBucket: "codeconnect-deb4c.appspot.com",
+  messagingSenderId: "24331364078",
+  appId: "1:24331364078:web:6584256341699f2fa5b5ff",
+  measurementId: "G-1LEJMCTCDK"
+};
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\AuthGuard\auth.guard.ts ###
+import { Injectable } from '@angular/core';
+import { CanActivate, Router } from '@angular/router';
+import { UsuarioFirestoreService } from '../services/usuario-firestore.service'; // Ou o serviço que você estiver usando
+
+@Injectable({
+  providedIn: 'root',
+})
+export class AuthGuard implements CanActivate {
+  constructor(
+    private usuarioService: UsuarioFirestoreService, 
+    private router: Router
+  ) {}
+
+  canActivate(): boolean {
+    const user = this.usuarioService.usuarioLogado; // Verifica se o usuário está logado
+
+    if (user) {
+      return true;
+    }
+
+    this.router.navigate(['/home']); // Redireciona para a página inicial se não estiver logado
+    return false;
+  }
+}
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\about-us\about-us.component.html ###
+<div class="about-us-container">
+
+  <mat-card class="about-us-card">
+    <div class="content">
+      <h2>Sobre Nós</h2>
+      <h1>Aprender não tem idade nem pré-requisitos.</h1>
+      <p>
+        O CodeConnect nasceu com a missão de mostrar que qualquer pessoa pode aprender e evoluir no mundo da
+        tecnologia. Criado como um projeto universitário, hoje buscamos atingir todos que desejam uma plataforma
+        intuitiva, com cursos e materiais de qualidade para impulsionar seu conhecimento.
+      </p>
+      <button mat-raised-button color="primary">Cadastre-se Gratuitamente</button>
+    </div>
+    <img src="assets/img/imgestudo.jpg" alt="CodeConnect" class="logo">
+  </mat-card>
+
+  <mat-card class="about-us-card">
+    <div class="content">
+      <h2>Nossa Missão</h2>
+      <h1>Empoderar pessoas por meio da educação e tecnologia.</h1>
+      <p>
+        Nosso objetivo é fornecer soluções inovadoras que ajudem indivíduos e organizações a alcançarem seus objetivos,
+        expandirem seus conhecimentos e evoluírem em suas carreiras.
+      </p>
+      <button mat-raised-button color="primary">Saiba Mais</button>
+    </div>
+    <img src="assets/img/mission.jpg" alt="Nossa Missão" class="logo">
+  </mat-card>
+
+  <mat-card class="modern-card">
+    <div class="modern-content">
+      <h2>Faça Parte da Nossa Comunidade</h2>
+      <p>
+        Junte-se a uma comunidade apaixonada por aprendizado e tecnologia! Fique por dentro das últimas tendências do
+        setor, conecte-se com profissionais e compartilhe experiências.
+      </p>
+      <div class="cta-buttons">
+        <button mat-raised-button color="accent">Comece Agora</button>
+        <button mat-stroked-button color="primary">Saiba Mais</button>
+      </div>
+    </div>
+    <div class="modern-image-container">
+      <img src="assets/img/community.jpg" alt="Comunidade CodeConnect" class="modern-logo">
+    </div>
+  </mat-card>
+
+</div>
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\about-us\about-us.component.scss ###
+.about-us-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 40px;
+  background-color: #f9f9f9;
+  align-items: center;
+}
+
+.about-us-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 40px;
+  margin-bottom: 20px; /* Espaço entre os cartões */
+  max-width: 1000px;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px; /* Bordas arredondadas para um toque moderno */
+  transition: transform 0.3s ease-in-out;
+
+  &:hover {
+    transform: translateY(-10px); /* Efeito sutil ao passar o mouse */
+  }
+
+  .content {
+    flex: 1;
+    padding-right: 20px;
+    text-align: left;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #333;
+  }
+
+  h2 {
+    font-size: 1.3rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: #6F42C1;
+    margin-bottom: 10px;
+  }
+
+  p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #555;
+    margin-bottom: 20px;
+  }
+
+  button {
+    padding: 12px 25px;
+    font-size: 1rem;
+    background-color: #6F42C1;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: #4A2C90; /* Cor de fundo mais escura ao passar o mouse */
+    }
+  }
+
+  img {
+    width: 300px;
+    height: auto;
+    border-radius: 8px;
+    margin-left: 20px;
+  }
+}
+
+.modern-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px;
+  width: 100%;
+  max-width: 1000px;
+  background-color: #e0f7fa;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  text-align: center;
+  border-radius: 12px; /* Bordas arredondadas */
+  transition: transform 0.3s ease-in-out;
+
+  &:hover {
+    transform: translateY(-10px);
+  }
+
+  .modern-content {
+    flex: 1;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .modern-content h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #333;
+  }
+
+  .cta-buttons {
+    margin-top: 20px;
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+
+    button {
+      font-size: 1rem;
+      padding: 12px 25px;
+      border-radius: 8px;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: #4A2C90;
+      }
+    }
+  }
+
+  .modern-image-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .modern-logo {
+    width: 80%;
+    max-width: 400px;
+    height: auto;
+    border-radius: 8px;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-us-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .about-us-card img {
+    width: 80%;
+    max-width: 200px;
+  }
+
+  .modern-card {
+    padding: 20px;
+  }
+
+  .modern-content {
+    padding: 20px;
+    text-align: center;
+  }
+
+  .modern-logo {
+    width: 70%;
+    max-width: 300px;
+  }
+}
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\about-us\about-us.component.spec.ts ###
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { AboutUsComponent } from './about-us.component';
+
+describe('AboutUsComponent', () => {
+  let component: AboutUsComponent;
+  let fixture: ComponentFixture<AboutUsComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [AboutUsComponent]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(AboutUsComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\about-us\about-us.component.ts ###
+import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+@Component({
+  selector: 'app-about-us',
+  standalone: true,
+  imports: [RouterModule, MatButtonModule, MatCardModule],
+  templateUrl: './about-us.component.html',
+  styleUrls: ['./about-us.component.scss'] // Corrigido para styleUrls
+})
+export class AboutUsComponent { }
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\adicionar-curso\adicionar-curso.component.html ###
+<form (ngSubmit)="adicionarCurso()">
+    <label for="name">Nome:</label>
+    <input id="name" [(ngModel)]="curso.name" name="name" required>
+  
+    <label for="category">Categoria:</label>
+    <input id="category" [(ngModel)]="curso.category" name="category" required>
+  
+    <label for="price">Preço:</label>
+    <input id="price" [(ngModel)]="curso.price" name="price" type="number" required>
+
+    <label for="imgLink">Link Imagem:</label>
+    <input id="imgLink" [(ngModel)]="curso.imgLink" name="imgLink" required>
+  
+    <button type="submit">Adicionar Curso</button>
+  </form>
+  
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\adicionar-curso\adicionar-curso.component.scss ###
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\adicionar-curso\adicionar-curso.component.spec.ts ###
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { AdicionarCursoComponent } from './adicionar-curso.component';
+
+describe('AdicionarCursoComponent', () => {
+  let component: AdicionarCursoComponent;
+  let fixture: ComponentFixture<AdicionarCursoComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [AdicionarCursoComponent]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(AdicionarCursoComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\adicionar-curso\adicionar-curso.component.ts ###
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { Course } from '../../model/course.model';
+import { FormsModule } from '@angular/forms'; // Importar FormsModule
+import { CheckoutService } from '../../services/checkout/checkout.service';
+
+
+@Component({
+  selector: 'app-adicionar-curso',
+  standalone: true,
+  templateUrl: './adicionar-curso.component.html',
+  styleUrls: ['./adicionar-curso.component.scss'],
+  imports: [FormsModule] // Adicionar FormsModule aqui
+})
+export class AdicionarCursoComponent {
+  curso: Course = new Course("", '', '', '', 0);
+
+  constructor(private cursoService: CheckoutService, private router: Router) { }
+
+  adicionarCurso() {
+    this.cursoService.addCourse(this.curso).subscribe(() => {
+      this.router.navigate(['/admin']);
+    });
+  }
+}
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\admin-dashboard\admin-dashboard.component.html ###
+<div class="admin-dashboard">
+  <h2>Gerenciamento de Dados</h2>
+
+  <!-- Botões para carregar usuários e cursos -->
+  <div class="actions">
+    <button (click)="carregarUsuarios()">Carregar Usuários</button>
+    <button (click)="carregarCursos()">Carregar Cursos</button>
+    <button (click)="adicionarCurso()">Adicionar Curso</button>
+    <button (click)="cadastrarUsuario()">Cadastrar Usuário</button> <!-- Novo botão -->
+    <button (click)="voltarParaHome()">Voltar para Login</button>
+    <button (click)="voltarParaInicio()">Voltar para Home</button>
+  </div>
+
+   <!-- Campo de texto para enviar notificações -->
+   <div class="notification-section">
+    <h3>Enviar Notificação para Usuários</h3>
+    <textarea [(ngModel)]="mensagemNotificacao" placeholder="Digite a mensagem da notificação"></textarea>
+    <button (click)="enviarNotificacao()">Enviar Notificação</button>
+  </div>
+
+
+  <!-- Tabela de Usuários -->
+  <h3>Gerenciamento de Usuários</h3>
+  <table *ngIf="usuarios.length > 0">
+    <tr>
+      <th>id</th>
+      <th>Email</th>
+      <th>Nome</th>
+      <th>Ações</th>
+    </tr>
+    <tr *ngFor="let usuario of usuarios">
+      <td>{{ usuario.id }}</td>
+      <td>{{ usuario.email }}</td>
+      <td>{{ usuario.nome }}</td>
+      <td>
+        <button (click)="editarUsuario(usuario)">Editar</button>
+        <button (click)="removerUsuario(usuario.id)">Remover</button>
+      </td>
+    </tr>
+  </table>
+  <p *ngIf="usuarios.length === 0">Nenhum usuário carregado.</p>
+
+  <!-- Tabela de Cursos -->
+  <h3>Gerenciamento de Cursos</h3>
+  <table *ngIf="cursos.length > 0">
+    <tr>
+      <th>Nome</th>
+      <th>Descrição</th>
+      <th>Preço</th>
+      <th>Ações</th>
+    </tr>
+    <tr *ngFor="let curso of cursos">
+      <td>{{ curso.name }}</td>
+      <td>{{ curso.category }}</td>
+      <td>{{ curso.price }}</td>
+      <td>
+        <button (click)="editarCurso(curso)">Editar</button>
+        <button (click)="removerCurso(curso.id)">Remover</button>
+      </td>
+    </tr>
+  </table>
+  <p *ngIf="cursos.length === 0">Nenhum curso carregado.</p>
+</div>
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\admin-dashboard\admin-dashboard.component.scss ###
+.notification-section {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+
+  h3 {
+    color: #007bff;
+    margin-bottom: 10px;
+    font-size: 20px;
+  }
+
+  textarea {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    margin-bottom: 10px;
+    resize: vertical;
+  }
+
+  button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+
+    &:hover {
+      background-color: #0056b3;
+    }
+  }
+}
+
+
+
+
+
+.admin-dashboard {
+    padding: 20px;
+    background-color: #f9f9f9;
+    min-height: 100vh;
+  
+    h2 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+  
+    .actions {
+      margin-bottom: 30px;
+  
+      button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        margin-right: 10px;
+        cursor: pointer;
+        border-radius: 5px;
+        font-size: 16px;
+  
+        &:hover {
+          background-color: #0056b3;
+        }
+      }
+    }
+  
+    h3 {
+      color: #007bff;
+      margin-bottom: 15px;
+    }
+  
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 30px;
+  
+      th, td {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: left;
+      }
+  
+      th {
+        background-color: #f2f2f2;
+        color: #555;
+      }
+  
+      tr:nth-child(even) {
+        background-color: #f9f9f9;
+      }
+  
+      tr:hover {
+        background-color: #e9e9e9;
+      }
+  
+      button {
+        background-color: #28a745;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+        border-radius: 3px;
+        font-size: 14px;
+  
+        &:hover {
+          background-color: #218838;
+        }
+  
+        &:first-child {
+          margin-right: 5px;
+          background-color: #ffc107;
+  
+          &:hover {
+            background-color: #e0a800;
+          }
+        }
+  
+        &:last-child {
+          background-color: #dc3545;
+  
+          &:hover {
+            background-color: #c82333;
+          }
+        }
+      }
+    }
+  
+    p {
+      color: #666;
+      font-style: italic;
+    }
+  }
+  
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\admin-dashboard\admin-dashboard.component.spec.ts ###
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { AdminDashboardComponent } from './admin-dashboard.component';
+
+describe('AdminDashboardComponent', () => {
+  let component: AdminDashboardComponent;
+  let fixture: ComponentFixture<AdminDashboardComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [AdminDashboardComponent]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(AdminDashboardComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\admin-dashboard\admin-dashboard.component.ts ###
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';  // Importe o FormsModule
+
+
+import { Usuario } from '../../model/usuario';
+import { Course } from '../../model/course.model';
+import { Router } from '@angular/router';
+import { UsuarioService } from '../../services/checkout/usuario.service';
+import { CheckoutService } from '../../services/checkout/checkout.service';
+import { UsuarioFirestoreService } from '../../services/usuario-firestore.service';
+import { NotificationService } from '../../services/checkout/notification.service';
+
+
+
+
+@Component({
+  selector: 'app-admin-dashboard',
+  standalone: true, // Se for standalone
+  imports: [CommonModule, FormsModule], // Importe o CommonModule diretamente aqui
+  templateUrl: './admin-dashboard.component.html',
+  styleUrls: ['./admin-dashboard.component.scss']
+})
+export class AdminDashboardComponent implements OnInit {
+  usuarios: Usuario[] = [];
+  cursos: Course[] = [];
+  mensagemNotificacao: string = ''; // Adicionado para controlar a mensagem de notificação
+
+  
+  constructor(
+    private router: Router,
+    private usuarioService: UsuarioService,
+    private checkoutService: CheckoutService, 
+    private usuarioFirestoreService: UsuarioFirestoreService,
+    private httpClient: HttpClient ,// Importando HttpClient,
+    private notificationService :  NotificationService
+
+  ) { }
+
+  ngOnInit(): void {
+    this.carregarUsuarios(); 
+    this.carregarCursos()// Carrega usuários ao iniciar
+  }
+
+  carregarUsuarios() {
+    this.usuarioFirestoreService.listar().subscribe((dados: Usuario[]) => {
+      this.usuarios = dados;
+    });
+  }
+
+  carregarCursos() {
+    this.checkoutService.getListCourse().subscribe((cursos) => {
+      this.cursos = cursos;
+    });
+  }
+
+  adicionarCurso() {
+    this.router.navigate(['/adicionar-curso']);
+  }
+
+  cadastrarUsuario() {
+    this.router.navigate(['/cadastro-usuario']); // Navegação para a página de cadastro
+  }
+
+  async editarUsuario(usuario: Usuario) {
+    usuario.nome = prompt('Digite o novo nome:', usuario.nome) || usuario.nome;
+      await this.usuarioFirestoreService.atualizarUsuario(usuario);
+      this.carregarUsuarios();
+    
+  }
+  
+
+  removerUsuario(id: string) {
+    this.usuarioFirestoreService.remover(id).then(() => {
+      this.carregarUsuarios();
+    });
+  }
+
+  editarCurso(curso: Course) {
+    curso.name = prompt('Digite o novo nome do curso:', curso.name) || curso.name;
+    this.checkoutService.updateCourse(curso).subscribe(() => {
+      this.carregarCursos();
+    });
+  }
+
+  removerCurso(id: string) {
+    this.checkoutService.deleteCourse(id).subscribe(() => this.carregarCursos());
+  }
+
+  voltarParaHome() {
+    this.usuarioFirestoreService.logout();
+    this.router.navigate(['/']);
+  }
+
+  voltarParaInicio() {
+    this.router.navigate(['/courses-carousel']);
+  }
+
+  enviarNotificacao() {
+    const notification = {
+      message: this.mensagemNotificacao,
+      date: new Date().toISOString(),
+      type: 'user'
+    };
+  
+    this.notificationService.enviarNotificacao(notification).subscribe(() => {
+      alert('Notificação enviada com sucesso!');
+      this.mensagemNotificacao = ''; // Limpa o campo de notificação
+    }, error => {
+      console.error('Erro ao enviar notificação:', error);
+      alert('Erro ao enviar notificação');
+    });
+  }
+}
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\cadastrousuario\cadastrousuario.component.html ###
+<div class="container">
+    <div class="cadastro-container">
+      <mat-card class="cadastro-card">
+        <div class="content">
+          <h2>CodeConnect</h2>
+          <h1>Cadastro</h1>
+          <p>Cadastre-se na conta.</p>
+        </div>
+  
+        <div class="forms">
+          <mat-card-content>
+            <mat-form-field>
+              <mat-label>Nome Completo</mat-label>
+              <input matInput [(ngModel)]="usuario.nome">
+            </mat-form-field>
+  
+            <mat-form-field>
+              <mat-label>Email Válido</mat-label>
+              <input matInput [(ngModel)]="usuario.email">
+            </mat-form-field>
+  
+            <mat-form-field>
+              <mat-label>Idade</mat-label>
+              <input matInput [(ngModel)]="usuario.idade">
+            </mat-form-field>
+         
+            
+            <mat-form-field>
+              <mat-label>Senha</mat-label>
+              <input matInput [(ngModel)]="usuario.senha">
+            </mat-form-field>
+         
+          </mat-card-content>
+
+
+      
+          
+          <!-- Botão para inserir usuário -->
+          <div class="example-button-row">
+            <button mat-raised-button   class="button" color="primary" (click)="inserir(usuario)">Cadastro</button>
+          </div>
+          
+          
+        </div>
+  
+        <!-- Exemplo de botão -->
+        
+      </mat-card> <!-- Correção: Fechando a tag mat-card corretamente -->
+    </div>
+  </div>
+  
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\cadastrousuario\cadastrousuario.component.scss ###
+.container {
+    display: flex;
+    height: 100vh;
+    background-color: #f9f9f9;
+    align-items: center;
+    justify-content: center;
+
+
+}
+
+
+.cadastro-container {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f9f9f9;
+   // width: 300px;
+    width: 100%;
+}
+
+
+
+.cadastro-card {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+
+    background-color: white;
+    padding: 2em;
+    border-radius: 20px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+     width: 500px;     
+}
+
+
+
+h1 {
+    font-size: 2.3em;
+    font-weight: 700;
+    margin: 0.5em 0;
+    
+    color: #343A40;
+
+}
+
+h2 {
+    font-size: 1.1em;
+
+    text-transform: uppercase;
+    color: #6F42C1;
+ 
+}
+
+p {
+    font-size: 1.1em;
+    color: #6F42C1;
+
+}
+
+mat-form-field {
+    width: 100%;
+    margin-bottom: 0em;
+}
+
+.hint {
+    font-size: 0.7em; /* Tamanho da fonte menor */
+    color: black; /* Cor das dicas */
+    margin-top: 0.2em; /* Espaço entre o campo e a dica */
+    margin-bottom: 1em; /* Espaço inferior para separar da próxima entrada */
+}
+
+
+mat-card-content{
+    display:flex;
+    flex-direction: column;
+    align-items: flex-end; /* Alinha os campos ao lado direito */
+    width: 100%;
+
+}
+
+
+.example-button-row {
+    display: flex;
+    justify-content: center; /* Centraliza o botão horizontalmente */
+    margin-top: 20px;
+  }
+  
+  .button {
+ 
+  //  width: 110px; /* Largura do botão */
+ //   height: 30px; /* Altura do botão */
+   border-radius: 10%; /* Torna o botão circular */
+  
+   
+  }
+  
+
+  
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\cadastrousuario\cadastrousuario.component.spec.ts ###
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { CadastrousuarioComponent } from './cadastrousuario.component';
+
+describe('CadastrousuarioComponent', () => {
+  let component: CadastrousuarioComponent;
+  let fixture: ComponentFixture<CadastrousuarioComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [CadastrousuarioComponent]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(CadastrousuarioComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\cadastrousuario\cadastrousuario.component.ts ###
+import { Component } from '@angular/core';
+import { MatCardModule } from '@angular/material/card';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { BrowserModule } from '@angular/platform-browser';
+import { ReactiveFormsModule } from '@angular/forms';
+
+import { MatHint } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { ActivatedRoute, Router } from '@angular/router';
+import { generateUniqueId } from '../../Util/id-gerate';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MensagemSweetService } from '../../services/checkout/mensagem-sweet.service';
+import { UsuarioService } from '../../services/checkout/usuario.service';
+import { Usuario } from '../../model/usuario';
+import { UsuarioFirestoreService } from '../../services/usuario-firestore.service';
+
+@Component({
+  selector: 'app-cadastrousuario',
+  standalone: true,
+  imports: [MatIconModule, MatButtonModule, FormsModule, MatCardModule, MatFormFieldModule, ReactiveFormsModule, MatInputModule],
+  templateUrl: './cadastrousuario.component.html',
+  styleUrls: ['./cadastrousuario.component.scss']
+})
+export class CadastrousuarioComponent {
+  usuarios: Usuario[] = [];
+  usuario: Usuario = {
+    id: '',
+    nome: '', email: '', idade: 0,
+    senha: ''
+  }; // Propriedade `usuario` adicionada
+
+
+  constructor(
+    private roteador: Router,
+    private rotaAtual: ActivatedRoute,
+    private mensagemService: MensagemSweetService,
+    private usuarioService: UsuarioService,
+    private usuarioFirestoreService: UsuarioFirestoreService,
+    
+  ) {
+    this.usuarioFirestoreService.listar().subscribe({
+      next: (usuariosRetornados) => (this.usuarios = usuariosRetornados),
+      error: (err) => this.mensagemService.erro(err.message),
+    });
+  }
+
+
+     
+       
+
+
+inserir(usuario: Usuario) {
+  try {
+   
+
+    // Inserir o usuário no Firestore
+    this.usuarioFirestoreService.inserir(usuario)
+      .then(() => {
+        this.mensagemService.sucesso('Usuário cadastrado com sucesso.');
+        // Adicionar o usuário inserido na lista local de usuários
+        this.usuarios.push(usuario);
+        // Navegar para outra página ou resetar o formulário após o cadastro
+        this.roteador.navigate(['']);
+      })
+      .catch((err) => {
+        this.mensagemService.erro(`Erro ao cadastrar usuário: ${err.message}`);
+      });
+  } catch (e: any) {
+    this.mensagemService.erro(`Erro inesperado: ${e.message}`);
+  }
+}
+}
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\carousel\carousel.component.html ###
+<div class="swiper-container" #swiperContainer>
+  <div class="swiper-wrapper">
+    <div class="swiper-slide" *ngFor="let course of courses">
+      <img [src]="course.img" alt="{{ course.title }}">
+      <div class="course-details">
+        <h3>{{ course.title }}</h3>
+        <p>{{ course.description }}</p>
+        <p>{{ course.price }}</p>
+      </div>
+    </div>
+  </div>
+  <!-- Adicione a navegação -->
+  <button class="control prev" mat-mini-fab aria-label="Previous" (click)="onPreviousClickFree()">
+    <mat-icon>arrow_back</mat-icon>
+</button>
+<button class="control next" mat-mini-fab aria-label="Next" (click)="onNextClickFree()">
+    <mat-icon>arrow_forward</mat-icon>
+</button>
+</div>
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\carousel\carousel.component.scss ###
+.swiper-container {
+  width: 30%;
+  height: 100%;
+  position: relative;
+}
+
+.swiper-wrapper {
+  display: flex;
+}
+
+.swiper-slide {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: #fff;
+  position: absolute;
+  top: 50%;
+  width: 27px;
+  height: 44px;
+  margin-top: -22px;
+  z-index: 10;
+  cursor: pointer;
+  display: block;
+}
+
+.swiper-button-next {
+  right: 10px;
+}
+
+.swiper-button-prev {
+  left: 10px;
+}
+
+
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\carousel\carousel.component.spec.ts ###
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { CarouselComponent } from './carousel.component';
+
+describe('CarouselComponent', () => {
+  let component: CarouselComponent;
+  let fixture: ComponentFixture<CarouselComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [CarouselComponent]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(CarouselComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\carousel\carousel.component.ts ###
+
+import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import Swiper from 'swiper';
+import 'swiper/css'; // Import only the necessary CSS
+import 'swiper/css/navigation'; // Import navigation styles
+import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
+
+@Component({
+  selector: 'app-carousel',
+  standalone: true,
+  imports: [CommonModule, MatIconModule],
+  templateUrl: './carousel.component.html',
+  styleUrls: ['./carousel.component.scss']
+})
+export class CarouselComponent implements AfterViewInit {
+  ngAfterViewInit(): void {
+    throw new Error('Method not implemented.');
+  }
+  @ViewChild('swiperContainer') swiperContainer!: ElementRef;
+
+  public courses = [
+      { title: 'Introdução ao Excel', subtitle: 'Aprenda Excel do zero', description: 'Curso completo para iniciantes.', price: 'Grátis', img: 'assets/img/catalogocursos-removebg-preview.png' },
+        { title: 'Introdução ao Word', subtitle: 'Aprenda Word do zero', description: 'Curso completo para iniciantes.', price: 'Grátis', img: 'assets/img/catalogocursos-removebg-preview.png' },
+        { title: 'Introdução ao PowerPoint', subtitle: 'Aprenda PowerPoint do zero', description: 'Curso completo para iniciantes.', price: 'Grátis', img: 'assets/img/catalogocursos-removebg-preview.png' },
+        { title: 'Introdução ao Caio', subtitle: 'Aprenda Access do zero', description: 'Curso completo para iniciantes.', price: 'Grátis', img: 'assets/img/catalogocursos-removebg-preview.png' },
+        { title: 'Introdução ao Access', subtitle: 'Aprenda Access do zero', description: 'Curso completo para iniciantes.', price: 'Grátis', img: 'assets/img/catalogocursos-removebg-preview.png' },
+        { title: 'Introdução ao Brunna', subtitle: 'Aprenda Access do zero', description: 'Curso completo para iniciantes.', price: 'Grátis', img: 'assets/img/catalogocursos-removebg-preview.png' },
+        { title: 'Introdução ao Caarla', subtitle: 'Aprenda Access do zero', description: 'Curso completo para iniciantes.', price: 'Grátis', img: 'assets/img/catalogocursos-removebg-preview.png' },
+        { title: 'Introdução ao neto', subtitle: 'Aprenda Access do zero', description: 'Curso completo para iniciantes.', price: 'Grátis', img: 'assets/img/catalogocursos-removebg-preview.png' },
+        { title: 'Introdução ao alberto', subtitle: 'Aprenda Access do zero', description: 'Curso completo para iniciantes.', price: 'Grátis', img: 'assets/img/catalogocursos-removebg-preview.png' }
+  ];
+  currentIndexFree = 0;
+  currentIndexPaid = 0;
+  displayCount = 1;  // Número de itens a serem exibidos ao mesmo tempo
+
+  onPreviousClickFree(): void {
+    this.currentIndexFree = (this.currentIndexFree - 1 + this.courses.length) % this.courses.length;
+  }
+
+  onNextClickFree(): void {
+    this.currentIndexFree = (this.currentIndexFree + 1) % this.courses.length;
+  }
+
+
+}
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\carrinho\purchasing-course\purchasing-course.component.html ###
+
+<div class="container">
+<mat-card class="mat-car-main mat-elevation-z4">
+  <div class="title-card">
+    <mat-card-title>
+      <h2>Carrinho de Compras</h2>
+    </mat-card-title>
+  </div>
+
+  <mat-card>
+    <h2 *ngIf="listSelectedCourses.length > 0">
+ Cursos Selecionados : {{ listSelectedCourses.length }}
+    </h2>
+
+    <div>
+      <mat-card
+        class="mat-card-course"
+        [class.isValid]="disabled === true"
+        *ngFor="let course of listSelectedCourses; trackBy: trackByCourseId"
+      >
+        <div #card>
+          <mat-card-content class="mat-card-content">
+            <div class="container-esquerda">
+              <img src="{{ course.imgLink }}" class="image-small" />
+              <mat-card-title>
+                <h2>{{ course.name }}</h2>
+              </mat-card-title>
+            </div>
+            <div class="container-direita">
+              <mat-card-subtitle>
+                <h2>Subtotal : {{ course.price }}</h2>
+              </mat-card-subtitle>
+              <button
+                mat-flat-button
+                color="warn"
+                (click)="excluir(course, card)"
+              >
+                Excluir
+              </button>
+            </div>
+       
+          </mat-card-content>
+        </div>
+      </mat-card>
+     
+    </div>
+
+    
+
+    <mat-card *ngIf="listSelectedCourses.length === 0">
+      <mat-card-title>
+        <h2>Nenhum curso selecionado</h2>
+      </mat-card-title>
+    </mat-card>
+  </mat-card>
+  <mat-card-actions> </mat-card-actions>
+
+  <mat-card class="mat-form">
+    <form id="form">
+      <strong>Fill in the courses</strong>
+      <p>
+        <mat-form-field appearance="outline" class="input-form">
+          <mat-label> Qual seu nome; ? </mat-label>
+
+          <input
+            matInput
+            placeholder="Seu nome"
+            required
+            name="name"
+            [disabled]="disabled == true"
+          />
+          <i class="material-icons middle" matSuffix required>person</i>
+          <mat-hint> Ex:João</mat-hint>
+        </mat-form-field>
+      </p>
+    </form>
+
+    <h1>Preço Total : {{totalPrice}}</h1>
+  </mat-card>
+</mat-card>
+</div>
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\carrinho\purchasing-course\purchasing-course.component.scss ###
+.container {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); /* Sombra mais suave */
+}
+
+.title-card {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.mat-car-main {
+  margin: 20px 0;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); /* Sombra suave para o cartão principal */
+}
+
+img {
+  width: 80px;
+  height: auto;
+  border-radius: 5px; /* Bordas arredondadas para a imagem */
+  object-fit: cover; /* Mantém a proporção da imagem */
+}
+
+.mat-card-content {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+  align-items: center;
+}
+
+.container-esquerda {
+  display: flex;
+  align-items: center;
+}
+
+.container-direita {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: auto;
+  text-align: right;
+}
+
+.mat-card-subtitle {
+  font-size: 1.2rem;
+  color: #333;
+}
+
+button {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  padding: 10px 20px;
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #d43838; /* Cor de hover mais intensa */
+}
+
+.mat-form {
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #f5f5f5;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+.mat-form-field {
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.mat-form-field input {
+  padding: 12px;
+  font-size: 1rem;
+}
+
+.mat-hint {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.mat-card-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px;
+}
+
+.mat-card-actions button {
+  font-size: 1rem;
+  padding: 12px 25px;
+  border-radius: 8px;
+  background-color: #6f42c1;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.mat-card-actions button:hover {
+  background-color: #4a2c90;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .mat-card-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .container-esquerda {
+    margin-bottom: 15px;
+  }
+
+  .container-direita {
+    text-align: center;
+  }
+
+  img {
+    width: 60px;
+  }
+}
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\carrinho\purchasing-course\purchasing-course.component.spec.ts ###
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { PurchasingCourseComponent } from './purchasing-course.component';
+
+describe('PurchasingCourseComponent', () => {
+  let component: PurchasingCourseComponent;
+  let fixture: ComponentFixture<PurchasingCourseComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [PurchasingCourseComponent]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(PurchasingCourseComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\carrinho\purchasing-course\purchasing-course.component.ts ###
+import { Component, Input, OnInit, AfterViewInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Course } from '../../../model/course.model';
+import { CheckoutService } from '../../../services/checkout/checkout.service';
+import { MatCardModule } from '@angular/material/card';
+import { MatListModule } from '@angular/material/list';
+import { MatFormFieldModule } from '@angular/material/form-field';
+
+
+@Component({
+  selector: 'app-purchasing-course',
+  standalone: true,
+  imports: [MatFormFieldModule, CommonModule, MatCardModule, MatListModule],
+  templateUrl: './purchasing-course.component.html',
+  styleUrls: ['./purchasing-course.component.scss']
+})
+export class PurchasingCourseComponent implements OnInit, AfterViewInit {
+  listSelectedCourses: Course[] = [];
+  totalPrice!: number;
+  disabled = false;
+  form: any;
+  client: any = {};
+
+  constructor(private checkoutService: CheckoutService) {}
+
+  ngOnInit(): void {
+    this.totalPrice = this.checkoutService.totalPrice;
+    this.listSelectedCourses = this.checkoutService.listSelectdCourse;
+    this.toggleButton();
+  }
+
+  ngAfterViewInit(): void {
+    this.form = document.querySelector('#form');
+    if (this.form) {
+      this.form.addEventListener('click', (event: any) => {
+        event.preventDefault();
+      });
+    } else {
+      console.warn('Elemento form não encontrado');
+    }
+  }
+
+  trackByCourseId(index: number, course: Course): string {
+    return course.id;
+  }
+
+  toggleButton() {
+    this.disabled = this.listSelectedCourses.length === 0;
+  }
+
+  excluirTudo() {
+    this.checkoutService.totalPrice = 0;
+    this.totalPrice = 0;
+    this.checkoutService.listSelectdCourse = [];
+    this.listSelectedCourses = [];
+    this.toggleButton();
+  }
+
+  excluir(course: Course, card: HTMLElement): void {
+    this.totalPrice -= course.price;
+    this.checkoutService.setCourse(course);
+    this.checkoutService.unselectCourse2();
+    if (this.totalPrice <= 0) {
+      this.excluirTudo();
+    }
+    this.excluirtemplate(card);
+    this.atualizarCursos();
+  }
+
+  atualizarCursos(): void {
+    this.totalPrice = this.checkoutService.totalPrice;
+    this.listSelectedCourses = this.checkoutService.listSelectdCourse;
+  }
+
+  excluirtemplate(card: HTMLElement): void {
+    card.classList.add('hidden');
+  }
+}
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\courses-carousel\courses-carousel.component.html ###
+<div class="container">
+   
+
+    <mat-card class="carousel-container">
+       <div class="cards-carousel">
+        <h2>Conteúdo Free</h2>
+        <div class="carousel">
+            <div class="carousel-inner"
+                [style.transform]="'translateX(-' + (currentIndexFree * (100 / displayCount)) + '%)'">
+                <mat-card class="carousel-card" *ngFor="let course of courses">
+                    <ng-container>
+                        <mat-card-header>
+                            <mat-card-title class="titlecourse">{{ course.title }}</mat-card-title>
+                            <mat-card-subtitle class="subtitle">{{ course.subtitle }}</mat-card-subtitle>
+                        </mat-card-header>
+                        <a href="#">
+                            <img class="course-image" [src]="course.img" alt="{{ course.title }}"
+                            height="200px">
+                        </a>
+                        <p>Preço: {{course.price || 'Gratis'}}</p>
+                    </ng-container>
+                </mat-card>
+            </div>
+            <button class="control prev" mat-mini-fab aria-label="Previous" (click)="onPreviousClickFree()">
+                <mat-icon>arrow_back</mat-icon>
+            </button>
+            <button class="control next" mat-mini-fab aria-label="Next" (click)="onNextClickFree()">
+                <mat-icon>arrow_forward</mat-icon>
+            </button>
+        </div>
+  
+
+    
+       
+       
+        <h2>Conteúdo Pago</h2>
+        <div class="carousel">
+            <div class="carousel-inner"
+                [style.transform]="'translateX(-' + (currentIndexPaid * (100 / displayCount)) + '%)'">
+                <mat-card class="carousel-card" *ngFor="let coursepag of coursespag">
+                    <ng-container>
+                        <mat-card-header>
+                            <mat-card-title>{{ coursepag.title }}</mat-card-title>
+                            <mat-card-subtitle class="subtitle">{{ coursepag.subtitle }}</mat-card-subtitle>
+                        </mat-card-header>
+                        <a href="#">
+                            <img mat-card-image [src]="coursepag.img" alt="{{ coursepag.title }}">
+                        </a>
+                        <p>Preço: {{coursepag.price || 'Gratis'}}</p>
+                    </ng-container>
+                </mat-card>
+            </div>
+            <button class="control prev" mat-mini-fab aria-label="Previous" (click)="onPreviousClickPaid()">
+                <mat-icon>arrow_back</mat-icon>
+            </button>
+            <button class="control next" mat-mini-fab aria-label="Next" (click)="onNextClickPaid()">
+                <mat-icon>arrow_forward</mat-icon>
+            </button>
+        </div>
+    </div>
+    </mat-card>
+
+
+</div>
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\courses-carousel\courses-carousel.component.scss ###
+.container {
+  background-color: #f9f9f9;
+  width: 100%;
+  padding-top: 20px; /* Adicionado espaçamento superior */
+}
+
+.carousel-container {
+  background-color: #f9f9f9;
+}
+
+.cards-carousel {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.carousel {
+  position: relative;
+  max-width: 800px;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.carousel-inner {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+mat-card {
+  width: 100%;
+  flex: 0 0 calc(50% / 1);
+  padding: 5px;
+  display: flex;
+  align-items: center;
+}
+
+mat-card img {
+  transition: transform 0.3s ease-in-out;
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+mat-card a:hover img {
+  transform: scale(1.1);
+}
+
+.control {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: white;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.control mat-icon {
+  color: #6F42C1;
+}
+
+.prev {
+  left: 10px;
+}
+
+.next {
+  right: 10px;
+}
+
+.control:hover {
+  background-color: #f0f0f0;
+}
+
+h2 {
+  margin-top: 40px; /* Aumentado espaçamento superior */
+  text-align: center;
+}
+
+.subtitle {
+  padding-left: 16px;
+}
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\courses-carousel\courses-carousel.component.spec.ts ###
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { CoursesCarouselComponent } from './courses-carousel.component';
+
+describe('CoursesCarouselComponent', () => {
+  let component: CoursesCarouselComponent;
+  let fixture: ComponentFixture<CoursesCarouselComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [CoursesCarouselComponent]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(CoursesCarouselComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\courses-carousel\courses-carousel.component.ts ###
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
+import { CarouselComponent } from '../carousel/carousel.component';
+import { FooterComponent } from '../footer/footer.component';
+import { MatCardModule } from '@angular/material/card';
+import { NotificationListComponent } from "../notification-list/notification-list.component";
+@Component({
+  selector: 'app-courses-carousel',
+  standalone: true,
+  imports: [MatCardModule, CommonModule, MatIconModule, CarouselComponent, FooterComponent],
+  templateUrl: './courses-carousel.component.html',
+  styleUrl: './courses-carousel.component.scss'
+})
+export class CoursesCarouselComponent {
+  public courses: any[] = [
+    { title: 'Introdução ao Excel', subtitle: 'Aprenda Excel do zero', description: 'Curso completo para iniciantes.', paid: false, img: 'assets/img/AEsf7a6J2NEbmqX30vSFIF4INQVpAY80zZN7paS4-550x550-resized.png' },
+    { title: 'Introdução ao Word', subtitle: 'Aprenda Word do zero', description: 'Curso completo para iniciantes.', paid: false, img: 'assets/img/catalogocursos-removebg-preview.png' },
+    { title: 'Introdução ao PowerPoint', subtitle: 'Aprenda PowerPoint do zero', description: 'Curso completo para iniciantes.', paid: false, img: 'assets/img/catalogocursos-removebg-preview.png' },
+    { title: 'Introdução ao Access', subtitle: 'Aprenda Access do zero', description: 'Curso completo para iniciantes.', paid: false, img: 'assets/img/catalogocursos-removebg-preview.png' },
+    { title: 'Introdução ao Access', subtitle: 'Aprenda Access do zero', description: 'Curso completo para iniciantes.', paid: false, img: 'assets/img/catalogocursos-removebg-preview.png' },
+    { title: 'Introdução ao Access', subtitle: 'Aprenda Access do zero', description: 'Curso completo para iniciantes.', paid: false, img: 'assets/img/catalogocursos-removebg-preview.png' }
+  ];
+
+  public coursespag: any[] = [
+    { title: 'Introdução ao Excel', subtitle: 'Aprenda Excel do zero', img: 'assets/img/catalogocursos-removebg-preview.png', paid: true, price: '9,99' },
+    { title: 'Introdução ao carro', subtitle: 'Aprenda a dirigir do zero', img: 'assets/img/catalogocursos-removebg-preview.png', paid: true, price: '9,99' },
+    { title: 'Introdução ao Excel', subtitle: 'Aprenda Excel do zero', img: 'assets/img/catalogocursos-removebg-preview.png', paid: true, price: '9,99' },
+    { title: 'Introdução ao Canvas', subtitle: 'Aprenda a usar o Canvas', img: 'assets/img/catalogocursos-removebg-preview.png', paid: true, price: '9,99' },
+    { title: 'Introdução ao Excel', subtitle: 'Aprenda Excel do zero', img: 'assets/img/catalogocursos-removebg-preview.png', paid: true, price: '9,99' },
+    { title: 'Introdução ao Excel', subtitle: 'Aprenda Excel do zero', img: 'assets/img/catalogocursos-removebg-preview.png', paid: true, price: '9,99' },
+  ];
+
+
+  currentIndexFree = 0;
+  currentIndexPaid = 0;
+  displayCount = 5;  // Número de itens a serem exibidos ao mesmo tempo
+  onPreviousClickFree(): void {
+    this.currentIndexFree = (this.currentIndexFree - 1 + this.courses.length) % this.courses.length;
+  }
+
+  onNextClickFree(): void {
+    this.currentIndexFree = (this.currentIndexFree + 1) % this.courses.length;
+  }
+
+  onPreviousClickPaid(): void {
+    this.currentIndexPaid = (this.currentIndexPaid - 1 + this.coursespag.length) % this.coursespag.length;
+  }
+
+  onNextClickPaid(): void {
+    this.currentIndexPaid = (this.currentIndexPaid + 1) % this.coursespag.length;
+  }
+
+}
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\courses-list\courses-list.component.html ###
+<div class="course-container">
+  <!-- Verifica se há cursos no carrinho -->
+  <ng-container *ngIf="listSelectedCourses.length > 0; else emptyCart">
+    <!-- Renderiza os cursos no carrinho -->
+    <button mat-menu-item *ngFor="let course of listSelectedCourses">
+      <mat-icon>shopping_cart</mat-icon>
+  
+      <div #card>
+        <mat-card-content class="mat-card-content">
+          <div class="container-esquerda">
+            <!-- Imagem do curso -->
+            <img src="{{ course.imgLink }}" class="image-small" alt="Imagem do curso" />
+          </div>
+  
+          <div class="container-direita">
+            <!-- Título do curso -->
+            <mat-card-title>
+              <h2>{{ course.name }}</h2>
+            </mat-card-title>
+  
+            <!-- Subtotal do curso -->
+            <mat-card-subtitle>
+              <h2>Subtotal: {{ course.price | currency }}</h2>
+            </mat-card-subtitle>
+          </div>
+        </mat-card-content>
+      </div>
+    </button>
+  </ng-container>
+
+  <!-- Template alternativo caso o carrinho esteja vazio -->
+  <ng-template #emptyCart>
+    <p>Carrinho Vazio</p>
+  </ng-template>
+</div>
+
+<!-- Botão "Finalizar" -->
+ <div *ngIf="listSelectedCourses.length > 0">
+  <div class="button-fim">
+  <button  (click)="comprar()" class="finalize">Finalizar</button>
+</div>
+</div>
+
+
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\courses-list\courses-list.component.scss ###
+:host {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow-y: auto; // Permite rolagem vertical quando necessário
+}
+
+.course-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; // Adiciona espaçamento entre os itens
+}
+
+.mat-card-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.container-esquerda {
+  display: flex;
+  align-items: center;
+  gap: 10px; // Espaçamento entre a imagem e o texto
+}
+
+.container-direita {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: auto;
+  text-align: right;
+}
+
+img {
+  width: 50px;
+  height: 50px;
+  border-radius: 8px; // Cantos arredondados para um visual mais moderno
+}
+
+.button-fim {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px; // Adiciona espaçamento antes dos botões
+
+  button {
+      background-color: yellowgreen;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+          background-color: #0056b3;
+      }
+  }
+}
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\courses-list\courses-list.component.spec.ts ###
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { CoursesListComponent } from './courses-list.component';
+
+describe('CoursesListComponent', () => {
+  let component: CoursesListComponent;
+  let fixture: ComponentFixture<CoursesListComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [CoursesListComponent]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(CoursesListComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\courses-list\courses-list.component.ts ###
+import { Component, OnInit } from '@angular/core';
+import { Course } from '../../model/course.model'; 
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { CommonModule } from '@angular/common';
+import { CheckoutService } from '../../services/checkout/checkout.service';
+import { MatCardModule } from '@angular/material/card';
+import { MatListModule } from '@angular/material/list';
+import { Router } from '@angular/router';
+
+
+@Component({
+  selector: 'app-courses-list',
+  standalone: true,
+  imports: [ 
+    MatIconModule,
+    MatMenuModule,
+    CommonModule,
+    MatListModule,
+    MatCardModule, ],
+  templateUrl: './courses-list.component.html',
+  styleUrl: './courses-list.component.scss'
+})
+export class CoursesListComponent {
+
+  listSelectedCourses: Course[] = [];// Corrigido para 'notifications'
+  totalPrice!: number;
+
+  constructor(private checkoutService: CheckoutService,private router: Router) { }
+
+  ngOnInit(): void {
+    this.listSelectedCourses = this.checkoutService.listSelectdCourse;
+    console.log(this.listSelectedCourses.length)
+
+    this.atualizarCursos()
+
+
+    }
+
+
+    atualizarCursos(): void {
+      this.totalPrice = this.checkoutService.totalPrice;
+      this.listSelectedCourses = this.checkoutService.listSelectdCourse;
+    }
+
+    comprar() : void{
+      this.router.navigate(['/carrinho']);
+      }
+  }
+
+
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\feed-post\feed-post.component.html ###
+<div class="container">
+    <div class="row mt-5 mb-5">
+      <div class="col-md-4">
+        <mat-card class="mat-elevation-z4">
+          <div class="d-flex justify-content-center">
+            <img
+              src="https://i.im.ge/2024/07/26/VpM4DL.WhatsApp-Image-2024-01-31-at-21-39-52.jpeg"
+              class="rounded-circle" alt="Imagem do produto" style="width: 150px;">
+          </div>
+          <mat-card-content>
+            <h5 class="text-center">Caio Bernardelli Quirino</h5>
+            <p class="text-center">Desenvolvedor de Software</p>
+            <div class="d-flex justify-content-center">
+              <a mat-raised-button href="#" target="_blank" class="mat-primary">Github</a>
+            </div>
+            <mat-divider class="mt-4 mb-4"></mat-divider>
+            <h6 class="mb-3 text-center">Pesquisar por título</h6>
+            <mat-form-field appearance="fill" class="w-100">
+              <mat-label>Pesquisar</mat-label>
+              <input matInput type="text">
+            </mat-form-field>
+            <button mat-raised-button color="warn" class="w-100">Pesquisar</button>
+          </mat-card-content>
+        </mat-card>
+      </div>
+  
+      <div class="col-md-8">
+        <mat-card class="mat-elevation-z4 p-4">
+          <h3 class="text-center mb-4">Deixe seu comentário</h3>
+      
+          <form [formGroup]="postForm" (ngSubmit)="publicarMensagem()">
+            <mat-form-field class="w-100">
+              <mat-label>Escreva sua mensagem</mat-label>
+              <textarea matInput id="mensagem" formControlName="mensagem" rows="4" 
+                        placeholder="Compartilhe sua opinião..."></textarea>
+              <mat-error *ngIf="postForm.get('mensagem')?.invalid && postForm.get('mensagem')?.touched">
+                Mensagem é obrigatória e deve ter pelo menos 10 caracteres.
+              </mat-error>
+            </mat-form-field>
+      
+            <div class="d-flex justify-content-center mt-4">
+              <button mat-raised-button color="primary" type="submit" [disabled]="postForm.invalid">
+                <mat-icon>send</mat-icon> Publicar
+              </button>
+            </div>
+          </form>
+        </mat-card>
+      
+        <mat-divider class="mt-5 mb-5"></mat-divider>
+      
+        <h3 class="text-center mb-5">Comentários adicionados</h3>
+      
+        <div class="container">
+          <mat-card *ngFor="let postagem of listPost" class="mb-4 mat-elevation-z2 p-3">
+            <mat-card-header class="d-flex align-items-center">
+              <img src="https://i.pravatar.cc/40" class="rounded-circle me-2" alt="Avatar do usuário">
+              <mat-card-title class="m-0">{{postagem.id}}</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <p>{{postagem.message}}</p>
+            </mat-card-content>
+            <div class="buttons d-flex justify-content-end">
+              <button mat-icon-button color="warn">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </mat-card>
+        </div>
+      </div>
+      
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\feed-post\feed-post.component.scss ###
+/* Garante que a página ocupe toda a altura e o conteúdo fique centralizado */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4; /* Cor de fundo leve */
+}
+
+/* Container principal */
+.container {
+  flex: 1; /* Faz o conteúdo expandir para ocupar o espaço disponível */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 1200px; /* Limita a largura para não ficar muito esticado */
+  margin-top: 50px;
+  padding: 20px;
+}
+
+/* Ajusta a seção de mensagens para ocupar o máximo possível de largura */
+.col-md-8 {
+  width: 100%;
+  max-width: 800px; /* Aumenta o limite para ocupar mais espaço */
+}
+
+/* Ajusta os cartões */
+mat-card {
+  width: 100%;
+  max-width: 100%; /* Faz com que os cards ocupem a largura máxima */
+  text-align: center;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  background-color: white;
+}
+
+/* Imagem do perfil */
+img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid #007bff; /* Adiciona uma borda azul para destaque */
+}
+
+/* Ajusta a disposição dos botões */
+.buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Melhor disposição dos conteúdos dentro dos cards */
+.mat-card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Centraliza os textos dentro dos cards */
+.mat-card-content p {
+  text-align: center;
+  color: #333;
+}
+
+/* Centraliza os títulos dos cards */
+.mat-card-header {
+  display: flex;
+  justify-content: center;
+}
+
+/* Ajusta os formulários para ficarem mais bonitos e largos */
+.mat-form-field {
+  width: 100%;
+  max-width: 700px; /* O formulário agora ocupa quase toda a tela */
+}
+
+/* Botões com melhor aparência */
+button {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 8px;
+}
+
+/* Footer fixo na parte de baixo */
+footer {
+  width: 100%;
+  background-color: #007bff;
+  color: white;
+  text-align: center;
+  padding: 15px 0;
+  position: relative;
+  bottom: 0;
+}
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\feed-post\feed-post.component.spec.ts ###
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { FeedPostComponent } from './feed-post.component';
+
+describe('FeedPostComponent', () => {
+  let component: FeedPostComponent;
+  let fixture: ComponentFixture<FeedPostComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [FeedPostComponent]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(FeedPostComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\feed-post\feed-post.component.ts ###
+import { Component, OnInit } from '@angular/core';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDividerModule } from '@angular/material/divider';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { PostService } from '../../services/post.service';
+import { Post } from '../../model/post';
+import { generateUniqueId } from '../../Util/id-gerate'; // Importa a função de geração de ID
+
+@Component({
+  selector: 'app-feed-post',
+  standalone: true,
+  imports: [ 
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    MatCardModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDividerModule
+  ],
+  templateUrl: './feed-post.component.html',
+  styleUrls: ['./feed-post.component.scss']
+})
+export class FeedPostComponent implements OnInit {
+  listPost: Post[] = [];
+  postForm!: FormGroup;
+
+  constructor(private postService: PostService, private fb: FormBuilder) {
+    this.postForm = this.fb.group({
+      mensagem: ['', [Validators.required, Validators.minLength(10)]]
+    });
+  }
+
+  ngOnInit() {
+    this.findPosts();
+  }
+
+  findPosts() {
+    this.postService.getPosts().subscribe((posts: Post[]) => {
+      this.listPost = posts;
+    });
+  }
+
+  publicarMensagem() {
+    if (this.postForm.valid) {
+      const newPost: Post = {
+        id: generateUniqueId(),  // Gerando um ID único
+        message: this.postForm.value.mensagem
+      };
+
+      this.postService.postMensagem(newPost).subscribe((post: Post) => {
+        this.listPost.push(post);
+        this.postForm.reset();
+      });
+    } else {
+      console.log('Formulário inválido');
+    }
+  }
+}
+
+  
+
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\footer\footer.component.html ###
+<footer class="footer mat-elevation-z2">
+  <div class="footer-left">
+    
+  <span class="copyright"> Copyright © 2024 - CodeConnect. Todos os direitos reservados.</span>
+  <span>Developed by Caio Bernardelli and Gabriel Oliveira</span>
+  <br>
+      <span>   CNPJ 27.217.551/0001-68</span>
+
+  </div>
+  
+  <div class="footer-right">
+      <div class="footer-links">
+          <a routerLink="/notification">Termos de Uso</a>
+          <a href="#">Política de Privacidade</a>
+          <a href="#">Suporte</a>
+      </div>
+
+  </div>
+</footer>
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\footer\footer.component.scss ###
+.footer {
+  background: linear-gradient(135deg, #6F42C1, #4A2C90); // Gradiente para combinar com o header
+  color: #FFFFFF;
+  text-align: center;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  height: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1001;
+  box-shadow: 0px -2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Faixa inferior com outra cor */
+.footer-bottom {
+  background: #4A2C90;
+  height: 5px;
+  width: 100%;
+}
+
+.footer-left {
+  padding-left: 50px;
+  font-size: 14px;
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+.footer-left span {
+  display: block;
+  line-height: 1.6;
+}
+
+.footer-right {
+  padding-right: 20px;
+  text-align: right;
+}
+
+.footer-links a {
+  color: #FFFFFF;
+  text-decoration: none;
+  font-weight: 600;
+  margin: 0 10px;
+  transition: color 0.3s ease-in-out;
+}
+
+.footer-links a:hover {
+  color: #D1C4E9;
+  text-decoration: underline;
+}
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\footer\footer.component.ts ###
+import { Component } from '@angular/core';
+import {MatToolbarModule} from  '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatListModule} from '@angular/material/list';
+@Component({
+  selector: 'app-footer',
+  standalone: true,
+  imports: [MatIconModule,MatToolbarModule,MatSidenavModule,MatListModule],
+  templateUrl: './footer.component.html',
+  styleUrl: './footer.component.scss'
+})
+export class FooterComponent {
+
+}
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\header\header.component.html ###
+<mat-toolbar class="header mat-elevation-z4">
+    <div class="logoandtitle">
+        <img src="assets/img/logo2.png" alt="logo" class="logo">
+        <h1 class="title">CodeConnect</h1>
+    </div>
+    <span class="spacer"></span> <!-- Espaçador para empurrar os ícones para a direita -->
+    <span class="iconsimport">
+        
+        <a mat-icon-button [matMenuTriggerFor]="notificationsMenu" aria-label="Notifications">
+            <mat-icon matBadge="{{ notifications.length }}" matBadgeColor="primary">notifications</mat-icon>
+        </a>
+        
+        <mat-menu #notificationsMenu="matMenu">
+            <app-notification-list></app-notification-list>
+        </mat-menu>
+        
+
+        <a mat-icon-button [matMenuTriggerFor]="cartMenu" aria-label="Carrinho de Compras">
+            <mat-icon matBadge="{{ listSelectedCourses.length}}" matBadgeColor="primary">shopping_cart</mat-icon>
+        </a>
+
+        <mat-menu #cartMenu="matMenu">
+            <app-courses-list></app-courses-list>
+        </mat-menu>
+
+        <a mat-icon-button [matMenuTriggerFor]="profileMenu" aria-label="Profile menu">
+            <mat-icon>account_circle</mat-icon>
+        </a>
+
+        <mat-menu #profileMenu="matMenu">
+            <button mat-menu-item routerLink="/profile">
+                <mat-icon>account_circle</mat-icon>
+                <span>Perfil</span>
+            </button>
+            <button mat-menu-item routerLink="/certificates">
+                <mat-icon>import_contacts</mat-icon>
+                <span>Certificados</span>
+            </button>
+            <button mat-menu-item (click)="logout()">
+                <mat-icon>logout</mat-icon>
+                <span>Sair</span>
+            </button>
+        </mat-menu>
+
+        <a mat-icon-button routerLink="/settings">
+            <mat-icon>settings</mat-icon>
+        </a>
+    </span>
+</mat-toolbar>
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\header\header.component.scss ###
+mat-toolbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(135deg, #6F42C1, #4A2C90); // Gradiente moderno
+    padding: 0px 20px;
+    width: 100%;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); // Sombra sutil
+}
+
+.logoandtitle {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    width: 140px; 
+    margin-right: -20px;
+}
+
+.title {
+    font-size: 1.6rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: #f8f9fa;
+    font-family: "Poppins", sans-serif; // Fonte moderna
+}
+
+.iconsimport {
+    display: flex;
+    align-items: center;
+    gap: 20px; // Espaçamento melhorado
+}
+
+.iconsimport a {
+    text-decoration: none;
+    color: #f8f9fa;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease-in-out;
+}
+
+.iconsimport a:hover {
+    transform: scale(1.1); // Efeito hover suave
+    color: #e0e0e0;
+}
+
+mat-icon {
+    font-size: 26px; // Aumentando um pouco o tamanho dos ícones
+}
+
+.spacer {
+    flex: 1;
+}
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\header\header.component.ts ###
+import { Component } from '@angular/core';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { RouterModule, Router } from '@angular/router';
+import { MatMenuModule, MatMenuPanel } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
+import { MatBadgeModule } from '@angular/material/badge';
+import { NotificationListComponent } from '../notification-list/notification-list.component';
+import { CoursesListComponent } from '../courses-list/courses-list.component';
+import { Notification } from '../../model/notificaton';
+import { NotificationService } from '../../services/checkout/notification.service';
+import { CheckoutService } from '../../services/checkout/checkout.service';
+import { Course } from '../../model/course.model';
+import { UsuarioFirestoreService } from '../../services/usuario-firestore.service';
+
+@Component({
+  selector: 'app-header',
+  standalone: true,
+  imports: [
+    MatToolbarModule, 
+    MatIconModule, 
+    RouterModule, 
+    MatButtonModule, 
+    MatMenuModule, 
+    MatBadgeModule, 
+    NotificationListComponent,
+    CoursesListComponent
+  ],
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.scss']
+})
+export class HeaderComponent {
+  notifications: Notification[] = [];
+  listSelectedCourses: Course[] = [];
+  isAdmin: boolean = false;
+
+  constructor(
+    private notificationService: NotificationService,
+    private checkoutService: CheckoutService,
+    private usuarioService: UsuarioFirestoreService,
+    private router: Router
+  ) {
+    // Verifica se o usuário é administrador
+    this.isAdmin = this.usuarioService.isAdmin();
+
+    // Subscreve às notificações do serviço
+    this.notificationService.getNotifications().subscribe((notifications) => {
+      this.notifications = notifications;
+    });
+
+    // Carrega notificações conforme o tipo de usuário
+    if (this.isAdmin) {
+      this.notificationService.listarPorTipo('admin').subscribe();
+    } else {
+      this.notificationService.listarPorTipo('usuario').subscribe();
+    }
+
+    // Carrega os cursos selecionados
+    this.listSelectedCourses = this.checkoutService.listSelectdCourse;
+  }
+
+  logout() {
+    this.usuarioService.logout();  // Limpa os dados de autenticação
+    this.router.navigate(['/login']);  // Redireciona para a página de login
+  }
+}
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\job-list\job-list.component.html ###
+<!-- No arquivo job-list.component.html -->
+<div *ngFor="let job of jobs">
+    <h3>{{ job.title }}</h3>
+    <p>{{ job.description }}</p>
+    <p>{{ job.location }}</p>
+  </div>
+  
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\job-list\job-list.component.scss ###
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\job-list\job-list.component.spec.ts ###
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { JobListComponent } from './job-list.component';
+
+describe('JobListComponent', () => {
+  let component: JobListComponent;
+  let fixture: ComponentFixture<JobListComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [JobListComponent]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(JobListComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\job-list\job-list.component.ts ###
+import { Component, OnInit } from '@angular/core';
+import { ServiceApiService } from '../../services/service-api.service';
+import { CommonModule } from '@angular/common';
+@Component({
+  selector: 'app-job-list',
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: './job-list.component.html',
+  styleUrl: './job-list.component.scss'
+})
+export class JobListComponent implements OnInit{
+  jobs: any[] = [];
+  constructor( private JobList: ServiceApiService){
+
+
+    
+
+
+  }
+  ngOnInit(): void {
+   this.JobList.getJobs().subscribe((data)=>
+  this.jobs = data);
+  }
+
+}
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\list-films\list-films.component.html ###
+<div class="container">
+ 
+
+  <div class="cabeçalho">
+ <mat-card-title class="title">
+   Lista de Cursos
+ </mat-card-title>
+ <mat-card-subtitle>
+   <h2>{{listCourses.length}} Cursos Disponíveis</h2>
+ </mat-card-subtitle>
+  </div>
+
+
+ <!-- Formulário com input de busca e botão -->
+ <form (ngSubmit)="onButtonClick()" class="search-form">
+   <input matInput type="search" placeholder="Buscar Curso" [(ngModel)]="searchText" name="searchQuery"
+     class="search-input">
+   <button mat-icon-button color="primary" type="submit" class="search-button">
+     <mat-icon>search</mat-icon>
+   </button>
+ </form>
+
+ <!-- Tabela para listar os cursos filtrados -->
+<div class="teste">
+
+ <mat-card-content class="mat-card-container" *ngFor="let course of filteredCourses">
+   <mat-card class="card-course">
+     <mat-card-title>
+       <h2>{{course.name}}</h2>
+     </mat-card-title>
+     <mat-card-subtitle>
+       <h3>{{course.category}}</h3>
+     </mat-card-subtitle>
+     <mat-card-content class="mat-card-content">
+       <img src="{{course.imgLink}}" class="image-small">
+       <p class="description">
+         Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+         industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
+         scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap
+         into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the
+         release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing
+         software like Aldus PageMaker including versions of Lorem Ipsum.
+       </p>
+       <p>
+         {{course.price}}
+       </p>
+       <app-select-button (click)="selectCourse(course)"></app-select-button>
+     </mat-card-content>
+   </mat-card>
+ </mat-card-content>
+
+</div>
+<div class="carrinho-button">
+<button (click)="carrinho()">Ir para carrinho/button</button>
+</div>
+</div>
+
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\list-films\list-films.component.scss ###
+/* Container principal */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: #f4f4f9;
+}
+
+/* Cabeçalho */
+.cabeçalho {
+    text-align: center;
+    margin-bottom: 20px;
+    padding-top: 20px; /* Adicionado espaçamento superior */
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #6F42C1;
+    margin-top: 20px; /* Adicionado espaçamento superior */
+}
+
+/* Formulário de busca */
+.search-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 25px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.search-input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    font-size: 16px;
+    color: #343A40;
+    outline: none;
+}
+
+.search-button {
+    background-color: #6F42C1;
+    color: #FFFFFF;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: none;
+    transition: background 0.3s;
+}
+
+.search-button:hover {
+    background-color: #5a32a3;
+}
+
+/* Listagem de cursos */
+.teste {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+    padding: 20px;
+}
+
+.card-course {
+    width: 300px;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+    padding: 15px;
+    text-align: center;
+}
+
+.card-course:hover {
+    transform: scale(1.05);
+}
+
+.card-course h2 {
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.card-course h3 {
+    font-size: 1rem;
+    color: #777;
+    margin-bottom: 10px;
+}
+
+.image-small {
+    width: 100px;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.description {
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.5;
+    text-align: left;
+}
+
+/* Botão do carrinho */
+.carrinho-button {
+    display: flex;
+    justify-content: center;
+    padding: 40px;
+}
+
+.carrinho-button button {
+    background-color: #28a745;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.carrinho-button button:hover {
+    background-color: #218838;
+}
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\list-films\list-films.component.ts ###
+import { Component, OnInit } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { MatCardModule } from '@angular/material/card';
+import { Course } from '../../model/course.model';
+import { CommonModule } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule } from '@angular/forms';
+import { SelectButtonComponent } from '../select-button/select-button.component';
+import { MatIconModule } from '@angular/material/icon';
+import { CheckoutService } from '../../services/checkout/checkout.service';
+import { Router } from '@angular/router';
+
+@Component({
+    selector: 'app-list-films',
+    standalone: true,
+    templateUrl: './list-films.component.html',
+    styleUrl: './list-films.component.scss',
+    imports: [MatIconModule, SelectButtonComponent, CommonModule, FormsModule, MatFormFieldModule, RouterModule, MatCardModule]
+})
+export class ListFilmsComponent implements OnInit {
+    listCourses: Course[] = [];
+    filteredCourses: Course[] = [];
+    searchText: string = '';
+    shouldShowCardFilm: boolean = true;
+
+
+    constructor( private router: Router,private checkoutService: CheckoutService) { }
+
+
+    ngOnInit(): void {
+        this.checkoutService.getListCourse().subscribe((course) => {
+            this.listCourses = course;
+            this.filteredCourses = course;
+
+        })
+    }
+
+    filterCourses(): void {
+        if (this.searchText) {
+            this.filteredCourses = this.listCourses.filter(course => course.name.toLowerCase().includes(this.searchText.toLowerCase()));
+        } else {
+            this.filteredCourses = this.listCourses;
+        }
+    }
+
+
+    onButtonClick() {
+        console.log('Valor do input:', this.searchText);
+        this.filterCourses();
+        // Adicione qualquer lógica adicional aqui
+    }
+
+    carrinho() {
+        this.router.navigate(['/carrinho']); // Redireciona para a página de adicionar curso
+      }
+
+
+
+      selectCourse(course: Course): void {
+        
+        this.checkoutService.setPrice(course.price)
+        this.checkoutService.setCourse(course)
+        console.log(course)
+
+
+
+      }
+}
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\login-in\login-in.component.html ###
+<div class="container">
+    <div class="cadastro-container">
+        <mat-card class="cadastro-card">
+            <div class="content">
+                <h2>CodeConnect</h2>
+                <h1>Login</h1>
+                <p>Entrar na conta.</p>
+            </div>
+
+            <div class="forms">
+                <mat-card-content>
+
+                    <mat-form-field>
+                        <mat-label>Email Válido</mat-label>
+                        <input matInput [(ngModel)]="usuario.email">
+                    </mat-form-field>
+
+
+                    <mat-form-field>
+                        <mat-label>Senha</mat-label>
+                        <input matInput [(ngModel)]="usuario.senha">
+                    </mat-form-field>
+                    <p>Ainda não faz parte? <a routerLink="/cadastro-usuario">Cadastre-se</a></p>
+
+                </mat-card-content>
+
+
+       
+
+                <!-- Botão para inserir usuário -->
+                <div class="example-button-row">
+                    <button mat-raised-button class="button" color="primary"
+                        (click)="logar(usuario.email,usuario.senha)">Log in</button>
+                </div>
+
+
+            </div>
+
+            <!-- Exemplo de botão -->
+
+        </mat-card> <!-- Correção: Fechando a tag mat-card corretamente -->
+    </div>
+</div>
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\login-in\login-in.component.scss ###
+.container {
+    display: flex;
+    height: 100vh;
+    //
+    align-items: center;
+    justify-content: center;
+
+}
+
+
+.cadastro-container {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f9f9f9;
+   // width: 300px;
+    width: 100%;
+}
+
+
+
+.cadastro-card {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+
+    background-color: white;
+    padding: 2em;
+    border-radius: 20px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+     width: 500px;     
+}
+
+
+
+h1 {
+    font-size: 2.3em;
+    font-weight: 700;
+    margin: 0.5em 0;
+    
+    color: #343A40;
+
+}
+
+h2 {
+    font-size: 1.1em;
+
+    text-transform: uppercase;
+    color: #6F42C1;
+ 
+}
+
+p {
+    font-size: 1.1em;
+    color: #6F42C1;
+
+}
+
+mat-form-field {
+    width: 100%;
+    margin-bottom: 0em;
+}
+
+.hint {
+    font-size: 0.7em; /* Tamanho da fonte menor */
+    color: black; /* Cor das dicas */
+    margin-top: 0.2em; /* Espaço entre o campo e a dica */
+    margin-bottom: 1em; /* Espaço inferior para separar da próxima entrada */
+}
+
+
+mat-card-content{
+    display:flex;
+    flex-direction: column;
+    align-items: flex-end; /* Alinha os campos ao lado direito */
+    width: 100%;
+
+}
+
+
+.example-button-row {
+    display: flex;
+    justify-content: center; /* Centraliza o botão horizontalmente */
+    margin-top: 20px;
+  }
+  
+  .button {
+ 
+  //  width: 110px; /* Largura do botão */
+ //   height: 30px; /* Altura do botão */
+   border-radius: 20%; /* Torna o botão circular */
+  
+   
+  }
+  
+
+  
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\login-in\login-in.component.spec.ts ###
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { LoginInComponent } from './login-in.component';
+
+describe('LoginInComponent', () => {
+  let component: LoginInComponent;
+  let fixture: ComponentFixture<LoginInComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [LoginInComponent]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(LoginInComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\login-in\login-in.component.ts ###
+import { Component } from '@angular/core';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { ReactiveFormsModule } from '@angular/forms';
+import { Usuario } from '../../model/usuario';
+import { MatInputModule } from '@angular/material/input';
+import { ActivatedRoute, Router } from '@angular/router';
+
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { RouterModule } from '@angular/router';
+import { MensagemSweetService } from '../../services/checkout/mensagem-sweet.service';
+import { UsuarioFirestoreService } from '../../services/usuario-firestore.service';
+
+@Component({
+  selector: 'app-login-in',
+  standalone: true,
+  imports: [RouterModule, MatIconModule, MatButtonModule, FormsModule, MatCardModule, MatFormFieldModule, ReactiveFormsModule, MatInputModule],
+  templateUrl: './login-in.component.html',
+  styleUrl: './login-in.component.scss'
+})
+export class LoginInComponent {
+  usuarios: Usuario[] = [];
+  usuario: Usuario = {
+    id:'',
+    nome: '', email: '', idade: 0,
+    senha: ''
+  }; // Propriedade `usuario` adicionada
+
+
+  constructor(
+    private roteador: Router,
+    private rotaAtual: ActivatedRoute,
+    private mensagemService: MensagemSweetService,
+    private usuarioService: UsuarioFirestoreService // Atualizado para usar o Firestore service
+  ) {}
+  
+    logar(email: string, senha: string) {
+      this.usuarioService.autenticar(email, senha).subscribe({
+        next: (usuario) => {
+          this.mensagemService.sucesso('Login realizado com sucesso');
+          this.roteador.navigate(['home']); // Redireciona para a home
+        },
+        error: (err) => {
+          this.mensagemService.erro('Email ou senha incorretos');
+        }
+      });
+    }
+}
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\nav\nav.component.html ###
+
+<mat-sidenav-container class="nav-container">
+    <mat-sidenav #sidenav class="sidenav" mode="side" opened fixedInViewport="true" fixedTopGap="100">
+
+        <mat-list class="mat-list">
+            <a mat-list-item routerLink="/courses-carousel">
+                <i class="material-icons middle">home</i>
+                Home
+            </a>
+            <a mat-list-item routerLink="/list-films">
+                <i class="material-icons middle">theaters</i>
+                Aulas e Projetos
+            </a>
+            <a mat-list-item routerLink="/about-us">
+                <i class="material-icons middle">import_contacts</i>
+                About the author
+            </a>
+
+            <a mat-list-item routerLink="/admin" *ngIf="isAdmin">
+                <i class="material-icons middle">admin_panel_settings</i>
+                Administração
+              </a>
+
+
+              <a mat-list-item routerLink="/joblist">
+                <i class="material-icons middle">work</i>
+                Vagas de emprego
+              </a>
+              
+              <a mat-list-item routerLink="/feed-post">
+                <i class="material-icons middle">rss_feed</i>
+                Feed
+              </a>
+            
+
+        </mat-list>
+
+    </mat-sidenav>
+    <mat-sidenav-content class="content" style="margin-left: 199px;padding-top: 0px;padding-right: 0px;">
+
+        <router-outlet></router-outlet>
+
+
+    </mat-sidenav-content>
+</mat-sidenav-container>
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\nav\nav.component.scss ###
+.sidenav {
+    background: linear-gradient(135deg, #E9ECEF, #D6D9DC); // Gradiente sutil
+    width: 200px;
+    position: fixed;
+    top: 100px;
+    bottom: 0;
+    z-index: 1000;
+    box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.1); // Sombra suave
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    transition: all 0.3s ease-in-out;
+}
+
+.sidenav .mat-list {
+    padding-top: 10px;
+}
+
+.sidenav .mat-list a {
+    text-decoration: none;
+    color: #222; // Cor mais escura para melhor contraste
+    font-weight: 600; // Aumento da espessura da fonte para destaque
+    font-size: 1.05rem; // Leve aumento no tamanho da fonte
+    padding: 14px 18px; // Melhor espaçamento
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease-in-out;
+    border-radius: 8px;
+}
+
+.sidenav .mat-list a:hover {
+    background: rgba(111, 66, 193, 0.15); // Efeito hover mais visível
+    color: #4A2C90;
+    transform: scale(1.08);
+    font-weight: 700; // Texto ainda mais destacado no hover
+}
+
+.sidenav .mat-list i {
+    padding-right: 14px;
+    font-size: 24px; // Ícones levemente maiores para mais equilíbrio
+    color: #6F42C1;
+    transition: all 0.3s ease-in-out;
+}
+
+.sidenav .mat-list a:hover i {
+    color: #4A2C90;
+}
+
+.middle {
+    vertical-align: middle;
+}
+
+.content {
+    margin-left: 200px;
+    transition: margin-left 0.3s ease-in-out;
+}
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\nav\nav.component.ts ###
+import { Component } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common'; // Importe o CommonModule
+import { UsuarioFirestoreService } from '../../services/usuario-firestore.service';
+import { Router } from '@angular/router';
+
+@Component({
+  selector: 'app-nav',
+  standalone: true,
+  templateUrl: './nav.component.html',
+  styleUrls: ['./nav.component.scss'],
+  imports: [CommonModule, MatIconModule, MatListModule, MatSidenavModule, RouterModule],
+})
+export class NavComponent {
+  isAdmin: boolean = false;
+
+  constructor(public usuarioService: UsuarioFirestoreService, private router: Router) {
+    this.verificarAdmin();
+  }
+
+  verificarAdmin() {
+    this.isAdmin = this.usuarioService.isAdmin(); // Verifica se o usuário é admin
+  }
+
+  link() {
+    this.router.navigate(['/caio']);
+  }
+}
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\notification-list\notification-list.component.html ###
+<div class="notification-container">
+  <button mat-menu-item *ngFor="let notification of notifications">
+    <mat-icon>notifications</mat-icon>
+    <span>{{ notification.message }}</span><br>
+    <small>{{ notification.date }}</small>
+  </button>
+</div>
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\notification-list\notification-list.component.scss ###
+:host {
+    display: block;
+    width: 100%; // Largura mínima para o conteúdo
+    height: auto; // Altura máxima para o conteúdo
+    overflow-y: auto; // Adicionar rolagem vertical
+}
+
+
+.notification-container{
+    display: flex;
+    flex-direction: column;
+
+}
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\notification-list\notification-list.component.spec.ts ###
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { NotificationListComponent } from './notification-list.component';
+
+describe('NotificationListComponent', () => {
+  let component: NotificationListComponent;
+  let fixture: ComponentFixture<NotificationListComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [NotificationListComponent]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(NotificationListComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\notification-list\notification-list.component.ts ###
+import { Component, OnInit } from '@angular/core';
+import { Notification } from '../../model/notificaton';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { CommonModule } from '@angular/common';
+import { NotificationService } from '../../services/checkout/notification.service';
+import { UsuarioFirestoreService } from '../../services/usuario-firestore.service'; // Importe o serviço de usuário
+
+@Component({
+  selector: 'app-notification-list',
+  standalone: true,
+  imports: [MatIconModule, MatMenuModule, CommonModule],
+  templateUrl: './notification-list.component.html',
+  styleUrl: './notification-list.component.scss'
+})
+export class NotificationListComponent implements OnInit {
+  notifications: Notification[] = [];
+
+  constructor(
+    private notificationService: NotificationService,
+    private usuarioFirestoreService: UsuarioFirestoreService
+  ) {}
+
+  ngOnInit(): void {
+    // Subscreve às notificações do serviço
+    this.notificationService.getNotifications().subscribe((notifications) => {
+      this.notifications = notifications;
+    });
+
+    // Verifica se o usuário é administrador e carrega as notificações
+    if (this.usuarioFirestoreService.isAdmin()) {
+      this.notificationService.listarPorTipo('admin').subscribe();
+    } else {
+      this.notificationService.listarPorTipo('user').subscribe();
+    }
+  }
+}
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\search-course\search-course.component.html ###
+<div class="search-container">
+    <input [(ngModel)]="searchText" (input)="filterCourses()" placeholder="Search for courses" />
+    <button (click)="filterCourses()">
+      <i class="fa fa-search"></i> Search
+    </button>
+  </div>
+  
+  <div class="course-list">
+    <mat-card *ngFor="let course of filteredCourses" class="mat-card-container">
+      <mat-card-title>
+        <h2>{{ course.name }}</h2>
+      </mat-card-title>
+      <mat-card-subtitle>
+        <h3>{{ course.category }}</h3>
+      </mat-card-subtitle>
+      <mat-card-content class="mat-card-content">
+        <img [src]="course.imgLink" class="image-small">
+        <p>
+          Price: {{ course.price }}
+        </p>
+        <button (click)="selectCourse(course)">Select</button>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\search-course\search-course.component.scss ###
+.search-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .search-container input {
+    width: 100%;
+    padding: 10px;
+
+  }
+  
+  .search-container button {
+    padding: 10px;
+  }
+  
+  .course-list {
+    margin-top: 20px;
+  }
+  
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\search-course\search-course.component.spec.ts ###
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { SearchCourseComponent } from './search-course.component';
+
+describe('SearchCourseComponent', () => {
+  let component: SearchCourseComponent;
+  let fixture: ComponentFixture<SearchCourseComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [SearchCourseComponent]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(SearchCourseComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\search-course\search-course.component.ts ###
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Course } from '../../model/course.model'; // Verifique se o caminho do seu modelo está correto
+
+import { MatCardModule } from '@angular/material/card';
+import { SelectButtonComponent } from '../select-button/select-button.component';
+import { HttpClient } from '@angular/common/http'; // Importe o HttpClient para fazer requisições HTTP
+import { FormsModule } from '@angular/forms';
+import { CheckoutService } from '../../services/checkout/checkout.service';
+
+@Component({
+  standalone: true,
+  imports: [MatCardModule, CommonModule, SelectButtonComponent, FormsModule],
+  selector: 'app-search-course',
+  templateUrl: './search-course.component.html',
+  styleUrls: ['./search-course.component.scss']
+})
+export class SearchCourseComponent implements OnInit {
+  listCourses: Course[] = []; // Renomeei para listCourses, ajuste conforme necessário
+  filteredCourses: Course[] = [];
+  searchText: string = '';
+
+  constructor(
+    private checkoutService: CheckoutService,
+    private http: HttpClient // Injete o HttpClient no construtor
+  ) { }
+
+  ngOnInit(): void {
+    // Simule uma requisição HTTP para obter os cursos
+    this.http.get<Course[]>('/api/courses').subscribe(courses => {
+      this.listCourses = courses;
+      this.filteredCourses = courses; // Inicialmente, exibe todos os cursos
+    });
+  }
+
+  filterCourses(): void {
+    this.filteredCourses = this.listCourses.filter(course =>
+      course.name.toLowerCase().includes(this.searchText.toLowerCase())
+    );
+  }
+
+  selectCourse(course: Course): void {
+    // Lógica para selecionar um curso, ajuste conforme necessário
+    this.checkoutService.setPrice(course.price);
+  }
+}
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\select-button\select-button.component.html ###
+<button mat-flat-button color="primary" class="selected" [disabled]="disabled === true" (click)="selectCurse()">
+    Adicionar ao Carrinho
+</button>
+<button mat-flat-button color="warn"  [disabled]="disabled === false" (click)="unselectCurse()">
+    Remover do Carrinho
+</button>
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\select-button\select-button.component.scss ###
+.selected{
+    margin: 0 15px;
+
+}
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\select-button\select-button.component.ts ###
+import { Component, Input } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { CheckoutService } from '../../services/checkout/checkout.service';
+import { Course } from '../../model/course.model';
+
+@Component({
+  selector: 'app-select-button',
+  standalone: true,
+  imports: [MatButtonModule, MatButtonToggleModule],
+  templateUrl: './select-button.component.html',
+  styleUrl: './select-button.component.scss'
+})
+export class SelectButtonComponent {
+  @Input() course!: Course; // Recebe o curso do componente pai
+  disabled = false;
+  constructor(private checkoutService: CheckoutService) {
+    // Inicializa a propriedade disabled de acordo com alguma lógica, se necessário
+
+  }
+
+  selectCurse() {
+    this.disabled = true; // Ajusta o estado do botão se necessário
+   // this.checkoutService.selectCourse(this.course,this.course.price);
+   this.checkoutService.selectCourse1();
+
+
+  }
+
+  unselectCurse() {
+    this.disabled = false; // Ajusta o estado do botão se necessário
+ //   this.checkoutService.unselectCourse(this.course,this.course.price);
+ this.checkoutService.unselectCourse2();
+  }
+}
+
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\usuariofirebase\usuariofirebase.component.html ###
+<div class="container">
+  <h2>Lista de Usuários</h2>
+  <ul>
+    <li *ngFor="let usuario of usuarios">
+      <strong>{{ usuario.nome }}</strong> - {{ usuario.email }}
+    </li>
+  </ul>
+</div>
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\usuariofirebase\usuariofirebase.component.scss ###
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\usuariofirebase\usuariofirebase.component.spec.ts ###
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { UsuariofirebaseComponent } from './usuariofirebase.component';
+
+describe('UsuariofirebaseComponent', () => {
+  let component: UsuariofirebaseComponent;
+  let fixture: ComponentFixture<UsuariofirebaseComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [UsuariofirebaseComponent]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(UsuariofirebaseComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\components\usuariofirebase\usuariofirebase.component.ts ###
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Usuario } from '../../model/usuario';// Modelo de usuário
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { UsuarioFirestoreService } from '../../services/usuario-firestore.service';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCardModule } from '@angular/material/card';
+import { FormsModule } from '@angular/forms';
+
+
+
+@Component({
+  selector: 'app-usuariofirebase',
+  standalone: true,
+  imports: [FormsModule,
+           CommonModule,
+           MatFormFieldModule,
+           MatCardModule 
+     ],
+  templateUrl: './usuariofirebase.component.html',
+  styleUrl: './usuariofirebase.component.scss'
+})
+export class UsuariofirebaseComponent implements OnInit {
+
+  usuarios: Usuario[] = [];
+  usuario: Usuario = {
+    id: '',
+    nome: '', email: '', idade: 0,
+    senha: ''
+  }; // Propriedade `usuario` adicionada
+
+  constructor(private usuarioFirestoreService: UsuarioFirestoreService) {}
+  
+  ngOnInit(): void {
+    this.usuarioFirestoreService.listar().subscribe((dados: Usuario[]) => {
+      this.usuarios = dados; // Armazena os usuários retornados
+    });
+  }
+
+ 
+  inserir(usuario: Usuario) {
+    this.usuarioFirestoreService.inserir(usuario)
+      .then(() => {
+        console.log("Usuário inserido com sucesso!"); // Limpa o formulário após inserir
+      })
+      .catch((erro) => {
+        console.error("Erro ao inserir usuário: ", erro);
+      });
+  }
+
+
+}
+    
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\guards\admin.guard.spec.ts ###
+import { TestBed } from '@angular/core/testing';
+import { AdminGuard } from './admin.guard';
+import { Router } from '@angular/router';
+import { UsuarioFirestoreService } from '../services/usuario-firestore.service';
+import { RouterTestingModule } from '@angular/router/testing';
+
+describe('AdminGuard', () => {
+  let guard: AdminGuard;
+  let usuarioFirestoreService: jasmine.SpyObj<UsuarioFirestoreService>;
+  let router: Router;
+
+  beforeEach(() => {
+    const usuarioFirestoreSpy = jasmine.createSpyObj('UsuarioFirestoreService', ['isAdmin']);
+    
+    TestBed.configureTestingModule({
+      imports: [RouterTestingModule],
+      providers: [
+        AdminGuard,
+        { provide: UsuarioFirestoreService, useValue: usuarioFirestoreSpy }
+      ]
+    });
+
+    guard = TestBed.inject(AdminGuard);
+    usuarioFirestoreService = TestBed.inject(UsuarioFirestoreService) as jasmine.SpyObj<UsuarioFirestoreService>;
+    router = TestBed.inject(Router);
+  });
+
+  it('should be created', () => {
+    expect(guard).toBeTruthy();
+  });
+
+  it('should activate if user is admin', () => {
+    usuarioFirestoreService.isAdmin.and.returnValue(true);
+    expect(guard.canActivate()).toBeTrue();
+  });
+
+  it('should not activate and redirect if user is not admin', () => {
+    spyOn(router, 'navigate');
+    usuarioFirestoreService.isAdmin.and.returnValue(false);
+
+    expect(guard.canActivate()).toBeFalse();
+    expect(router.navigate).toHaveBeenCalledWith(['/courses-carousel']);
+  });
+});
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\guards\admin.guard.ts ###
+import { Injectable } from '@angular/core';
+import { CanActivate, Router } from '@angular/router';
+import { UsuarioFirestoreService } from '../services/usuario-firestore.service';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AdminGuard implements CanActivate {
+
+  constructor(private usuarioFirestoreService: UsuarioFirestoreService, private router: Router) { }
+
+  canActivate(): boolean {
+    if (this.usuarioFirestoreService.isAdmin()) {
+      return true;  // Usuário é admin, pode acessar
+    }
+
+    // Redireciona para outra página se o usuário não for admin
+    this.router.navigate(['/courses-carousel']);
+    return false;
+  }
+}
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\home\home.component.html ###
+<div class="container">
+    <div class="cadastro-container">
+        <mat-card class="cadastro-card">
+            <div class="content">
+                <h2>CodeConnect</h2>
+                <h1>Login</h1>
+                <p>Entrar na conta.</p>
+            </div>
+
+            <div class="forms">
+                <mat-card-content>
+
+                    <mat-form-field>
+                        <mat-label>Email Válido</mat-label>
+                        <input matInput [(ngModel)]="usuario.email">
+                    </mat-form-field>
+
+
+                    <mat-form-field>
+                        <mat-label>Senha</mat-label>
+                        <input matInput [(ngModel)]="usuario.senha">
+                    </mat-form-field>
+                    <p>Ainda não faz parte? <a routerLink="/cadastro-usuario">Cadastre-se</a></p>
+
+                </mat-card-content>
+
+
+       
+
+                <!-- Botão para inserir usuário -->
+                <div class="example-button-row">
+                    <button mat-raised-button class="button" color="primary"
+                        (click)="logar(usuario.email,usuario.senha)">Login</button>
+                </div>
+
+
+            </div>
+
+            <!-- Exemplo de botão -->
+
+        </mat-card> <!-- Correção: Fechando a tag mat-card corretamente -->
+    </div>
+
+    
+</div>
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\home\home.component.scss ###
+.container {
+  display: flex;
+  height: 100vh;
+  //
+  align-items: center;
+  justify-content: center;
+  background-color: #f9f9f9;
+}
+
+
+.cadastro-container {
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f9f9f9;
+ // width: 300px;
+  width: 100%;
+}
+
+
+
+.cadastro-card {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+
+  background-color: white;
+  padding: 2em;
+  border-radius: 20px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+   width: 500px;     
+}
+
+
+
+h1 {
+  font-size: 2.3em;
+  font-weight: 700;
+  margin: 0.5em 0;
+  
+  color: #343A40;
+
+}
+
+h2 {
+  font-size: 1.1em;
+
+  text-transform: uppercase;
+  color: #6F42C1;
+
+}
+
+p {
+  font-size: 1.1em;
+  color: #6F42C1;
+
+}
+
+mat-form-field {
+  width: 100%;
+  margin-bottom: 0em;
+}
+
+.hint {
+  font-size: 0.7em; /* Tamanho da fonte menor */
+  color: black; /* Cor das dicas */
+  margin-top: 0.2em; /* Espaço entre o campo e a dica */
+  margin-bottom: 1em; /* Espaço inferior para separar da próxima entrada */
+}
+
+
+mat-card-content{
+  display:flex;
+  flex-direction: column;
+  align-items: flex-end; /* Alinha os campos ao lado direito */
+  width: 100%;
+
+}
+
+
+.example-button-row {
+  display: flex;
+  justify-content: center; /* Centraliza o botão horizontalmente */
+  margin-top: 20px;
+}
+
+.button {
+
+//  width: 110px; /* Largura do botão */
+//   height: 30px; /* Altura do botão */
+ border-radius: 10%; /* Torna o botão circular */
+
+ 
+}
+
+
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\home\home.component.ts ###
+import { Component } from '@angular/core';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { ReactiveFormsModule } from '@angular/forms';
+import { Usuario } from '../model/usuario';
+import { MatInputModule } from '@angular/material/input';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { RouterModule } from '@angular/router';
+import { MensagemSweetService } from '../services/checkout/mensagem-sweet.service';
+import { UsuarioFirestoreService } from '../services/usuario-firestore.service';
+
+@Component({
+  selector: 'app-home',
+  standalone: true,
+  imports: [RouterModule, MatIconModule, MatButtonModule, FormsModule, MatCardModule, MatFormFieldModule, ReactiveFormsModule, MatInputModule],
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss'] // Corrigido para `styleUrls`
+})
+export class HomeComponent {
+  usuarios: Usuario[] = [];
+  usuario: Usuario = {
+    id: '',
+    nome: '', email: '', idade: 0,
+    senha: ''
+  };
+
+  constructor(
+    private roteador: Router,
+    private rotaAtual: ActivatedRoute,
+    private mensagemService: MensagemSweetService,
+    private usuarioService: UsuarioFirestoreService // Certifique-se de que o método 'autenticar' existe
+  ) {}
+
+  logar(email: string, senha: string) {
+    this.usuarioService.autenticar(email, senha).subscribe({
+      next: (usuario: Usuario) => { // Definir o tipo explicitamente
+        this.mensagemService.sucesso('Login realizado com sucesso');
+        this.roteador.navigate(['/courses-carousel']); // Redireciona para a home
+      },
+      error: (err: any) => { // Definir o tipo do erro como 'any'
+        this.mensagemService.erro('Email ou senha incorretos');
+      }
+    });
+  }
+}
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\layout\layout.component.html ###
+<div class="app-container">
+    <mat-toolbar class="header mat-elevation-z4">
+        <app-header></app-header>
+    </mat-toolbar>
+  
+
+    <app-nav class="nav"></app-nav>
+    <app-footer class="footer"></app-footer>
+  </div>
+  
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\layout\layout.component.scss ###
+/* Estilização básica */
+body, html {
+    height: 100%;
+    margin: 0;
+    display: flex; /* Usando flexbox */
+    flex-direction: column; /* Estrutura em coluna */
+}
+
+
+
+.content-container{
+   
+    height:  100vh;
+    background-color:  white;
+    flex-grow: 1; /* Permitir que o conteúdo principal cresça */
+   // min-height: calc(100vh - 100px); /* Garante que o conteúdo ocupe o espaço acima do footer */
+}
+
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Garante que o container ocupe a altura total da tela */
+}
+
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\layout\layout.component.spec.ts ###
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { LayoutComponent } from './layout.component';
+
+describe('LayoutComponent', () => {
+  let component: LayoutComponent;
+  let fixture: ComponentFixture<LayoutComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [LayoutComponent]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(LayoutComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\layout\layout.component.ts ###
+import { Component } from '@angular/core';
+import { HeaderComponent } from "../components/header/header.component";
+import { FooterComponent } from "../components/footer/footer.component";
+import { NavComponent } from '../components/nav/nav.component';
+import { RouterModule } from '@angular/router';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { RouterOutlet } from '@angular/router';
+
+
+@Component({
+  selector: 'app-layout',
+  standalone: true,
+  imports: [RouterOutlet,FooterComponent,MatToolbarModule,NavComponent , HeaderComponent],
+  templateUrl: './layout.component.html',
+  styleUrl: './layout.component.scss'
+})
+export class LayoutComponent {
+
+}
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\model\course.model.ts ###
+export class Course {
+    id: string;
+    name: string;
+   category: string;
+    imgLink: string;
+    price: number;
+  
+    constructor(id: string, name: string, category: string, imgLink: string, price: number) {
+      this.id = id;
+      this.name= name;
+      this.category = category;
+      this.imgLink = imgLink;
+      this.price = price;
+    }
+  }
+  
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\model\notificaton.ts ###
+export class Notification {
+    id: number;
+    message: string;
+    date: string;
+   
+  
+    constructor(id: number, message: string, date: string) {
+      this.id = id;
+      this.message= message;
+      this.date = date;
+      
+    }
+  }
+  
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\model\post.ts ###
+export class Post {
+  id?: string;  // O "?" indica que o id é opcional
+  message: string;
+ 
+
+  constructor(message: string, id?: string) {
+    this.id = id;
+    this.message = message;
+ 
+  }
+}
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\model\usuario.ts ###
+export class Usuario {
+  id: string;
+  nome: string;
+  email: string;
+  idade: number;
+  senha: string;
+
+  constructor(id: string, nome: string, email: string, idade: number, senha: string,) {
+    this.id = id;
+    this.nome = nome;
+    this.email = email;
+    this.idade = idade;
+    this.senha = senha;
+
+  }
+}
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\modules\material.module.ts ###
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+
+
+@NgModule({
+  declarations: [],
+  imports: [
+    CommonModule
+  ]
+})
+export class MaterialModule { }
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\services\post.service.ts ###
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Post } from '../model/post';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class PostService {
+  private baseUrl: string = "http://localhost:8080/posts"; 
+
+  constructor(private httpClient: HttpClient) { }
+
+  getPosts(): Observable<Post[]> {
+    return this.httpClient.get<Post[]>(this.baseUrl);
+  }
+
+  postMensagem(post: Post): Observable<Post> {
+    return this.httpClient.post<Post>(this.baseUrl, post);
+  }
+
+  deletePost(id: string): Observable<void> {
+    return this.httpClient.delete<void>(`${this.baseUrl}/${id}`);
+  }
+}
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\services\service-api.service.ts ###
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ServiceApiService {
+  private apiUrl = 'https://remoteok.com/api'; // Substitua pela URL da API de vagas
+
+  constructor(private http: HttpClient) { }
+
+  getJobs(): Observable<any> {
+    return this.http.get<any>(this.apiUrl);
+  }
+}
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\services\usuario-firestore.service.ts ###
+import { Injectable } from '@angular/core';
+import { Firestore, collectionData, collection, addDoc, where, query, getDocs, doc, deleteDoc, setDoc  } from '@angular/fire/firestore';
+import { catchError, map, Observable, throwError } from 'rxjs';
+import { Usuario } from '../model/usuario';
+import { NotificationService } from './checkout/notification.service'; 
+import { HttpClient } from '@angular/common/http';
+ // Importe o serviço de notificação
+
+
+
+@Injectable({
+  providedIn: 'root',
+})
+export class UsuarioFirestoreService {
+  private collectionName: string = 'usuarios';
+  public usuarioLogado: Usuario | null = null;
+
+  constructor(private firestore: Firestore, private httpClient: HttpClient, private notificationService: NotificationService) { // Injete o serviço de notificação
+    const usuarioString = localStorage.getItem('usuarioLogado');
+    if (usuarioString) {
+      this.usuarioLogado = JSON.parse(usuarioString);
+    }
+  }
+
+  isAdmin(): boolean {
+    return this.usuarioLogado?.email === 'admin@example.com';
+  }
+
+  autenticar(email: string, senha: string): Observable<Usuario> {
+    const usuariosCollection = collection(this.firestore, this.collectionName);
+    const q = query(usuariosCollection, where('email', '==', email), where('senha', '==', senha));
+
+    return new Observable<Usuario>((observer) => {
+      getDocs(q)
+        .then((querySnapshot) => {
+          if (querySnapshot.empty) {
+            throw new Error('Email ou senha incorretos');
+          } else {
+            const usuario = querySnapshot.docs[0].data() as Usuario;
+            this.usuarioLogado = usuario;
+
+            // Armazena o usuário logado no localStorage
+            localStorage.setItem('usuarioLogado', JSON.stringify(usuario));
+
+            observer.next(usuario);
+            observer.complete();
+          }
+        })
+        .catch((error) => {
+          observer.error(new Error(error.message));
+        });
+    });
+  }
+
+  logout() {
+    this.usuarioLogado = null;
+    localStorage.removeItem('usuarioLogado'); // Remove o usuário do localStorage ao deslogar
+  }
+
+
+  
+
+  listar(): Observable<Usuario[]> {
+    const usuariosCollection = collection(this.firestore, this.collectionName);
+    return collectionData(usuariosCollection, { idField: 'id' }) as Observable<Usuario[]>;
+  }
+
+  async remover(id: string): Promise<void> {
+    const usuarioDoc = doc(this.firestore, `${this.collectionName}/${id}`); // Referência ao documento pelo ID
+    try {
+      await deleteDoc(usuarioDoc); // Remove o documento do Firestore
+  
+      const notification = {
+        message: `Usuário com ID: ${id} foi removido.`,
+        date: new Date().toISOString(),
+        type: 'admin',  // Notificação de tipo 'admin'
+      };
+  
+      // Envia a notificação para o sistema de notificações
+      await this.httpClient.post('http://localhost:8080/notification', notification).toPromise();
+  
+    } catch (error) {
+      console.error('Erro ao remover usuário:', error);
+      throw new Error('Erro ao remover o usuário!');
+    }
+  }
+  
+
+
+  
+  
+
+  async inserir(usuario: Usuario): Promise<void> {
+    await this.validarEmailsDiferentes(usuario.email);
+    this.validarEmail(usuario.email);
+    this.validarMaiorIdade(usuario);
+    
+    const { id, ...usuarioSemId } = usuario;
+    const usuariosCollection = collection(this.firestore, this.collectionName);
+  
+    return addDoc(usuariosCollection, usuarioSemId).then(() => {
+      // Notifica os administradores sobre a inserção de um novo usuário
+      const notification = {
+        message: `Novo usuário inserido: ${usuario.nome}`,
+        date: new Date().toISOString(),
+        type: 'admin',  // Use 'type' aqui para consistência com o sistema de notificações
+      };
+      
+      // Envia a notificação para o sistema de notificações
+      this.httpClient.post('http://localhost:8080/notification', notification).subscribe();
+    }).catch(error => {
+      console.error('Erro ao inserir usuário:', error);
+      throw new Error('Erro ao inserir o usuário!');
+    });
+  }
+  
+
+   private validarMaiorIdade(usuario: Usuario) {
+    if (usuario.idade < 18) {
+      throw new Error('Usuário não pode ser menor de idade!');
+    }
+  }
+
+  private validarEmail(email: string) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      throw new Error('Endereço de email inválido!');
+    }
+  }
+  
+   async validarEmailsDiferentes(email: string): Promise<void> {
+    const usuariosCollection = collection(this.firestore, this.collectionName);
+    const q = query(usuariosCollection, where('email', '==', email));
+    const querySnapshot = await getDocs(q);
+    
+    if (!querySnapshot.empty) {
+      throw new Error('Usuário já cadastrado com o mesmo endereço de email!');
+    }
+  }
+
+  async atualizarUsuario(usuario: Usuario): Promise<void> {
+    try {
+      const usuarioDocRef = doc(this.firestore, `${this.collectionName}/${usuario.id}`);
+      
+      // Atualiza o documento no Firestore
+      await setDoc(usuarioDocRef, usuario);
+      
+      // Prepara a notificação
+      const notification = {
+        message: `Usuário atualizado: ${usuario.nome}`,
+        date: new Date().toISOString(),
+        type: 'admin',
+      };
+  
+      // Envia a notificação de forma assíncrona (sem bloquear)
+      this.httpClient.post('http://localhost:8080/notification', notification).subscribe({
+        next: () => {
+          console.log('Notificação enviada com sucesso.');
+        },
+        error: (error) => {
+          console.error('Erro ao enviar notificação:', error);
+        },
+      });
+      
+    } catch (error) {
+      console.error('Erro ao atualizar usuário:', error);
+      throw new Error('Erro ao atualizar o usuário!');
+    }
+  }
+  
+  
+
+
+
+}
+
+
+
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\services\checkout\checkout.service.ts ###
+import { Injectable } from '@angular/core';
+import { Course } from '../../model/course.model';
+import { HttpClient } from '@angular/common/http';
+import { Observable, tap, switchMap } from 'rxjs';
+import { NotificationService } from './notification.service';  // Importe o serviço de notificação
+import { generateUniqueId } from '../../Util/id-generator';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class CheckoutService {
+  public baseUrl: string = "http://localhost:3000/courses";
+  public listCurse: Course[] = [];
+  public totalPrice: number = 0;
+  private _priceHandler: number = 0;
+  public listSelectdCourse: Course[] = [];
+
+  constructor(private httpClient: HttpClient, private notificationService: NotificationService) {}  // Injete o serviço de notificação
+
+
+
+  getPrice(): number {
+    return this._priceHandler;
+
+  }
+
+  setPrice(value: number): void {
+    this._priceHandler = value;//  mudificado pelo metodo do list-cursos 
+
+  }
+
+
+  getCourse(): Course {
+    return this._courseHander;
+
+  }
+
+  setCourse(value: Course): void {
+    this._courseHander = value;
+
+  }
+
+  getCourseById(id: string): Observable<Course> {
+    return this.httpClient.get<Course>(`${this.baseUrl}/${id}`);
+  }
+
+  private _courseHander !: Course;
+
+
+  getListCourse(): Observable<Course[]> {
+    return this.httpClient.get<Course[]>(this.baseUrl)
+  }
+// nao usado
+  selectCourse(course: Course, price: number) {
+    this.totalPrice += price;
+
+    this.listSelectdCourse.push(course);
+    console.log(`Total price after selecting: ${this.totalPrice}`);
+    console.log(`Selected courses:`, this.listSelectdCourse.map(c => c.name)); // Exibe os nomes dos cursos selecionados
+  }
+
+
+  selectCourse1() {
+
+    setTimeout(() => {
+
+      this.totalPrice += this.getPrice();
+
+      this.listSelectdCourse.push(this.getCourse())
+      console.log(this.totalPrice);
+      console.log(this.listSelectdCourse)
+    }, 1);
+
+
+  }
+
+
+  unselectCourse2() {
+    this.totalPrice -= this.getPrice();
+
+    if (this.totalPrice < 0) {
+      this.totalPrice = 0;
+    }
+
+    let index = this.listSelectdCourse.indexOf(this.getCourse());
+    if (index > -1 || index === this.listSelectdCourse.indexOf(this.getCourse())) {
+      this.listSelectdCourse.splice(index, 1)
+
+    }
+
+    console.log(this.totalPrice);
+    console.log(this.listSelectdCourse)
+
+
+  }
+
+//nao usado
+  unselectCourse(course: Course, price: number) {
+    this.totalPrice -= price;
+
+    if (this.totalPrice < 0) {
+      this.totalPrice = 0;
+    }
+
+    const index = this.listSelectdCourse.findIndex(
+      (selectedCourse) => selectedCourse.id === course.id
+    );
+    if (index > -1) {
+      this.listSelectdCourse.splice(index, 1);
+      this.listSelectdCourse = [...this.listSelectdCourse];
+    }
+    console.log(`Total price after unselecting: ${this.totalPrice}`);
+    console.log(`UnSelected courses:`, this.listSelectdCourse.map(c => c.name)); // Exibe os nomes dos cursos selecionados
+  }
+
+
+  updateCourse(course: Course): Observable<Course> {
+    return this.httpClient.put<Course>(`${this.baseUrl}/${course.id}`, course).pipe(
+      tap(() => {
+        // Notifica os administradores sobre a atualização de um curso
+        const notification = {
+          message: `Curso atualizado: ${course.name}`,
+          date: new Date().toISOString(),
+          type: 'admin', // Certifique-se de que o campo seja 'type' ao invés de 'tipo', para consistência
+        };
+        this.httpClient.post('http://localhost:8080/notification', notification).subscribe();
+      })
+    );
+  }
+  
+
+  deleteCourse(id: string): Observable<void> {
+    // Primeiro, obtemos o curso pelo ID antes de deletá-lo
+    return this.getCourseById(id).pipe(
+      switchMap((course: Course) => {
+        // Após obter o curso, excluímos o curso
+        return this.httpClient.delete<void>(`${this.baseUrl}/${id}`).pipe(
+          tap(() => {
+            // Notificação após a remoção do curso
+            const notification = {
+              message: `Curso removido: ${course.name}`, // Agora usamos o nome do curso removido
+              date: new Date().toISOString(),
+              type: 'admin',
+            };
+            this.httpClient.post('http://localhost:8080/notification', notification).subscribe();
+          })
+        );
+      })
+    );
+  }
+  
+  
+
+
+  addCourse(course: Course): Observable<Course> {
+    const newCourse = { ...course, id: generateUniqueId() };
+
+    return this.httpClient.post<Course>(this.baseUrl, newCourse).pipe(
+        tap(() => {
+            // Aqui, ao invés de listar, você deveria enviar a notificação
+            const notification = {
+                message: `Novo curso adicionado: ${course.name}`,
+                date: new Date().toISOString(),
+                type: 'admin',
+            };
+            this.httpClient.post('http://localhost:8080/notification', notification).subscribe();
+        })
+    );
+}
+
+
+}
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\services\checkout\mensagem-sweet.service.ts ###
+import {Injectable} from '@angular/core';
+import Swal from "sweetalert2";
+
+@Injectable({
+    providedIn: 'root'
+})
+export class MensagemSweetService {
+
+    constructor() {
+    }
+
+    info(mensagem: string) {
+        Swal.fire({
+            title: 'Sucesso!',
+            text: mensagem,
+            icon: 'info',
+            confirmButtonText: 'OK'
+        });
+    }
+
+    erro(mensagem: string) {
+        Swal.fire({
+            title: 'Erro!',
+            text: mensagem,
+            icon: 'error',
+            confirmButtonText: 'OK'
+        });
+    }
+
+    sucesso(mensagem: string) {
+        Swal.fire({
+          title: 'Sucesso!',
+          text: mensagem,
+          icon: 'success',
+          confirmButtonText: 'OK'
+        });
+    }
+}
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\services\checkout\notification.service.ts ###
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { Notification } from '../../model/notificaton';
+import { catchError, tap } from 'rxjs/operators';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class NotificationService {
+  private notificationsSubject = new BehaviorSubject<Notification[]>([]);
+  public notifications$ = this.notificationsSubject.asObservable();
+  private baseUrl: string = "http://localhost:8080/notification"; 
+
+  constructor(private httpClient: HttpClient) {}
+
+  listar(): Observable<Notification[]> {
+    return this.httpClient.get<Notification[]>(this.baseUrl).pipe(
+      tap((notifications: Notification[]) => {
+        this.notificationsSubject.next(notifications);
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+  listarPorTipo(tipo: string): Observable<Notification[]> {
+    const url = `${this.baseUrl}/tipo/${tipo}`; // Monta a URL para filtrar por tipo
+    return this.httpClient.get<Notification[]>(url).pipe(
+      tap((notifications: Notification[]) => {
+        this.notificationsSubject.next(notifications);
+      }),
+      catchError(this.handleError)
+    );
+  }
+  
+
+  getNotifications(): Observable<Notification[]> {
+    return this.notifications$;
+  }
+
+  private handleError(error: any): Observable<never> {
+    console.error('Erro ao obter notificações:', error);
+    return throwError(() => new Error('Erro ao carregar notificações, tente novamente mais tarde.'));
+  }
+
+
+  enviarNotificacao(notification: { message: string; date: string; type: string }): Observable<any> {
+    return this.httpClient.post(this.baseUrl, notification).pipe(
+      tap(() => {
+        console.log('Notificação enviada com sucesso!');
+      }),
+      catchError(this.handleError)
+    );
+  }
+}
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\services\checkout\usuario.service.ts ###
+import { Injectable } from '@angular/core';
+import { HttpClient } from "@angular/common/http";
+import { BehaviorSubject, Observable, throwError } from "rxjs";
+import { catchError, map, mergeMap } from "rxjs/operators";
+import { Usuario } from '../../model/usuario';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class UsuarioService {
+  private baseUrl: string = "http://localhost:3000/usuarios";
+  public usuarioLogado: Usuario | null = null;
+
+
+  // Tentar utilizar na proxima entrega 
+  // Adicione o BehaviorSubject para monitorar o usuário logado
+  //private usuarioLogadoSubject = new BehaviorSubject<Usuario | null>(null);// mantém o valor atual e o emite a novos assinantes.
+  //usuarioLogado$ = this.usuarioLogadoSubject.asObservable();//Um BehaviorSubject para monitorar o usuário logado e permitir a atualização de forma reativa.
+
+  constructor(private httpClient: HttpClient) { }
+
+  listar(): Observable<Usuario[]> {
+    return this.httpClient.get<Usuario[]>(this.baseUrl);
+  }
+
+  inserir(usuario: Usuario): Observable<Usuario> {
+    return this.validarEmailsDiferentes(usuario).pipe(
+      mergeMap(() => {
+        this.validarEmail(usuario.email);
+        this.validarMaiorIdade(usuario);
+        return this.httpClient.post<Usuario>(this.baseUrl, usuario);
+      }),
+      catchError((error) => {
+        return throwError(() => new Error(error.message));
+      })
+    );
+  }
+
+
+  // Validações Inserir 
+  private validarMaiorIdade(usuario: Usuario) {
+    if (usuario.idade < 18) {
+      throw new Error('Usuário não pode ser menor de idade!');
+    }
+  }
+
+  private validarEmail(email: string) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      throw new Error('Endereço de email inválido!');
+    }
+  }
+
+  private validarEmailsDiferentes(usuario: Usuario): Observable<void> {
+    return this.listar().pipe(
+      map(usuarios => {
+        const usuarioExistente = usuarios.find(u => u.email === usuario.email);
+        if (usuarioExistente) {
+          throw new Error('Usuário já cadastrado com o mesmo endereço!');
+        }
+      })
+    );
+  }
+
+  autenticar(email: string, senha: string): Observable<Usuario> {
+    return this.httpClient.get<Usuario[]>(`${this.baseUrl}?email=${email}&senha=${senha}`).pipe(
+      map(usuarios => {
+        if (usuarios.length === 0 || usuarios[0].senha !== senha || usuarios[0].email !== email) {
+          throw new Error('Email ou senha incorretos');
+        }
+       
+        // Se o usuário estiiver logado
+        this.usuarioLogado = usuarios[0]; // atribua o usuário(em forma de array) ao usuarioLogado.
+        //this.usuarioLogadoSubject.next(this.usuarioLogado); // Atualiza o BehaviorSubject
+        return usuarios[0];
+      }),
+      catchError(error => {
+        return throwError(() => new Error(error.message));
+      })
+    );
+  }
+
+
+  isAdmin(): boolean { // Método que verifica se o usuário logado é um admin
+    return this.usuarioLogado?.email === 'admin@example.com';
+  }
+
+
+
+  remover(id: string): Observable<void> {
+    return this.httpClient.delete<void>(`${this.baseUrl}/${id}`).pipe(
+      catchError((error) => {
+        return throwError(() => new Error(error.message));
+      })
+    );
+  }
+
+
+
+  atualizar(usuario: Usuario): Observable<Usuario> {
+    return this.httpClient.put<Usuario>(`${this.baseUrl}/${usuario.id}`, usuario).pipe( // Troquei `email` por `id`
+      catchError((error) => {
+        return throwError(() => new Error(error.message));
+      })
+    );
+  }
+
+//
+  
+
+//
+  getUsuarioLogado(): Usuario | null {//Pode ser usado quando você deseja acessar diretamente o valor do usuário logado sem se inscrever em um Observable.
+    return this.usuarioLogado;        // Para proxima entrega
+  }
+
+  logout(): void {
+  //  this.usuarioLogado = null;            // Para proxima entrega 
+   // this.usuarioLogadoSubject.next(null); // Atualiza o BehaviorSubject
+    // Define o usuário logado como null e notifica todos os assinantes do BehaviorSubject que o usuário foi desconectado.
+  }
+//Retorna o Observable do BehaviorSubject para que outros componentes possam se inscrever e reagir a mudanças no usuário logado.
+ // getUsuarioLogadoObservable(): Observable<Usuario | null> {     //Permite a reatividade em componentes 
+   // return this.usuarioLogado$;
+  }
+
+ 
+
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\Util\id-generator.ts ###
+let idCounter = 1;
+
+export function generateUniqueId(): number {
+  return idCounter++;
+}
+
+
+################################################################################
+
+### C:\Users\Gabri\Documents\CodeConnect\angular-marketplace\src\app\Util\id-gerate.ts ###
+import { v4 as uuidv4 } from 'uuid'; // Biblioteca para gerar IDs únicos
+
+export function generateUniqueId(): string {
+  return uuidv4();
+}
+
+
+################################################################################
+

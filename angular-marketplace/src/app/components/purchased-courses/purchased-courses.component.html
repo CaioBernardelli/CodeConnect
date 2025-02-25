@@ -1,0 +1,33 @@
+<mat-card *ngIf="purchasedCourses.length === 0" class="empty-card">
+    <mat-card-title>
+      <h2>Você ainda não possui cursos adquiridos.</h2>
+    </mat-card-title>
+  </mat-card>
+  
+  <mat-card class="purchased-card" *ngFor="let course of purchasedCourses">
+    <mat-card-title>{{ course.name }}</mat-card-title>
+    <mat-card-subtitle>{{ course.category }}</mat-card-subtitle>
+  
+    <mat-card-content>
+      <div class="course-image-container">
+        <img [src]="course.imgLink" alt="{{ course.name }}" class="course-image" />
+      </div>
+      <div class="course-details">
+        <p>Preço: R$ {{ course.price }}</p>
+  
+        <!-- Somente exibir o player se "course.videoId" existir -->
+        <div *ngIf="course.videoId">
+          <h3>Vídeo do Curso</h3>
+          <iframe
+            width="560"
+            height="315"
+            [src]="getSafeVideoUrl(course)"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  

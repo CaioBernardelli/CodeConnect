@@ -1,16 +1,43 @@
-<form (ngSubmit)="adicionarCurso()">
-    <label for="name">Nome:</label>
-    <input id="name" [(ngModel)]="curso.name" name="name" required>
-  
-    <label for="category">Categoria:</label>
-    <input id="category" [(ngModel)]="curso.category" name="category" required>
-  
-    <label for="price">Preço:</label>
-    <input id="price" [(ngModel)]="curso.price" name="price" type="number" required>
+<mat-card class="adicionar-curso-card">
+  <mat-card-title>Adicionar Novo Curso</mat-card-title>
+  <mat-card-subtitle *ngIf="showStepByStep" class="step-by-step">
+    <p>1. Obtenha o ID ou URL do vídeo no YouTube.</p>
+    <p>2. Defina o vídeo como “Não Listado”.</p>
+    <p>3. (Opcional) Restringir domínios no YouTube Studio.</p>
+    <p>4. Cole aqui o ID do vídeo ou a URL.</p>
+  </mat-card-subtitle>
 
-    <label for="imgLink">Link Imagem:</label>
-    <input id="imgLink" [(ngModel)]="curso.imgLink" name="imgLink" required>
-  
-    <button type="submit">Adicionar Curso</button>
-  </form>
-  
+  <mat-card-content>
+    <form (ngSubmit)="adicionarCurso()" class="curso-form">
+      <mat-form-field appearance="outline">
+        <mat-label>Nome do Curso</mat-label>
+        <input matInput [(ngModel)]="curso.name" name="name" required>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Categoria</mat-label>
+        <input matInput [(ngModel)]="curso.category" name="category" required>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Preço</mat-label>
+        <input matInput type="number" [(ngModel)]="curso.price" name="price" required>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Link da Imagem</mat-label>
+        <input matInput [(ngModel)]="curso.imgLink" name="imgLink" required>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>ID ou URL do Vídeo do YouTube</mat-label>
+        <input matInput [(ngModel)]="curso.videoId" name="videoId">
+        <mat-hint>Ex: dQw4w9WgXcQ ou https://youtu.be/dQw4w9WgXcQ</mat-hint>
+      </mat-form-field>
+
+      <div class="buttons">
+        <button mat-raised-button color="primary" type="submit">Adicionar Curso</button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
