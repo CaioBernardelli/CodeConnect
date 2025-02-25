@@ -1,9 +1,11 @@
 export class Post {
-  id?: number;  // O "?" indica que o id é opcional
+  id?: string;  // O "?" indica que o id é opcional
   message: string;
+ 
 
-  constructor(message: string, id?: number) {
+  constructor(message: string, id?: string) {
     this.id = id;
     this.message = message;
+ 
   }
 }

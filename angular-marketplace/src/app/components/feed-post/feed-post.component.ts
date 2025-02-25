@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PostService } from '../../services/post.service';
 import { Post } from '../../model/post';
-import { generateUniqueId } from '../../Util/id-gerate'; // Importa a função
+import { generateUniqueId } from '../../Util/id-gerate'; // Importa a função de geração de ID
 
 @Component({
   selector: 'app-feed-post',
@@ -23,17 +23,13 @@ import { generateUniqueId } from '../../Util/id-gerate'; // Importa a função
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
-    MatDividerModule],
+    MatDividerModule
+  ],
   templateUrl: './feed-post.component.html',
   styleUrls: ['./feed-post.component.scss']
 })
 export class FeedPostComponent implements OnInit {
-remover(_t55: Post) {
-throw new Error('Method not implemented.');
-}
-
   listPost: Post[] = [];
-  postAdd: Post = new Post('',undefined);  // ID indefinido para novos posts
   postForm!: FormGroup;
 
   constructor(private postService: PostService, private fb: FormBuilder) {
@@ -54,30 +50,20 @@ throw new Error('Method not implemented.');
 
   publicarMensagem() {
     if (this.postForm.valid) {
-      const newPost = new Post(
-        this.postForm.value.mensagem,
-        undefined
-      );
+      const newPost: Post = {
+        id: generateUniqueId(),  // Gerando um ID único
+        message: this.postForm.value.mensagem
+      };
 
       this.postService.postMensagem(newPost).subscribe((post: Post) => {
         this.listPost.push(post);
-        this.findPosts();  // Recarrega os posts para garantir que tudo está sincronizado
         this.postForm.reset();
       });
     } else {
       console.log('Formulário inválido');
     }
   }
-
- /* remover(postARemover: Post) {
-    if (postARemover.id !== undefined) {
-      this.postService.deletePost(postARemover.id).subscribe(() => {
-        this.listPost = this.listPost.filter(post => post.id !== postARemover.id);
-        this.findPosts(); // Atualiza a lista de posts
-      });
-    } else {
-      console.error('ID do post é indefinido, não é possível remover');
-    }
-  }
-*/
 }
+
+  
+

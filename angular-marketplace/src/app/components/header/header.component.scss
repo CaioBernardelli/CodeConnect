@@ -1,68 +1,60 @@
-
-
 mat-toolbar {
     position: fixed;
-    top: 0px;
+    top: 0;
     left: 0;
     right: 0;
     z-index: 1000;
     height: 90px;
     display: flex;
     align-items: center;
-    justify-items: center;
-    background-color: #6F42C1;
-    padding: 0px;
+    justify-content: space-between;
+    background: linear-gradient(135deg, #6F42C1, #4A2C90); // Gradiente moderno
+    padding: 0px 20px;
     width: 100%;
-}
-
-
-
-.iconsimport {
-    display: flex;
-}
-
-.iconsimport a {
-
-    text-decoration: none;
-    color: #f2f2f2;
-    display: flex;
-    align-items: center;
-}
-
-
-.title {
-    color: #f2f2f2;
-}
-
-
-
-.spacer {
-    flex: 1;
-}
-
-.header a {
-    text-decoration: none;
-    color: #f2f2f2;
-    display: flex;
-    align-items: center;
-}
-
-
-
-.logo {
-    width: 150px;
-    margin-right: -30px;
-
-
-}
-
-
-.title {
-    font-size: 1.5rem;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); // Sombra sutil
 }
 
 .logoandtitle {
     display: flex;
     align-items: center;
-    padding: 0px;
+}
+
+.logo {
+    width: 140px; 
+    margin-right: -20px;
+}
+
+.title {
+    font-size: 1.6rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: #f8f9fa;
+    font-family: "Poppins", sans-serif; // Fonte moderna
+}
+
+.iconsimport {
+    display: flex;
+    align-items: center;
+    gap: 20px; // Espaçamento melhorado
+}
+
+.iconsimport a {
+    text-decoration: none;
+    color: #f8f9fa;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease-in-out;
+}
+
+.iconsimport a:hover {
+    transform: scale(1.1); // Efeito hover suave
+    color: #e0e0e0;
+}
+
+mat-icon {
+    font-size: 26px; // Aumentando um pouco o tamanho dos ícones
+}
+
+.spacer {
+    flex: 1;
 }
